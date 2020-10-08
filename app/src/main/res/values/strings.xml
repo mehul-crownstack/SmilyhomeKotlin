@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Smilyhome</string>
     <string name="please_wait">Please wait…</string>
+    <string name="back_press_msg">Press the back button again to Exit!!!</string>
+    <string name="login">Login</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="name">Name</string>
+    <string name="image_view_content_description">ImageView</string>
+    <string name="generate_otp">Generate OTP</string>
 </resources>

@@ -25,6 +25,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
 
     protected MainActivity mActivity;
     private ProgressDialog mProgressDialog;
+    protected View mContentView;
 
     void showProgress() {
         mProgressDialog = new ProgressDialog(getContext());
@@ -69,6 +70,10 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         mActivity.runOnUiThread(() -> mActivity.showToast(msg));
     }
 
+    void showSnackBar(String msg) {
+        mActivity.runOnUiThread(() -> mActivity.showSnackBar(msg, mContentView));
+    }
+
     @Override
     public void onClick(View view) {
         /*
@@ -76,8 +81,8 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
          * */
     }
 
-    protected void onBackPressedToExit(BaseFragment fragment) {
-        if (fragment != null) {
+    protected void onBackPressedToExit() {
+        if (mActivity != null) {
             mActivity.finish();
         }
     }

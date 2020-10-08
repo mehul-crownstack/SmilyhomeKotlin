@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="mobile_length">10</integer>
+    <integer name="name_length">50</integer>
+
+</resources>

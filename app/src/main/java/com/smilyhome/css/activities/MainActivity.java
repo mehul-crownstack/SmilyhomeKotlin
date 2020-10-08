@@ -10,8 +10,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.fragments.BaseFragment;
+import com.smilyhome.css.activities.fragments.LoginFragment;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbarLayout = findViewById(R.id.toolbarLayout);
         ToolBarManager.getInstance().setupToolbar(toolbarLayout);
+        launchFragment(new LoginFragment(), true);
     }
 
     public void isToggleButtonEnabled(boolean isEnable) {
@@ -33,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void showToast(final String msg) {
         runOnUiThread(() -> Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show());
+    }
+
+    public void showSnackBar(final String msg, View view) {
+        runOnUiThread(() -> Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show());
     }
 
     @Override
