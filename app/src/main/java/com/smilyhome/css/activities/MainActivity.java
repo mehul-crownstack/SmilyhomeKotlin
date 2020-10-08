@@ -1,5 +1,8 @@
 package com.smilyhome.css.activities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -114,5 +117,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e("doSwitchToScreen", e.getMessage(), e);
             }
         }
+    }
+
+    public boolean isInternetConnectionAvailable() {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo nInfo = cm.getActiveNetworkInfo();
+            return nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+        } catch (Exception e) {
+            Log.e("Connectivity Exception", e.getMessage(), e);
+        }
+        return false;
     }
 }

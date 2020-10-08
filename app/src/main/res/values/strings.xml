@@ -7,4 +7,6 @@
     <string name="name">Name</string>
     <string name="image_view_content_description">ImageView</string>
     <string name="generate_otp">Generate OTP</string>
+    <string name="msg_mandatory">This field is mandatory</string>
+    <string name="error">Error</string>
 </resources>

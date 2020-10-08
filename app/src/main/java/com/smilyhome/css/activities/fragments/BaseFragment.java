@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.MainActivity;
@@ -85,6 +86,19 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         if (mActivity != null) {
             mActivity.finish();
         }
+    }
+
+    protected boolean isInternetConnectionAvailable() {
+        if (mActivity.isInternetConnectionAvailable()) {
+            return true;
+        }
+        new AlertDialog.Builder(mActivity)
+            .setTitle(R.string.error)
+            .setMessage("Please turn on Internet connection")
+            .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show();
+        return false;
     }
 
     void hideKeyboard() {

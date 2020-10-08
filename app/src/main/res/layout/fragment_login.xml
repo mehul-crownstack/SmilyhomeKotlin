@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey_bg"
+    android:background="@drawable/login_bg"
     app:ignore="NamespaceTypo">
 
     <ImageView
@@ -12,24 +12,28 @@
         android:layout_height="@dimen/_75sdp"
         android:background="@drawable/white_circle_login"
         android:contentDescription="@string/image_view_content_description"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/app_icon"
         card_view:layout_constraintBottom_toTopOf="@+id/cardView"
         card_view:layout_constraintStart_toStartOf="@+id/cardView"
-        card_view:layout_constraintTop_toTopOf="parent" />
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.75" />
 
     <TextView
         android:id="@+id/generateOtpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/curve_rectangle"
+        android:background="@drawable/curve_rectangle_green"
         android:elevation="@dimen/_4sdp"
+        android:onClick="onClick"
         android:paddingBottom="@dimen/_8sdp"
         android:paddingEnd="@dimen/_15sdp"
         android:paddingStart="@dimen/_15sdp"
         android:paddingTop="@dimen/_8sdp"
         android:text="@string/generate_otp"
-        android:textSize="@dimen/_18sdp"
-        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_16sdp"
         app:targetApi="lollipop"
         card_view:layout_constraintEnd_toEndOf="@+id/cardView"
         card_view:layout_constraintTop_toBottomOf="@+id/cardView" />
@@ -45,7 +49,8 @@
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.6">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
-                android:textSize="@dimen/_25sdp"
+                android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,6 +76,7 @@
                     android:id="@+id/mobileNumberInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:hint="@string/mobile_number"
                     android:inputType="number"
                     android:maxLength="@integer/mobile_length" />
@@ -88,6 +94,8 @@
                     android:id="@+id/nameInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/name_login_dot"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:hint="@string/name"
                     android:inputType="textPersonName"
                     android:maxLength="@integer/name_length" />
