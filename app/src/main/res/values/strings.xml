@@ -9,4 +9,5 @@
     <string name="generate_otp">Generate OTP</string>
     <string name="msg_mandatory">This field is mandatory</string>
     <string name="error">Error</string>
+    <string name="remember_me">Remember me</string>
 </resources>

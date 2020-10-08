@@ -1,6 +1,7 @@
 package com.smilyhome.css.activities;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbarLayout = findViewById(R.id.toolbarLayout);
         ToolBarManager.getInstance().setupToolbar(toolbarLayout);
         launchFragment(new LoginFragment(), true);

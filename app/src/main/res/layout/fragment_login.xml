@@ -38,6 +38,22 @@
         card_view:layout_constraintEnd_toEndOf="@+id/cardView"
         card_view:layout_constraintTop_toBottomOf="@+id/cardView" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/checkbox_selector"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:gravity="center_vertical"
+        android:text="@string/remember_me"
+        android:textColor="#706F6F"
+        android:textSize="@dimen/_11sdp"
+        card_view:layout_constraintBottom_toBottomOf="@+id/generateOtpTextView"
+        card_view:layout_constraintEnd_toStartOf="@+id/generateOtpTextView"
+        card_view:layout_constraintHorizontal_bias="0.2"
+        card_view:layout_constraintStart_toStartOf="@+id/cardView"
+        card_view:layout_constraintTop_toTopOf="@+id/generateOtpTextView" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -63,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
+                android:textColor="@color/dark_grey_bg"
                 android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
 

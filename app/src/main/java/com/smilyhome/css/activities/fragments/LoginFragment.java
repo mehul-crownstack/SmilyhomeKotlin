@@ -75,6 +75,8 @@ public class LoginFragment extends BaseFragment {
                 return;
             }
             if (isInternetConnectionAvailable()) {
+                new Handler(Looper.getMainLooper()).postDelayed(this::stopProgress, 1500);
+                showProgress();
             }
         }
     }
