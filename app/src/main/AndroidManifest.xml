@@ -28,6 +28,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+
+        <receiver android:name=".activities.OtpBroadCastReceiver"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
