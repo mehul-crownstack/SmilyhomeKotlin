@@ -15,6 +15,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def flavor = variant.name
+                    def versionCode = variant.versionCode
+                    outputFileName = "smilyhome_${flavor}_${versionCode}.apk"
+                }
+            }
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
