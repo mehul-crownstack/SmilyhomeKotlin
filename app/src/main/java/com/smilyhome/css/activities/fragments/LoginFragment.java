@@ -9,20 +9,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
+import com.smilyhome.css.activities.OtpBroadCastReceiver;
 import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
+import com.smilyhome.css.activities.interfaces.IAutoReadOtpListener;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
+import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
 import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class LoginFragment extends BaseFragment {
+import static com.smilyhome.css.activities.Constants.USER_ID;
+
+public class LoginFragment extends BaseFragment implements IAutoReadOtpListener {
 
     private boolean mIsDoubleBackPressClicked = false;
     private EditText mobileNumberInputEditText;
@@ -31,6 +37,9 @@ public class LoginFragment extends BaseFragment {
     private static final String TAG = "LoginFragment";
     private View loginContainer;
     private View otpContainer;
+    private String mOtpReceivedStr = "";
+    private String mUserId = "";
+    private CheckBox checkBox;
 
     @Nullable
     @Override
@@ -45,6 +54,8 @@ public class LoginFragment extends BaseFragment {
         mobileNumberInputEditText = mContentView.findViewById(R.id.mobileNumberInputEditText);
         nameInputEditText = mContentView.findViewById(R.id.nameInputEditText);
         otpInputEditText = mContentView.findViewById(R.id.otpInputEditText);
+        checkBox = mContentView.findViewById(R.id.checkBox);
+        new OtpBroadCastReceiver().setOtpListener(this);
         mobileNumberInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -74,22 +85,37 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.generateOtpTextView) {
-            String mobileStr = mobileNumberInputEditText.getText().toString();
-            String nameStr = nameInputEditText.getText().toString();
-            if (Utility.isEmpty(mobileStr)) {
-                mobileNumberInputEditText.setError(getString(R.string.msg_mandatory));
-                mobileNumberInputEditText.requestFocus();
-                return;
-            }
-            if (Utility.isEmpty(nameStr)) {
-                nameInputEditText.setError(getString(R.string.msg_mandatory));
-                nameInputEditText.requestFocus();
-                return;
-            }
-            if (isInternetConnectionAvailable()) {
-                initiateOtpServerCall(nameStr, mobileStr);
-            }
+        hideKeyboard();
+        switch (view.getId()) {
+            case R.id.generateOtpTextView:
+                String mobileStr = mobileNumberInputEditText.getText().toString();
+                String nameStr = nameInputEditText.getText().toString();
+                if (Utility.isEmpty(mobileStr)) {
+                    mobileNumberInputEditText.setError(getString(R.string.msg_mandatory));
+                    mobileNumberInputEditText.requestFocus();
+                    return;
+                }
+                if (mobileStr.length() < getResources().getInteger(R.integer.mobile_length)) {
+                    mobileNumberInputEditText.setError(getString(R.string.not_valid_mobile_number));
+                    mobileNumberInputEditText.requestFocus();
+                    return;
+                }
+                if (Utility.isEmpty(nameStr)) {
+                    nameInputEditText.setError(getString(R.string.msg_mandatory));
+                    nameInputEditText.requestFocus();
+                    return;
+                }
+                if (isInternetConnectionAvailable()) {
+                    initiateOtpServerCall(nameStr, mobileStr);
+                }
+                break;
+            case R.id.validateOtpTextView:
+                if (isInternetConnectionAvailable()) {
+                    validateOtpServerCall();
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -118,10 +144,46 @@ public class LoginFragment extends BaseFragment {
                     CommonResponse commonResponse = response.body();
                     if (commonResponse != null) {
                         if (Constants.SUCCESS.equalsIgnoreCase(commonResponse.getErrorCode())) {
-                            storeStringDataInSharedPref(Constants.USER_ID, commonResponse.getUserId());
+                            mUserId = commonResponse.getUserId();
                             otpContainer.setVisibility(View.VISIBLE);
                             loginContainer.setVisibility(View.GONE);
                             otpInputEditText.setText(null);
+                        }
+                        showToast(commonResponse.getErrorMessage());
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void validateOtpServerCall() {
+        showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ValidateOtpRequest request = new ValidateOtpRequest(mOtpReceivedStr, mUserId);
+                    Call<CommonResponse> call = RetrofitApi.getAppServicesObject().validateOtpServerCall(request);
+                    final Response<CommonResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                    Log.e(TAG, e.getMessage(), e);
+                }
+            }
+
+            private void handleResponse(Response<CommonResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    CommonResponse commonResponse = response.body();
+                    if (commonResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(commonResponse.getErrorCode())) {
+                            if (checkBox.isChecked()) {
+                                storeStringDataInSharedPref(USER_ID, mUserId);
+                            }
+                            clearFragmentBackStack();
+                            launchFragment(new HomeScreenFragment(), false);
                         }
                         showToast(commonResponse.getErrorMessage());
                     }
@@ -143,6 +205,15 @@ public class LoginFragment extends BaseFragment {
         showSnackBar(getString(R.string.back_press_msg));
         mIsDoubleBackPressClicked = true;
         new Handler(Looper.getMainLooper()).postDelayed(() -> mIsDoubleBackPressClicked = false, 1500);
+    }
+
+    @Override
+    public void onOtpReceived(String otp) {
+        otpInputEditText.setText(otp);
+        if (otpContainer.getVisibility() == View.VISIBLE) {
+            mOtpReceivedStr = otp;
+            mContentView.findViewById(R.id.validateOtpTextView).callOnClick();
+        }
     }
 }
 

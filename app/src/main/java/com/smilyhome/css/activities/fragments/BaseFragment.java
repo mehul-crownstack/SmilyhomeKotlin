@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.MainActivity;
 import com.smilyhome.css.activities.Utility;
@@ -103,13 +104,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
 
     void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = mActivity.getCurrentFocus();
-        if (view == null) {
-            view = new View(mActivity);
-        }
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     public void onBackPressed() {
@@ -130,6 +125,14 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     void launchFragment(Fragment fragment, boolean addBackStack) {
+        hideKeyboard();
         mActivity.launchFragment(fragment, addBackStack);
+    }
+
+    void clearFragmentBackStack() {
+        FragmentManager fm = mActivity.getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
     }
 }

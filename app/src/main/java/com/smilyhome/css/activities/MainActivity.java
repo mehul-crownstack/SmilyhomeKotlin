@@ -2,6 +2,7 @@ package com.smilyhome.css.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -21,9 +22,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.fragments.BaseFragment;
+import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
 
 import java.util.List;
+
+import static com.smilyhome.css.activities.Constants.SHARED_PREF_NAME;
+import static com.smilyhome.css.activities.Constants.USER_ID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,7 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!checkPermission()) {
             requestPermission();
         }
-        launchFragment(new LoginFragment(), true);
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        if (Utility.isNotEmpty(prefs.getString(USER_ID, ""))) {
+            launchFragment(new HomeScreenFragment(), true);
+        } else {
+            launchFragment(new LoginFragment(), true);
+        }
     }
 
     public void requestPermission() {

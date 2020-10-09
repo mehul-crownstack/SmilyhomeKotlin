@@ -8,6 +8,7 @@
     <string name="image_view_content_description">ImageView</string>
     <string name="generate_otp">Generate OTP</string>
     <string name="msg_mandatory">This field is mandatory</string>
+    <string name="not_valid_mobile_number">Please provide valid Mobile Number</string>
     <string name="error">Error</string>
     <string name="remember_me">Remember me</string>
     <string name="validate_otp">Validate OTP</string>
