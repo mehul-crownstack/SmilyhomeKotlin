@@ -27,7 +27,10 @@ public class LoginFragment extends BaseFragment {
     private boolean mIsDoubleBackPressClicked = false;
     private EditText mobileNumberInputEditText;
     private EditText nameInputEditText;
+    private EditText otpInputEditText;
     private static final String TAG = "LoginFragment";
+    private View loginContainer;
+    private View otpContainer;
 
     @Nullable
     @Override
@@ -41,6 +44,7 @@ public class LoginFragment extends BaseFragment {
     private void setupUI() {
         mobileNumberInputEditText = mContentView.findViewById(R.id.mobileNumberInputEditText);
         nameInputEditText = mContentView.findViewById(R.id.nameInputEditText);
+        otpInputEditText = mContentView.findViewById(R.id.otpInputEditText);
         mobileNumberInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -63,6 +67,9 @@ public class LoginFragment extends BaseFragment {
                 }
             }
         });
+        loginContainer = mContentView.findViewById(R.id.loginContainer);
+        otpContainer = mContentView.findViewById(R.id.otpContainer);
+        loginContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -112,6 +119,9 @@ public class LoginFragment extends BaseFragment {
                     if (commonResponse != null) {
                         if (Constants.SUCCESS.equalsIgnoreCase(commonResponse.getErrorCode())) {
                             storeStringDataInSharedPref(Constants.USER_ID, commonResponse.getUserId());
+                            otpContainer.setVisibility(View.VISIBLE);
+                            loginContainer.setVisibility(View.GONE);
+                            otpInputEditText.setText(null);
                         }
                         showToast(commonResponse.getErrorMessage());
                     }

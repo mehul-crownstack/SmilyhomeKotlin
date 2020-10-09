@@ -10,4 +10,6 @@
     <string name="msg_mandatory">This field is mandatory</string>
     <string name="error">Error</string>
     <string name="remember_me">Remember me</string>
+    <string name="validate_otp">Validate OTP</string>
+    <string name="enter_6_digit_otp_here">Enter 6 digit OTP here</string>
 </resources>

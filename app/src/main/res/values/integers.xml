@@ -2,6 +2,7 @@
 <resources>
 
     <integer name="mobile_length">10</integer>
+    <integer name="otp_length">6</integer>
     <integer name="name_length">50</integer>
 
 </resources>

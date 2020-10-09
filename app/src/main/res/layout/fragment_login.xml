@@ -4,27 +4,46 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@drawable/login_bg"
     app:ignore="NamespaceTypo">
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/checkbox_selector"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:text="@string/remember_me"
+        android:textColor="#706F6F"
+        android:textSize="@dimen/_11sdp"
+        card_view:layout_constraintBottom_toBottomOf="@id/generateOtpTextView"
+        card_view:layout_constraintEnd_toStartOf="@id/generateOtpTextView"
+        card_view:layout_constraintHorizontal_bias="0.2"
+        card_view:layout_constraintStart_toStartOf="@+id/cardView"
+        card_view:layout_constraintTop_toTopOf="@id/generateOtpTextView" />
+
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="@dimen/_75sdp"
         android:layout_height="@dimen/_75sdp"
         android:background="@drawable/white_circle_login"
         android:contentDescription="@string/image_view_content_description"
         android:padding="@dimen/_10sdp"
         android:src="@drawable/app_icon"
-        card_view:layout_constraintBottom_toTopOf="@+id/cardView"
-        card_view:layout_constraintStart_toStartOf="@+id/cardView"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintStart_toStartOf="@id/cardView"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.75" />
+        card_view:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/generateOtpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/curve_rectangle_green"
+        android:background="@drawable/curve_green_selector"
         android:elevation="@dimen/_4sdp"
         android:onClick="onClick"
         android:paddingBottom="@dimen/_8sdp"
@@ -35,24 +54,80 @@
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_16sdp"
         app:targetApi="lollipop"
-        card_view:layout_constraintEnd_toEndOf="@+id/cardView"
-        card_view:layout_constraintTop_toBottomOf="@+id/cardView" />
+        card_view:layout_constraintEnd_toEndOf="@id/cardView"
+        card_view:layout_constraintTop_toBottomOf="@id/cardView" />
 
-    <CheckBox
+    <TextView
+        android:id="@+id/validateOtpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/checkbox_selector"
-        android:paddingEnd="@dimen/_10sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:gravity="center_vertical"
-        android:text="@string/remember_me"
-        android:textColor="#706F6F"
-        android:textSize="@dimen/_11sdp"
-        card_view:layout_constraintBottom_toBottomOf="@+id/generateOtpTextView"
-        card_view:layout_constraintEnd_toStartOf="@+id/generateOtpTextView"
-        card_view:layout_constraintHorizontal_bias="0.2"
-        card_view:layout_constraintStart_toStartOf="@+id/cardView"
-        card_view:layout_constraintTop_toTopOf="@+id/generateOtpTextView" />
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/curve_green_selector"
+        android:elevation="@dimen/_4sdp"
+        android:onClick="onClick"
+        android:paddingBottom="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_15sdp"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:text="@string/validate_otp"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_16sdp"
+        app:targetApi="lollipop"
+        card_view:layout_constraintEnd_toEndOf="@id/otpCardView"
+        card_view:layout_constraintStart_toStartOf="@id/otpCardView"
+        card_view:layout_constraintTop_toBottomOf="@id/otpCardView" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/otpCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:animateLayoutChanges="true"
+        card_view:cardCornerRadius="@dimen/_10sdp"
+        card_view:cardElevation="@dimen/_10sdp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/imageView3"
+        card_view:layout_constraintVertical_bias="0.2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/validate_otp"
+                android:textColor="@color/dark_grey_bg"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:hintTextAppearance="@style/HintText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/otpInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:hint="@string/enter_6_digit_otp_here"
+                    android:inputType="number"
+                    android:maxLength="@integer/otp_length" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -60,13 +135,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_20sdp"
+        android:animateLayoutChanges="true"
         card_view:cardCornerRadius="@dimen/_10sdp"
         card_view:cardElevation="@dimen/_10sdp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.6">
+        card_view:layout_constraintTop_toBottomOf="@+id/imageView3"
+        card_view:layout_constraintVertical_bias="0.2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,5 +198,18 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/loginContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:constraint_referenced_ids="cardView,checkBox,generateOtpTextView" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/otpContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        card_view:constraint_referenced_ids="otpCardView,validateOtpTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
