@@ -13,8 +13,14 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
+import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
+import com.smilyhome.css.activities.models.response.CommonResponse;
+import com.smilyhome.css.activities.retrofit.RetrofitApi;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class LoginFragment extends BaseFragment {
 
@@ -75,10 +81,43 @@ public class LoginFragment extends BaseFragment {
                 return;
             }
             if (isInternetConnectionAvailable()) {
-                new Handler(Looper.getMainLooper()).postDelayed(this::stopProgress, 1500);
-                showProgress();
+                initiateOtpServerCall(nameStr, mobileStr);
             }
         }
+    }
+
+    private void initiateOtpServerCall(String userName, String mobileNumber) {
+        showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InitiateOtpRequest request = new InitiateOtpRequest();
+                    request.setUserName(userName);
+                    request.setMobileNumber(mobileNumber);
+                    Call<CommonResponse> call = RetrofitApi.getAppServicesObject().initiateOtpServerCall(request);
+                    final Response<CommonResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                    Log.e(TAG, e.getMessage(), e);
+                }
+            }
+
+            private void handleResponse(Response<CommonResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    CommonResponse commonResponse = response.body();
+                    if (commonResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(commonResponse.getErrorCode())) {
+                            storeStringDataInSharedPref(Constants.USER_ID, commonResponse.getUserId());
+                        }
+                        showToast(commonResponse.getErrorMessage());
+                    }
+                }
+            }
+        }).start();
     }
 
     private void setupToolbarUI() {
