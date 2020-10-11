@@ -5,12 +5,13 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:onClick="onClick"
+    android:minWidth="@dimen/_120sdp"
     android:background="?android:selectableItemBackground"
     android:padding="@dimen/_5sdp"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/productImageView"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="@dimen/_60sdp"
         android:layout_marginStart="@dimen/_5sdp"

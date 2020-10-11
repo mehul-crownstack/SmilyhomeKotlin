@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/_5sdp">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/productImageView"
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_5sdp"
@@ -29,11 +29,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintStart_toEndOf="@+id/productImageView"
+        app:layout_constraintTop_toTopOf="@+id/productImageView" />
 
     <TextView
-        android:id="@+id/productDescriptionTextView"
+        android:id="@+id/productPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
@@ -62,7 +62,7 @@
         android:textSize="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/productDescriptionTextView" />
+        app:layout_constraintStart_toEndOf="@+id/productImageView"
+        app:layout_constraintTop_toBottomOf="@+id/productPriceTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

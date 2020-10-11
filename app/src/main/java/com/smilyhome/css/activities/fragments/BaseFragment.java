@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -16,9 +17,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.MainActivity;
 import com.smilyhome.css.activities.Utility;
+import com.smilyhome.css.activities.models.requests.FetchProductRequest;
+import com.smilyhome.css.activities.models.response.ProductItem;
+import com.smilyhome.css.activities.models.response.ProductResponse;
+import com.smilyhome.css.activities.retrofit.RetrofitApi;
 import com.squareup.picasso.Picasso;
+import retrofit2.Call;
+import retrofit2.Response;
+
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.smilyhome.css.activities.Constants.SHARED_PREF_NAME;
@@ -28,6 +38,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     protected MainActivity mActivity;
     private ProgressDialog mProgressDialog;
     protected View mContentView;
+    private static final String TAG = "BaseFragment";
 
     void showProgress() {
         mProgressDialog = new ProgressDialog(getContext());
@@ -38,11 +49,15 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     public void stopProgress() {
-        mActivity.runOnUiThread(() -> {
-            if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                mProgressDialog.dismiss();
-            }
-        });
+        try {
+            mActivity.runOnUiThread(() -> {
+                if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     @Override
@@ -107,6 +122,42 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
+    void fetchProductsServerCall(int mode) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FetchProductRequest request = new FetchProductRequest(mode);
+                    Call<ProductResponse> call = RetrofitApi.getAppServicesObjectForProducts().fetchProductsServerCall(request);
+                    final Response<ProductResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response, mode));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<ProductResponse> response, int mode) {
+                if (response.isSuccessful()) {
+                    ProductResponse productResponse = response.body();
+                    if (productResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
+                            onProductUpdated(productResponse.getProductList(), mode);
+                        } else {
+                            showToast(productResponse.getErrorMessage());
+                        }
+                    }
+                } else {
+                    stopProgress();
+                }
+            }
+        }).start();
+    }
+
+    protected void onProductUpdated(List<ProductItem> productItemList, int mode) {
+
+    }
+
     public void onBackPressed() {
     }
 
@@ -125,7 +176,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onSubHeaderClickListener() {
-
     }
 
     void launchFragment(Fragment fragment, boolean addBackStack) {

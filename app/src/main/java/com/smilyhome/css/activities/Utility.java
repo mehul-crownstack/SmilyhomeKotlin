@@ -2,8 +2,11 @@ package com.smilyhome.css.activities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.text.Html;
 import android.util.Base64;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
@@ -80,17 +83,23 @@ public class Utility {
         SecureRandom random = new SecureRandom();
         for (int i = 1; i < 10; i++) {
             int next;
+            next = random.nextInt(10);
             if (i == 1) {
-                next = random.nextInt(10);
                 while (next == 0) {
                     next = random.nextInt(10);
                 }
-            } else {
-                next = random.nextInt(10);
             }
             sb.append(next);
         }
         return new BigInteger(sb.toString()).longValue();
+    }
+
+    public static void writeHtmlCode(String msg, TextView textView) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            textView.setText(Html.fromHtml(msg, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            textView.setText(Html.fromHtml(msg));
+        }
     }
 
     public static String encodeBitmapToBase64(Bitmap bitmap) {

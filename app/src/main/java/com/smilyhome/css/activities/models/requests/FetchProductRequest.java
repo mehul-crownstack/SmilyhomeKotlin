@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class FetchProductRequest {
 
     @SerializedName("SectionID")
-    private String mProductMode = "";
+    private int mProductMode;
 
-    public FetchProductRequest(String productMode) {
+    public FetchProductRequest(int productMode) {
         mProductMode = productMode;
     }
 }
