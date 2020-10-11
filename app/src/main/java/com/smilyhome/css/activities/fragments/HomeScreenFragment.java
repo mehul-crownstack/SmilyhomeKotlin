@@ -115,6 +115,7 @@ public class HomeScreenFragment extends BaseFragment {
                     ProductCategoryResponse productResponse = response.body();
                     if (productResponse != null) {
                         if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
+                            mTopCategoryAdapter.setImageBaseUrl(productResponse.getImageBaseUrl());
                             mTopCategoryAdapter.setCategoryList(productResponse.getProductList());
                             mTopCategoryAdapter.notifyDataSetChanged();
                         } else {
@@ -129,19 +130,22 @@ public class HomeScreenFragment extends BaseFragment {
     }
 
     @Override
-    protected void onProductUpdated(List<ProductItem> productItemList, int mode) {
+    protected void onProductUpdated(List<ProductItem> productItemList, int mode, String imageBaseUrl) {
         switch (mode) {
             case Constants.HomeScreenProductMode.FEATURED:
                 break;
             case Constants.HomeScreenProductMode.AAJ_KA_OFFER:
+                mAajKaOfferAdapter.setImageBaseUrl(imageBaseUrl);
                 mAajKaOfferAdapter.setProductItemList(productItemList);
                 mAajKaOfferAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.SUPER_SAVER:
+                mSuperSaverAdapter.setImageBaseUrl(imageBaseUrl);
                 mSuperSaverAdapter.setProductItemList(productItemList);
                 mSuperSaverAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.TOP_HOT_DEAL:
+                mHotDealsAdapter.setImageBaseUrl(imageBaseUrl);
                 mHotDealsAdapter.setProductItemList(productItemList);
                 mHotDealsAdapter.notifyDataSetChanged();
                 break;
@@ -170,6 +174,11 @@ public class HomeScreenFragment extends BaseFragment {
     public class HotDealsAdapter extends RecyclerView.Adapter<HotDealsAdapter.HotDealsAdapterViewHolder> {
 
         private List<ProductItem> productItemList = new ArrayList<>();
+        private String imageBaseUrl;
+
+        public void setImageBaseUrl(String imageBaseUrl) {
+            this.imageBaseUrl = imageBaseUrl;
+        }
 
         public void setProductItemList(List<ProductItem> productItemList) {
             this.productItemList = productItemList;
@@ -189,7 +198,7 @@ public class HomeScreenFragment extends BaseFragment {
             holder.productNameTextView.setText(item.getProductName());
             Utility.writeHtmlCode(item.getProductDescription(), holder.productDescriptionTextView);
             holder.productPriceTextView.setText(getString(R.string.currency).concat(" ").concat(item.getProductPrice()));
-            Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
+            Picasso.get().load(imageBaseUrl + item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
 
         @Override
@@ -222,6 +231,11 @@ public class HomeScreenFragment extends BaseFragment {
     public class AajKaOfferAdapter extends RecyclerView.Adapter<AajKaOfferAdapter.AajKaOfferAdapterViewHolder> {
 
         private List<ProductItem> productItemList = new ArrayList<>();
+        private String imageBaseUrl;
+
+        public void setImageBaseUrl(String imageBaseUrl) {
+            this.imageBaseUrl = imageBaseUrl;
+        }
 
         public void setProductItemList(List<ProductItem> productItemList) {
             this.productItemList = productItemList;
@@ -240,7 +254,7 @@ public class HomeScreenFragment extends BaseFragment {
             ProductItem item = productItemList.get(position);
             holder.productNameTextView.setText(item.getProductName());
             holder.productPriceTextView.setText(getString(R.string.currency).concat(" ").concat(item.getProductPrice()));
-            Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
+            Picasso.get().load(imageBaseUrl+ item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
 
         @Override
@@ -271,6 +285,11 @@ public class HomeScreenFragment extends BaseFragment {
     private static class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.TopCategoryViewHolder> {
 
         private List<CategoryItem> mCategoryList = new ArrayList<>();
+        private String imageBaseUrl;
+
+        public void setImageBaseUrl(String imageBaseUrl) {
+            this.imageBaseUrl = imageBaseUrl;
+        }
 
         public void setCategoryList(List<CategoryItem> categoryList) {
             mCategoryList = categoryList;
@@ -287,7 +306,7 @@ public class HomeScreenFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull TopCategoryViewHolder holder, int position) {
             CategoryItem item = mCategoryList.get(position);
-            Picasso.get().load(item.getRestaurantCuisineImg()).placeholder(R.drawable.default_image).into(holder.productImageView);
+            Picasso.get().load(imageBaseUrl + item.getRestaurantCuisineImg()).placeholder(R.drawable.default_image).into(holder.productImageView);
             Utility.writeHtmlCode(item.getRestaurantCuisineName(), holder.productNameTextView);
         }
 

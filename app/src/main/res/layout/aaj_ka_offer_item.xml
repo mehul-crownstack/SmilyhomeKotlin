@@ -51,6 +51,7 @@
         android:id="@+id/buyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="@dimen/_5sdp"
         android:background="@drawable/curve_green_selector"
         android:paddingBottom="@dimen/_2sdp"
