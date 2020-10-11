@@ -41,6 +41,12 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
     private String mUserId = "";
     private CheckBox checkBox;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        hideKeyboard();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

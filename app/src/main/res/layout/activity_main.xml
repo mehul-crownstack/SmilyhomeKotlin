@@ -34,30 +34,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingStart="@dimen/_1sdp"
                 android:src="@drawable/ic_toolbar_back"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/appTitleTextView"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/AppTitle"
-                android:layout_width="0dp"
+                android:id="@+id/appTitleTextView"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:gravity="start"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/app_name"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16sdp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/backButtonToolbar"
+                app:layout_constraintBottom_toBottomOf="@id/backButtonToolbar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/backButtonToolbar"
-                app:layout_constraintTop_toTopOf="@+id/backButtonToolbar" />
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/backButtonToolbar" />
+
+            <TextView
+                android:id="@+id/subTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@string/app_name"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@id/backButtonToolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/appTitleTextView"
+                app:layout_constraintTop_toTopOf="@id/backButtonToolbar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

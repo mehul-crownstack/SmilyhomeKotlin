@@ -10,4 +10,12 @@ public class Constants {
     public static final String YES = "YES";
     public static final String NO = "NO";
     public static final int PERMISSION_REQUEST_CODE = 1001;
+
+    public interface HomeScreenProductMode {
+        int FEATURED = 1;
+        int TOP_HOT_DEAL = 2;
+        int TRENDING = 3;
+        int AAJ_KA_OFFER = 4;
+        int SUPER_SAVER = 5;
+    }
 }

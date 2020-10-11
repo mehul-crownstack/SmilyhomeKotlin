@@ -104,7 +104,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
 
     void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
     public void onBackPressed() {
@@ -124,8 +124,11 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
+    public void onSubHeaderClickListener() {
+
+    }
+
     void launchFragment(Fragment fragment, boolean addBackStack) {
-        hideKeyboard();
         mActivity.launchFragment(fragment, addBackStack);
     }
 

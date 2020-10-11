@@ -1,5 +1,6 @@
 package com.smilyhome.css.activities.retrofit;
 
+import com.smilyhome.css.activities.models.requests.FetchProductRequest;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
 import com.smilyhome.css.activities.models.response.CommonResponse;
@@ -14,4 +15,7 @@ public interface IAppServices {
 
     @POST("otpverify.php")
     Call<CommonResponse> validateOtpServerCall(@Body ValidateOtpRequest request);
+
+    @POST("homesection.php")
+    Call<CommonResponse> fetchProductsServerCall(@Body FetchProductRequest request);
 }

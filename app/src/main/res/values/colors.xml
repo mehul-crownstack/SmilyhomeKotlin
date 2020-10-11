@@ -6,6 +6,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#fff</color>
     <color name="light_grey_bg">#D8DFD5</color>
+    <color name="medium_grey_bg">#AFAFAF</color>
     <color name="dark_grey_bg">#323232</color>
     <color name="theme_green_dark">#29a140</color>
 </resources>

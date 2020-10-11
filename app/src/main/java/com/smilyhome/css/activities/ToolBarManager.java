@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.fragments.BaseFragment;
 
 public class ToolBarManager {
 
@@ -20,8 +21,22 @@ public class ToolBarManager {
     }
 
     public void setHeaderTitle(String title) {
-        TextView v = mToolbar.findViewById(R.id.AppTitle);
+        TextView v = mToolbar.findViewById(R.id.appTitleTextView);
         v.setText(title);
+    }
+
+    public void setSubHeaderTitle(String title) {
+        TextView v = mToolbar.findViewById(R.id.subTitleTextView);
+        v.setText(title);
+    }
+
+    public void onSubHeaderClickListener(final BaseFragment fragment) {
+        TextView v = mToolbar.findViewById(R.id.subTitleTextView);
+        v.setOnClickListener(view -> {
+            if (fragment.getActivity() != null) {
+                fragment.onSubHeaderClickListener();
+            }
+        });
     }
 
     public void setupToolbar(Toolbar mToolbar) {
@@ -50,6 +65,14 @@ public class ToolBarManager {
             mActivity.findViewById(R.id.toolbarLayout).setVisibility(View.GONE);
         } else {
             mActivity.findViewById(R.id.toolbarLayout).setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideBackPressFromToolBar(MainActivity mActivity, boolean toHide) {
+        if (toHide) {
+            mActivity.findViewById(R.id.backButtonToolbar).setVisibility(View.INVISIBLE);
+        } else {
+            mActivity.findViewById(R.id.backButtonToolbar).setVisibility(View.VISIBLE);
         }
     }
 }

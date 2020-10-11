@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smilyhome</string>
+    <string name="app_name">SmilyHome</string>
     <string name="please_wait">Please wait…</string>
     <string name="back_press_msg">Press the back button again to Exit!!!</string>
     <string name="login">Login</string>
@@ -12,5 +12,16 @@
     <string name="error">Error</string>
     <string name="remember_me">Remember me</string>
     <string name="validate_otp">Validate OTP</string>
+    <string name="zip_code">Zip Code</string>
     <string name="enter_6_digit_otp_here">Enter 6 digit OTP here</string>
+    <string name="search">Search</string>
+    <string name="top_hot_deals">Top Hot Deals</string>
+    <string name="sample_category_name">Category Name</string>
+    <string name="sample_category_desc">Rice is the seed of the grass species Oryza glaberrima (African rice) or Oryza sativa (Asian rice)</string>
+    <string name="currency">₹</string>
+    <string name="sample_currency">₹ 1050.00</string>
+    <string name="buy">Buy</string>
+    <string name="aaj_ka_offer">Aaj Ka Offer</string>
+    <string name="shop_from_top_category">Shop From Top Category</string>
+    <string name="super_saver_deals">Super Saver Deals</string>
 </resources>
