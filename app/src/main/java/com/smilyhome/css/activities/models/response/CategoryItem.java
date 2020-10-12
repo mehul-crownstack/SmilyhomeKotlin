@@ -8,19 +8,19 @@ public class CategoryItem {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("lang")
+    /*@SerializedName("lang")
     @Expose
     private String lang;
     @SerializedName("Warehouse")
     @Expose
-    private String warehouse;
-    @SerializedName("RestaurantCuisineName")
+    private String warehouse;*/
+    @SerializedName("mainCatName")
     @Expose
-    private String restaurantCuisineName;
-    @SerializedName("RestaurantCuisineImg")
+    private String categoryName;
+    @SerializedName("catImage")
     @Expose
-    private String restaurantCuisineImg;
-    @SerializedName("RestaurantCuisineThumbImg")
+    private String categoryImage;
+    /*@SerializedName("RestaurantCuisineThumbImg")
     @Expose
     private String restaurantCuisineThumbImg;
     @SerializedName("HomeDisplay")
@@ -52,133 +52,17 @@ public class CategoryItem {
     private String metaKeyword;
     @SerializedName("meta_description")
     @Expose
-    private String metaDescription;
+    private String metaDescription; */
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public String getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(String warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getRestaurantCuisineName() {
-        return restaurantCuisineName;
-    }
-
-    public void setRestaurantCuisineName(String restaurantCuisineName) {
-        this.restaurantCuisineName = restaurantCuisineName;
-    }
-
-    public String getRestaurantCuisineImg() {
-        return restaurantCuisineImg;
-    }
-
-    public void setRestaurantCuisineImg(String restaurantCuisineImg) {
-        this.restaurantCuisineImg = restaurantCuisineImg;
-    }
-
-    public String getRestaurantCuisineThumbImg() {
-        return restaurantCuisineThumbImg;
-    }
-
-    public void setRestaurantCuisineThumbImg(String restaurantCuisineThumbImg) {
-        this.restaurantCuisineThumbImg = restaurantCuisineThumbImg;
-    }
-
-    public String getHomeDisplay() {
-        return homeDisplay;
-    }
-
-    public void setHomeDisplay(String homeDisplay) {
-        this.homeDisplay = homeDisplay;
-    }
-
-    public String getSortPosition() {
-        return sortPosition;
-    }
-
-    public void setSortPosition(String sortPosition) {
-        this.sortPosition = sortPosition;
-    }
-
-    public String getDiscountAvailable() {
-        return discountAvailable;
-    }
-
-    public void setDiscountAvailable(String discountAvailable) {
-        this.discountAvailable = discountAvailable;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedIp() {
-        return createdIp;
-    }
-
-    public void setCreatedIp(String createdIp) {
-        this.createdIp = createdIp;
-    }
-
-    public String getParentCategoryDescription() {
-        return parentCategoryDescription;
-    }
-
-    public void setParentCategoryDescription(String parentCategoryDescription) {
-        this.parentCategoryDescription = parentCategoryDescription;
-    }
-
-    public String getMetaTitle() {
-        return metaTitle;
-    }
-
-    public void setMetaTitle(String metaTitle) {
-        this.metaTitle = metaTitle;
-    }
-
-    public String getMetaKeyword() {
-        return metaKeyword;
-    }
-
-    public void setMetaKeyword(String metaKeyword) {
-        this.metaKeyword = metaKeyword;
-    }
-
-    public String getMetaDescription() {
-        return metaDescription;
-    }
-
-    public void setMetaDescription(String metaDescription) {
-        this.metaDescription = metaDescription;
+    public String getCategoryImage() {
+        return categoryImage;
     }
 }

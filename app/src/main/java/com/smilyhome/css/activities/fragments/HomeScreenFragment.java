@@ -196,9 +196,9 @@ public class HomeScreenFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull HotDealsAdapterViewHolder holder, int position) {
             ProductItem item = productItemList.get(position);
             holder.productNameTextView.setText(item.getProductName());
-            Utility.writeHtmlCode(item.getProductDescription(), holder.productDescriptionTextView);
+            Utility.writeHtmlCode(item.getProductShortDesc(), holder.productDescriptionTextView);
             holder.productPriceTextView.setText(getString(R.string.currency).concat(" ").concat(item.getProductPrice()));
-            Picasso.get().load(imageBaseUrl + item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
+            Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
 
         @Override
@@ -254,7 +254,7 @@ public class HomeScreenFragment extends BaseFragment {
             ProductItem item = productItemList.get(position);
             holder.productNameTextView.setText(item.getProductName());
             holder.productPriceTextView.setText(getString(R.string.currency).concat(" ").concat(item.getProductPrice()));
-            Picasso.get().load(imageBaseUrl+ item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
+            Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
 
         @Override
@@ -306,8 +306,8 @@ public class HomeScreenFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull TopCategoryViewHolder holder, int position) {
             CategoryItem item = mCategoryList.get(position);
-            Picasso.get().load(imageBaseUrl + item.getRestaurantCuisineImg()).placeholder(R.drawable.default_image).into(holder.productImageView);
-            Utility.writeHtmlCode(item.getRestaurantCuisineName(), holder.productNameTextView);
+            Picasso.get().load(imageBaseUrl + item.getCategoryImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
+            holder.productNameTextView.setText(item.getCategoryName());
         }
 
         @Override
