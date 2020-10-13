@@ -101,14 +101,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:padding="@dimen/_5sdp">
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingStart="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="@string/shop_from_top_category"
                     android:textColor="@color/colorBlack"
@@ -118,13 +118,11 @@
                     android:id="@+id/topCategoryRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/top_category_item"
-                    app:spanCount="3"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    android:orientation="horizontal"
-                    android:paddingEnd="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:paddingStart="@dimen/_10sdp" />
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:listitem="@layout/top_category_item" />
 
             </LinearLayout>
 
@@ -133,14 +131,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:padding="@dimen/_5sdp">
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingStart="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="@string/super_saver_deals"
                     android:textColor="@color/colorBlack"
@@ -150,13 +148,11 @@
                     android:id="@+id/superSaverRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:itemCount="7"
-                    android:paddingEnd="@dimen/_10sdp"
-                    app:spanCount="2"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/aaj_ka_offer_item"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:paddingStart="@dimen/_10sdp" />
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:itemCount="7"
+                    tools:listitem="@layout/aaj_ka_offer_item" />
 
             </LinearLayout>
 
