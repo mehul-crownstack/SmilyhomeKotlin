@@ -8,23 +8,6 @@
     android:background="@drawable/login_bg"
     app:ignore="NamespaceTypo">
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/checkbox_selector"
-        android:gravity="center_vertical"
-        android:paddingEnd="@dimen/_10sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:text="@string/remember_me"
-        android:textColor="#706F6F"
-        android:textSize="@dimen/_11sdp"
-        card_view:layout_constraintBottom_toBottomOf="@id/generateOtpTextView"
-        card_view:layout_constraintEnd_toStartOf="@id/generateOtpTextView"
-        card_view:layout_constraintHorizontal_bias="0.2"
-        card_view:layout_constraintStart_toStartOf="@+id/cardView"
-        card_view:layout_constraintTop_toTopOf="@id/generateOtpTextView" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="@dimen/_75sdp"
@@ -89,7 +72,7 @@
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/imageView3"
+        card_view:layout_constraintTop_toBottomOf="@id/imageView3"
         card_view:layout_constraintVertical_bias="0.2">
 
         <LinearLayout
@@ -141,7 +124,7 @@
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/imageView3"
+        card_view:layout_constraintTop_toBottomOf="@id/imageView3"
         card_view:layout_constraintVertical_bias="0.2">
 
         <LinearLayout
@@ -203,7 +186,7 @@
         android:id="@+id/loginContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:constraint_referenced_ids="cardView,checkBox,generateOtpTextView" />
+        card_view:constraint_referenced_ids="cardView,generateOtpTextView" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/otpContainer"

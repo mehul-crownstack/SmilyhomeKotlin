@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -61,16 +62,14 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         mHotDealsAdapter = new HotDealsAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
         hotDealRecyclerView.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(hotDealRecyclerView.getContext(), linearLayoutManager.getOrientation());
-        hotDealRecyclerView.addItemDecoration(dividerItemDecoration);
         hotDealRecyclerView.setAdapter(mHotDealsAdapter);
+
         RecyclerView aajKaOfferRecyclerView = mContentView.findViewById(R.id.aajKaOfferRecyclerView);
         mAajKaOfferAdapter = new AajKaOfferAdapter();
         GridLayoutManager aajKaOfferLayoutManager = new GridLayoutManager(mActivity, 2);
         aajKaOfferRecyclerView.setLayoutManager(aajKaOfferLayoutManager);
-        DividerItemDecoration aajKaOfferItemDecoration = new DividerItemDecoration(aajKaOfferRecyclerView.getContext(), aajKaOfferLayoutManager.getOrientation());
-        aajKaOfferRecyclerView.addItemDecoration(aajKaOfferItemDecoration);
         aajKaOfferRecyclerView.setAdapter(mAajKaOfferAdapter);
+
         RecyclerView topCategoryRecyclerView = mContentView.findViewById(R.id.topCategoryRecyclerView);
         mTopCategoryAdapter = new TopCategoryAdapter();
         GridLayoutManager topCategoryLayoutManager = new GridLayoutManager(mActivity, 3);
@@ -205,7 +204,9 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             ProductItem item = productItemList.get(position);
             holder.productNameTextView.setText(item.getProductName());
             Utility.writeHtmlCode(item.getProductShortDesc(), holder.productDescriptionTextView);
-            holder.productPriceTextView.setText(getString(R.string.currency).concat(" ").concat(item.getProductPrice()));
+            holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
+            holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
+            Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
 
@@ -219,8 +220,9 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             private TextView productDescriptionTextView;
             private TextView productNameTextView;
             private TextView productPriceTextView;
+            private TextView productDiscountPriceTextView;
             private ImageView productImageView;
-            private TextView buyTextView;
+            private Button buyTextView;
 
             public HotDealsAdapterViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -228,6 +230,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productDescriptionTextView = itemView.findViewById(R.id.productDescriptionTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
+                productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 buyTextView = itemView.findViewById(R.id.buyTextView);
                 buyTextView.setOnClickListener(view -> {
                     showToast("buy now clicked");
@@ -256,7 +259,9 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         public void onBindViewHolder(@NonNull AajKaOfferAdapterViewHolder holder, int position) {
             ProductItem item = productItemList.get(position);
             holder.productNameTextView.setText(item.getProductName());
-            holder.productPriceTextView.setText(getString(R.string.currency).concat(" ").concat(item.getProductPrice()));
+            holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
+            holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
+            Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
 
@@ -270,12 +275,14 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             private ImageView productImageView;
             private TextView productNameTextView;
             private TextView productPriceTextView;
+            private TextView productDiscountPriceTextView;
             private TextView buyTextView;
 
             public AajKaOfferAdapterViewHolder(@NonNull View itemView) {
                 super(itemView);
                 productImageView = itemView.findViewById(R.id.productImageView);
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
+                productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 buyTextView = itemView.findViewById(R.id.buyTextView);
                 buyTextView.setOnClickListener(view -> {

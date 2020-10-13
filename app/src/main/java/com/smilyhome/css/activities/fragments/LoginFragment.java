@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +38,6 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
     private View otpContainer;
     private String mOtpReceivedStr = "";
     private String mUserId = "";
-    private CheckBox checkBox;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +58,6 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
         mobileNumberInputEditText = mContentView.findViewById(R.id.mobileNumberInputEditText);
         nameInputEditText = mContentView.findViewById(R.id.nameInputEditText);
         otpInputEditText = mContentView.findViewById(R.id.otpInputEditText);
-        checkBox = mContentView.findViewById(R.id.checkBox);
         new OtpBroadCastReceiver().setOtpListener(this);
         mobileNumberInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -185,9 +182,7 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
                     CommonResponse commonResponse = response.body();
                     if (commonResponse != null) {
                         if (Constants.SUCCESS.equalsIgnoreCase(commonResponse.getErrorCode())) {
-                            if (checkBox.isChecked()) {
-                                storeStringDataInSharedPref(USER_ID, mUserId);
-                            }
+                            storeStringDataInSharedPref(USER_ID, mUserId);
                             clearFragmentBackStack();
                             launchFragment(new HomeScreenFragment(), false);
                         }
@@ -222,4 +217,3 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
         }
     }
 }
-

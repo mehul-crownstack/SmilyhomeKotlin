@@ -20,7 +20,7 @@
         android:id="@+id/toolbarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_45sdp"
-        android:background="@color/colorPrimary"
+        android:background="@color/toolbar_color_code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

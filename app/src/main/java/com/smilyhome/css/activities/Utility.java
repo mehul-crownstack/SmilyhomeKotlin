@@ -2,6 +2,7 @@ package com.smilyhome.css.activities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.Build;
 import android.text.Html;
 import android.util.Base64;
@@ -115,6 +116,10 @@ public class Utility {
     public static Bitmap getImageInBitmap(String imageStr) {
         byte[] b = Base64.decode(imageStr, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(b, 0, b.length);
+    }
+
+    public static void writeStrikeOffText(TextView textView) {
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
 }
