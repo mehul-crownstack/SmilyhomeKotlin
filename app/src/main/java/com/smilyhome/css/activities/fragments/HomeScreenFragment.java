@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
@@ -29,13 +30,14 @@ import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreenFragment extends BaseFragment {
+public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private boolean mIsDoubleBackPressClicked = false;
     private HotDealsAdapter mHotDealsAdapter;
     private AajKaOfferAdapter mAajKaOfferAdapter;
     private AajKaOfferAdapter mSuperSaverAdapter;
     private TopCategoryAdapter mTopCategoryAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class HomeScreenFragment extends BaseFragment {
     }
 
     private void setupUI() {
+        swipeRefreshLayout = mContentView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView hotDealRecyclerView = mContentView.findViewById(R.id.hotDealRecyclerView);
         mHotDealsAdapter = new HotDealsAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
@@ -69,7 +73,7 @@ public class HomeScreenFragment extends BaseFragment {
         aajKaOfferRecyclerView.setAdapter(mAajKaOfferAdapter);
         RecyclerView topCategoryRecyclerView = mContentView.findViewById(R.id.topCategoryRecyclerView);
         mTopCategoryAdapter = new TopCategoryAdapter();
-        LinearLayoutManager topCategoryLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
+        GridLayoutManager topCategoryLayoutManager = new GridLayoutManager(mActivity, 3);
         topCategoryRecyclerView.setLayoutManager(topCategoryLayoutManager);
         DividerItemDecoration topCategoryDecoration = new DividerItemDecoration(topCategoryRecyclerView.getContext(), topCategoryLayoutManager.getOrientation());
         topCategoryRecyclerView.addItemDecoration(topCategoryDecoration);
@@ -91,6 +95,7 @@ public class HomeScreenFragment extends BaseFragment {
     private void setupToolbarUI() {
         ToolBarManager.getInstance().hideToolBar(mActivity, false);
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
+        ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
         ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
@@ -135,17 +140,14 @@ public class HomeScreenFragment extends BaseFragment {
             case Constants.HomeScreenProductMode.FEATURED:
                 break;
             case Constants.HomeScreenProductMode.AAJ_KA_OFFER:
-                mAajKaOfferAdapter.setImageBaseUrl(imageBaseUrl);
                 mAajKaOfferAdapter.setProductItemList(productItemList);
                 mAajKaOfferAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.SUPER_SAVER:
-                mSuperSaverAdapter.setImageBaseUrl(imageBaseUrl);
                 mSuperSaverAdapter.setProductItemList(productItemList);
                 mSuperSaverAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.TOP_HOT_DEAL:
-                mHotDealsAdapter.setImageBaseUrl(imageBaseUrl);
                 mHotDealsAdapter.setProductItemList(productItemList);
                 mHotDealsAdapter.notifyDataSetChanged();
                 break;
@@ -153,6 +155,9 @@ public class HomeScreenFragment extends BaseFragment {
                 break;
         }
         stopProgress();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
@@ -171,14 +176,17 @@ public class HomeScreenFragment extends BaseFragment {
         new Handler(Looper.getMainLooper()).postDelayed(() -> mIsDoubleBackPressClicked = false, 1500);
     }
 
+    @Override
+    public void onRefresh() {
+        fetchProductCategoryServerCall();
+        fetchProductsServerCall(Constants.HomeScreenProductMode.SUPER_SAVER);
+        fetchProductsServerCall(Constants.HomeScreenProductMode.AAJ_KA_OFFER);
+        fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
+    }
+
     public class HotDealsAdapter extends RecyclerView.Adapter<HotDealsAdapter.HotDealsAdapterViewHolder> {
 
         private List<ProductItem> productItemList = new ArrayList<>();
-        private String imageBaseUrl;
-
-        public void setImageBaseUrl(String imageBaseUrl) {
-            this.imageBaseUrl = imageBaseUrl;
-        }
 
         public void setProductItemList(List<ProductItem> productItemList) {
             this.productItemList = productItemList;
@@ -231,11 +239,6 @@ public class HomeScreenFragment extends BaseFragment {
     public class AajKaOfferAdapter extends RecyclerView.Adapter<AajKaOfferAdapter.AajKaOfferAdapterViewHolder> {
 
         private List<ProductItem> productItemList = new ArrayList<>();
-        private String imageBaseUrl;
-
-        public void setImageBaseUrl(String imageBaseUrl) {
-            this.imageBaseUrl = imageBaseUrl;
-        }
 
         public void setProductItemList(List<ProductItem> productItemList) {
             this.productItemList = productItemList;

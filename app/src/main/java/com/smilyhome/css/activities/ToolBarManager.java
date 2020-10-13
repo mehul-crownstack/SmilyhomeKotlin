@@ -75,4 +75,8 @@ public class ToolBarManager {
             mActivity.findViewById(R.id.backButtonToolbar).setVisibility(View.VISIBLE);
         }
     }
+
+    public void showAppIconInToolbar(MainActivity mActivity, boolean toShow) {
+        mActivity.findViewById(R.id.backButtonToolbar).setVisibility(toShow ? View.VISIBLE : View.GONE);
+    }
 }

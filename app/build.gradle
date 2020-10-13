@@ -56,4 +56,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     //CardView
     implementation "androidx.cardview:cardview:1.0.0"
+    //Swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
