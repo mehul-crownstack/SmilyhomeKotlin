@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/_1sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_1sdp"
         android:paddingTop="@dimen/_2sdp"
         android:minWidth="@dimen/_120sdp"
