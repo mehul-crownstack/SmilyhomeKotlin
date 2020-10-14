@@ -205,6 +205,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             holder.productNameTextView.setText(item.getProductName());
             Utility.writeHtmlCode(item.getProductShortDesc(), holder.productDescriptionTextView);
             holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
+            holder.productDiscountTextView.setText(item.getProductDiscount().concat("% OFF"));
             holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
             Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
@@ -221,11 +222,13 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             private TextView productNameTextView;
             private TextView productPriceTextView;
             private TextView productDiscountPriceTextView;
+            private TextView productDiscountTextView;
             private ImageView productImageView;
             private Button buyTextView;
 
             public HotDealsAdapterViewHolder(@NonNull View itemView) {
                 super(itemView);
+                productDiscountTextView = itemView.findViewById(R.id.productDiscountTextView);
                 productImageView = itemView.findViewById(R.id.productImageView);
                 productDescriptionTextView = itemView.findViewById(R.id.productDescriptionTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
@@ -261,6 +264,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             holder.productNameTextView.setText(item.getProductName());
             holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
             holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
+            holder.productDiscountTextView.setText(item.getProductDiscount().concat("% OFF"));
             Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }
@@ -276,10 +280,12 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             private TextView productNameTextView;
             private TextView productPriceTextView;
             private TextView productDiscountPriceTextView;
+            private TextView productDiscountTextView;
             private TextView buyTextView;
 
             public AajKaOfferAdapterViewHolder(@NonNull View itemView) {
                 super(itemView);
+                productDiscountTextView = itemView.findViewById(R.id.productDiscountTextView);
                 productImageView = itemView.findViewById(R.id.productImageView);
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);

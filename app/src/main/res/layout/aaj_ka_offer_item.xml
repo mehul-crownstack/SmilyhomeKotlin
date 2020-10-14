@@ -18,20 +18,20 @@
 
             <Button
                 android:id="@+id/buyTextView"
-                android:layout_width="@dimen/_45sdp"
+                android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/curve_green_selector"
-                android:paddingEnd="@dimen/_15sdp"
-                android:paddingStart="@dimen/_15sdp"
+                android:background="@drawable/buy_button_bg"
+                android:gravity="center"
                 android:text="@string/buy"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8sdp"
+                android:textSize="@dimen/_9sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/productImageView"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toEndOf="@+id/productDiscountTextView"
                 app:layout_constraintTop_toBottomOf="@+id/productPriceTextView" />
 
             <ImageView
@@ -71,6 +71,23 @@
                 android:textColor="@color/colorBlack"
                 app:layout_constraintStart_toEndOf="@+id/productPriceTextView"
                 app:layout_constraintTop_toBottomOf="@+id/productNameTextView" />
+
+            <TextView
+                android:id="@+id/productDiscountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/_3sdp"
+                android:paddingEnd="@dimen/_2sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:paddingTop="@dimen/_1sdp"
+                android:text="@string/sample_currency"
+                android:textColor="@color/theme_green_dark"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/productImageView"
+                app:layout_constraintTop_toBottomOf="@+id/productPriceTextView" />
 
             <TextView
                 android:id="@+id/productNameTextView"
