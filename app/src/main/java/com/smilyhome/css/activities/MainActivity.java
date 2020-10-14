@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -20,7 +21,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.fragments.BaseFragment;
@@ -189,11 +194,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment currentFragment = getCurrentFragment();
+        BaseFragment currentFragment = getCurrentFragment();
         switch (item.getItemId()) {
             case R.id.nav_menu:
-                showToast(getString(R.string.menu));
-                break;
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
+                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_menu, findViewById(R.id.bottomSheetContainer));
+                RecyclerView recyclerView = bottomSheetView.findViewById(R.id.bottomSheetRecyclerView);
+                BottomSheetAdapter adapter = new BottomSheetAdapter();
+                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
+                recyclerView.setLayoutManager(manager);
+                DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
+                recyclerView.addItemDecoration(decoration);
+                recyclerView.setAdapter(adapter);
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+                return false;
             case R.id.nav_home:
                 if (!(currentFragment instanceof HomeScreenFragment)) {
                     showToast(getString(R.string.home));

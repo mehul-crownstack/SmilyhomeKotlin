@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/bottomSheetContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground"
+    android:gravity="center_vertical"
+    android:padding="@dimen/_8sdp"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:contentDescription="@string/image_view_content_description"
+        android:src="@drawable/ic_right_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomSheetCategoryTextView"
+        app:layout_constraintStart_toEndOf="@+id/bottomSheetCategoryTextView"
+        app:layout_constraintTop_toTopOf="@+id/bottomSheetCategoryTextView" />
+
+    <TextView
+        android:id="@+id/bottomSheetCategoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:text="@string/sample_category_name"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

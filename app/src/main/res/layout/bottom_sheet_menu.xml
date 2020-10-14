@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/bottomSheetContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_curve_bg"
+    android:minHeight="@dimen/_350sdp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:text="Select Action"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_16sdp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bottomSheetRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="10"
+        tools:listitem="@layout/bottom_sheet_recycler_item" />
+
+</LinearLayout>
