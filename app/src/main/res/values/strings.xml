@@ -24,4 +24,9 @@
     <string name="aaj_ka_offer">Aaj Ka Offer</string>
     <string name="shop_from_top_category">Shop From Top Category</string>
     <string name="super_saver_deals">Super Saver Deals</string>
+    <string name="menu">Menu</string>
+    <string name="home">Home</string>
+    <string name="wallet">Wallet</string>
+    <string name="cart">Cart</string>
+    <string name="profile">Profile</string>
 </resources>

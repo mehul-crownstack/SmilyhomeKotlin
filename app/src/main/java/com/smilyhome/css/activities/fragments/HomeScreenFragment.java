@@ -43,7 +43,9 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showBottomNavigationView(true);
         hideKeyboard();
+        navigationItemClick(1);
     }
 
     @Nullable
@@ -205,7 +207,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             holder.productNameTextView.setText(item.getProductName());
             Utility.writeHtmlCode(item.getProductShortDesc(), holder.productDescriptionTextView);
             holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
-            holder.productDiscountTextView.setText(item.getProductDiscount().concat("% OFF"));
+            holder.productDiscountTextView.setText(item.getProductDiscount().concat("% off"));
             holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
             Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
@@ -264,7 +266,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             holder.productNameTextView.setText(item.getProductName());
             holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
             holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
-            holder.productDiscountTextView.setText(item.getProductDiscount().concat("% OFF"));
+            holder.productDiscountTextView.setText(item.getProductDiscount().concat("% off"));
             Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);
         }

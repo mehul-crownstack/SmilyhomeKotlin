@@ -42,6 +42,7 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showBottomNavigationView(false);
         hideKeyboard();
     }
 

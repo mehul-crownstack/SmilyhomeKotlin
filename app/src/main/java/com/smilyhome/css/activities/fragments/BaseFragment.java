@@ -154,6 +154,14 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         }).start();
     }
 
+    protected void showBottomNavigationView(boolean toShow) {
+        updateOnUiThread(() -> mActivity.showBottomNavigationView(toShow));
+    }
+
+    protected void navigationItemClick(int position) {
+        updateOnUiThread(() -> mActivity.navigationItemClick(position));
+    }
+
     protected void onProductUpdated(List<ProductItem> productItemList, int mode, String imageBaseUrl) {
 
     }

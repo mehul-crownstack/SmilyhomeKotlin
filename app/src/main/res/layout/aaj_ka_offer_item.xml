@@ -69,8 +69,8 @@
                 android:text="@string/sample_currency"
                 android:textSize="@dimen/_10sdp"
                 android:textColor="@color/colorBlack"
-                app:layout_constraintStart_toEndOf="@+id/productPriceTextView"
-                app:layout_constraintTop_toBottomOf="@+id/productNameTextView" />
+                app:layout_constraintStart_toEndOf="@id/productPriceTextView"
+                app:layout_constraintTop_toBottomOf="@id/productNameTextView" />
 
             <TextView
                 android:id="@+id/productDiscountTextView"
@@ -84,10 +84,10 @@
                 android:paddingTop="@dimen/_1sdp"
                 android:text="@string/sample_currency"
                 android:textColor="@color/theme_green_dark"
-                android:textSize="@dimen/_8sdp"
+                android:textSize="@dimen/_9sdp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/productImageView"
-                app:layout_constraintTop_toBottomOf="@+id/productPriceTextView" />
+                app:layout_constraintStart_toEndOf="@id/productImageView"
+                app:layout_constraintTop_toBottomOf="@id/productPriceTextView" />
 
             <TextView
                 android:id="@+id/productNameTextView"
@@ -101,8 +101,8 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/productImageView"
-                app:layout_constraintTop_toTopOf="@+id/productImageView" />
+                app:layout_constraintStart_toEndOf="@id/productImageView"
+                app:layout_constraintTop_toTopOf="@id/productImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
