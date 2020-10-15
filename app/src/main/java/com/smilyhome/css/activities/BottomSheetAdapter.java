@@ -7,8 +7,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.BottomSheetViewHolder> {
+
+    private IBottomNavigationItemClickListener mListener;
+    private List<String> mBottomNavigationList = new ArrayList<>();
+
+    public void setListener(IBottomNavigationItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public void setBottomNavigationList(List<String> bottomNavigationList) {
+        mBottomNavigationList = bottomNavigationList;
+    }
 
     @NonNull
     @Override
@@ -20,14 +35,15 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull BottomSheetViewHolder holder, int position) {
+        holder.bottomSheetCategoryTextView.setText(mBottomNavigationList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 25;
+        return mBottomNavigationList.size();
     }
 
-    static class BottomSheetViewHolder extends RecyclerView.ViewHolder {
+    class BottomSheetViewHolder extends RecyclerView.ViewHolder {
 
         private TextView bottomSheetCategoryTextView;
 
@@ -35,8 +51,7 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
             super(itemView);
             bottomSheetCategoryTextView = itemView.findViewById(R.id.bottomSheetCategoryTextView);
             View bottomSheetContainer = itemView.findViewById(R.id.bottomSheetContainer);
-            bottomSheetContainer.setOnClickListener(view -> {
-            });
+            bottomSheetContainer.setOnClickListener(view -> mListener.onItemClicked(getAdapterPosition()));
         }
     }
 }

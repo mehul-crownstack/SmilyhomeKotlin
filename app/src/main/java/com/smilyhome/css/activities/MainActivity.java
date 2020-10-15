@@ -31,15 +31,24 @@ import com.smilyhome.css.R;
 import com.smilyhome.css.activities.fragments.BaseFragment;
 import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
+import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
+import com.smilyhome.css.activities.models.requests.CommonRequest;
+import com.smilyhome.css.activities.models.response.CommonResponse;
+import com.smilyhome.css.activities.retrofit.RetrofitApi;
+import retrofit2.Call;
+import retrofit2.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.smilyhome.css.activities.Constants.SHARED_PREF_NAME;
 import static com.smilyhome.css.activities.Constants.USER_ID;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, IBottomNavigationItemClickListener {
 
     private BottomNavigationView bottomNavigationView;
+    private List<String> mBottomNavigationList = new ArrayList<>();
+    private BottomSheetDialog mBottomSheetDialog;
     private String[] mPermissionArray = new String[]{
         Manifest.permission.RECEIVE_SMS
     };
@@ -197,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BaseFragment currentFragment = getCurrentFragment();
         switch (item.getItemId()) {
             case R.id.nav_menu:
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
+                mBottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_menu, findViewById(R.id.bottomSheetContainer));
                 RecyclerView recyclerView = bottomSheetView.findViewById(R.id.bottomSheetRecyclerView);
                 BottomSheetAdapter adapter = new BottomSheetAdapter();
@@ -205,9 +214,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.setLayoutManager(manager);
                 DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
                 recyclerView.addItemDecoration(decoration);
+                prepareBottomNavigationList();
+                adapter.setListener(this);
+                adapter.setBottomNavigationList(mBottomNavigationList);
                 recyclerView.setAdapter(adapter);
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+                mBottomSheetDialog.setContentView(bottomSheetView);
+                mBottomSheetDialog.show();
                 return false;
             case R.id.nav_home:
                 if (!(currentFragment instanceof HomeScreenFragment)) {
@@ -223,7 +235,88 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_profile:
                 showToast(getString(R.string.profile));
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
         return true;
+    }
+
+    private void prepareBottomNavigationList() {
+        if (Utility.isNotEmpty(mBottomNavigationList)) {
+            mBottomNavigationList.clear();
+        }
+        mBottomNavigationList.add("Category");
+        mBottomNavigationList.add("Contact Us");
+        mBottomNavigationList.add("Terms and Conditions");
+        mBottomNavigationList.add("Share APP");
+        mBottomNavigationList.add("Survey");
+        mBottomNavigationList.add("Update Address");
+        mBottomNavigationList.add("Update profile");
+        mBottomNavigationList.add("Rate Us");
+        mBottomNavigationList.add("Logout");
+    }
+
+    @Override
+    public void onItemClicked(int position) {
+        if (mBottomSheetDialog != null) {
+            mBottomSheetDialog.dismiss();
+        }
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                logoutServerCall();
+                break;
+        }
+    }
+
+    private void logoutServerCall() {
+        BaseFragment currentFragment = getCurrentFragment();
+        if (currentFragment == null) {
+            return;
+        }
+        currentFragment.showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Call<CommonResponse> call = RetrofitApi.getAppServicesObject().logoutServerCall(new CommonRequest(currentFragment.getStringDataFromSharedPref(USER_ID)));
+                    final Response<CommonResponse> response = call.execute();
+                    runOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    currentFragment.stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<CommonResponse> response) {
+                currentFragment.stopProgress();
+                if (response.isSuccessful()) {
+                    CommonResponse productResponse = response.body();
+                    if (productResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
+                            currentFragment.storeStringDataInSharedPref(USER_ID, "");
+                            currentFragment.clearFragmentBackStack();
+                            launchFragment(new LoginFragment(), false);
+                        }
+                        showToast(productResponse.getErrorMessage());
+                    }
+                }
+            }
+        }).start();
     }
 }

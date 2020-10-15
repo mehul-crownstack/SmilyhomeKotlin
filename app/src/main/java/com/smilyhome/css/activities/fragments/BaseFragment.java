@@ -40,7 +40,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     protected View mContentView;
     private static final String TAG = "BaseFragment";
 
-    void showProgress() {
+    public void showProgress() {
         mProgressDialog = new ProgressDialog(getContext());
         mProgressDialog.setMessage(getString(R.string.please_wait));
         mProgressDialog.setCancelable(false);
@@ -191,7 +191,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         mActivity.launchFragment(fragment, addBackStack);
     }
 
-    void clearFragmentBackStack() {
+    public void clearFragmentBackStack() {
         FragmentManager fm = mActivity.getSupportFragmentManager();
         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();

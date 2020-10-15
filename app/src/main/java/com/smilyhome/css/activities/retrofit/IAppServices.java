@@ -1,5 +1,6 @@
 package com.smilyhome.css.activities.retrofit;
 
+import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
@@ -23,4 +24,7 @@ public interface IAppServices {
 
     @POST("maincat.php")
     Call<ProductCategoryResponse> fetchProductCategoryServerCall();
+
+    @POST("logout.php")
+    Call<CommonResponse> logoutServerCall(@Body CommonRequest request);
 }
