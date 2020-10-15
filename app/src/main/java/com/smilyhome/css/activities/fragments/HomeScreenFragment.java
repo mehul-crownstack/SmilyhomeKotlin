@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
@@ -44,7 +45,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showBottomNavigationView(true);
-        hideKeyboard();
         navigationItemClick(1);
     }
 
@@ -65,13 +65,11 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
         hotDealRecyclerView.setLayoutManager(linearLayoutManager);
         hotDealRecyclerView.setAdapter(mHotDealsAdapter);
-
         RecyclerView aajKaOfferRecyclerView = mContentView.findViewById(R.id.aajKaOfferRecyclerView);
         mAajKaOfferAdapter = new AajKaOfferAdapter();
         GridLayoutManager aajKaOfferLayoutManager = new GridLayoutManager(mActivity, 2);
         aajKaOfferRecyclerView.setLayoutManager(aajKaOfferLayoutManager);
         aajKaOfferRecyclerView.setAdapter(mAajKaOfferAdapter);
-
         RecyclerView topCategoryRecyclerView = mContentView.findViewById(R.id.topCategoryRecyclerView);
         mTopCategoryAdapter = new TopCategoryAdapter();
         GridLayoutManager topCategoryLayoutManager = new GridLayoutManager(mActivity, 3);
@@ -167,14 +165,15 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onBackPressed() {
         if (mIsDoubleBackPressClicked) {
             super.onBackPressedToExit();
-            return;
+            return true;
         }
-        showSnackBar(getString(R.string.back_press_msg));
+        Snackbar.make(mContentView, getString(R.string.back_press_msg), Snackbar.LENGTH_SHORT).show();
         mIsDoubleBackPressClicked = true;
         new Handler(Looper.getMainLooper()).postDelayed(() -> mIsDoubleBackPressClicked = false, 1500);
+        return true;
     }
 
     @Override
@@ -237,9 +236,15 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 buyTextView = itemView.findViewById(R.id.buyTextView);
-                buyTextView.setOnClickListener(view -> {
-                    showToast("buy now clicked");
-                });
+                productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productDescriptionTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productImageView.setOnClickListener(view -> showImageDialog(productItemList.get(getAdapterPosition()).getImage()));
+            }
+
+            private void launchProductDetailFragment(String productId) {
+                launchFragment(new ProductDetailFragment(productId), true);
             }
         }
     }
@@ -293,6 +298,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 buyTextView = itemView.findViewById(R.id.buyTextView);
+                productImageView.setOnClickListener(view -> showImageDialog(productItemList.get(getAdapterPosition()).getImage()));
                 buyTextView.setOnClickListener(view -> {
                     showToast("buy now clicked");
                 });
@@ -300,7 +306,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         }
     }
 
-    private static class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.TopCategoryViewHolder> {
+    private class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.TopCategoryViewHolder> {
 
         private List<CategoryItem> mCategoryList = new ArrayList<>();
         private String imageBaseUrl;
@@ -333,7 +339,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             return mCategoryList.size();
         }
 
-        private static class TopCategoryViewHolder extends RecyclerView.ViewHolder {
+        private class TopCategoryViewHolder extends RecyclerView.ViewHolder {
 
             private ImageView productImageView;
             private TextView productNameTextView;
@@ -342,6 +348,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 super(itemView);
                 productImageView = itemView.findViewById(R.id.productImageView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
+                productImageView.setOnClickListener(view -> showImageDialog(mCategoryList.get(getAdapterPosition()).getCategoryImage()));
             }
         }
     }

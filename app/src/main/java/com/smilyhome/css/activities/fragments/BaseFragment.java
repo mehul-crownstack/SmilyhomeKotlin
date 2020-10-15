@@ -166,7 +166,8 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void onBackPressed() {
+    public boolean onBackPressed() {
+        return false;
     }
 
     protected void showImageDialog(String imageStr) {
@@ -178,7 +179,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         if (Utility.isEmpty(imageStr)) {
             return;
         } else {
-            Picasso.get().load(imageStr).into(imageView);
+            Picasso.get().load(imageStr).placeholder(R.drawable.default_image).into(imageView);
         }
         dialog.show();
     }

@@ -89,9 +89,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if (getCurrentFragment() != null) {
-            getCurrentFragment().onBackPressed();
-        } else {
+        BaseFragment current = getCurrentFragment();
+        if (current.onBackPressed()) {
+            // To flip between view in personalize card fragment onBackPressed
+            return;
+        }
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
             super.onBackPressed();
         }
     }
@@ -154,10 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         FragmentManager manager = getSupportFragmentManager();
-        BaseFragment current = getCurrentFragment();
-        if (null != current) {
-            manager.popBackStackImmediate();
-        }
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         String fragmentTag = fragment.getClass().getCanonicalName();
         try {

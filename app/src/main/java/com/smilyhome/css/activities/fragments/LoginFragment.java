@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.OtpBroadCastReceiver;
@@ -43,7 +44,6 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showBottomNavigationView(false);
-        hideKeyboard();
     }
 
     @Nullable
@@ -89,7 +89,6 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
 
     @Override
     public void onClick(View view) {
-        hideKeyboard();
         switch (view.getId()) {
             case R.id.generateOtpTextView:
                 String mobileStr = mobileNumberInputEditText.getText().toString();
@@ -125,6 +124,7 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
 
     private void initiateOtpServerCall(String userName, String mobileNumber) {
         showProgress();
+        hideKeyboard();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -178,6 +178,7 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
             }
 
             private void handleResponse(Response<CommonResponse> response) {
+                hideKeyboard();
                 stopProgress();
                 if (response.isSuccessful()) {
                     CommonResponse commonResponse = response.body();
@@ -199,14 +200,15 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onBackPressed() {
         if (mIsDoubleBackPressClicked) {
             super.onBackPressedToExit();
-            return;
+            return true;
         }
-        showSnackBar(getString(R.string.back_press_msg));
+        Snackbar.make(mContentView, getString(R.string.back_press_msg), Snackbar.LENGTH_SHORT).show();
         mIsDoubleBackPressClicked = true;
         new Handler(Looper.getMainLooper()).postDelayed(() -> mIsDoubleBackPressClicked = false, 1500);
+        return true;
     }
 
     @Override
