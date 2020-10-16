@@ -9,12 +9,13 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/bottomSheetTitleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
-        android:text="Select Action"
+        android:text="@string/select_action"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_16sdp" />
 

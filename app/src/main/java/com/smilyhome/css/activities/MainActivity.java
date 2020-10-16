@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
 import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
+import com.smilyhome.css.activities.models.response.CategoryItem;
 import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
 import retrofit2.Call;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String[] mPermissionArray = new String[]{
         Manifest.permission.RECEIVE_SMS
     };
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.addItemDecoration(decoration);
                 prepareBottomNavigationList();
                 adapter.setListener(this);
+                adapter.setMode(Constants.BottomSheetMode.MENU);
                 adapter.setBottomNavigationList(mBottomNavigationList);
                 recyclerView.setAdapter(adapter);
                 mBottomSheetDialog.setContentView(bottomSheetView);
@@ -257,30 +261,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onItemClicked(int position) {
+    public void onItemClicked(int position, String mode) {
         if (mBottomSheetDialog != null) {
             mBottomSheetDialog.dismiss();
         }
-        switch (position) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                logoutServerCall();
-                break;
+        if (Constants.BottomSheetMode.MENU.equalsIgnoreCase(mode)) {
+            switch (position) {
+                case 0:
+                    mBottomSheetDialog = null;
+                    mBottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
+                    View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_menu, findViewById(R.id.bottomSheetContainer));
+                    RecyclerView recyclerView = bottomSheetView.findViewById(R.id.bottomSheetRecyclerView);
+                    TextView bottomSheetTitleTextView = bottomSheetView.findViewById(R.id.bottomSheetTitleTextView);
+                    bottomSheetTitleTextView.setText(getString(R.string.select_category));
+                    BottomSheetAdapter adapter = new BottomSheetAdapter();
+                    LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
+                    recyclerView.setLayoutManager(manager);
+                    DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
+                    recyclerView.addItemDecoration(decoration);
+                    prepareBottomNavigationList();
+                    adapter.setListener(this);
+                    adapter.setMode(Constants.BottomSheetMode.CATEGORY);
+                    List<String> categoryNameList = new ArrayList<>();
+                    for (CategoryItem categoryItem : Constants.getCategoryList()) {
+                        categoryNameList.add(categoryItem.getCategoryName());
+                    }
+                    adapter.setBottomNavigationList(categoryNameList);
+                    recyclerView.setAdapter(adapter);
+                    mBottomSheetDialog.setContentView(bottomSheetView);
+                    mBottomSheetDialog.show();
+
+
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    logoutServerCall();
+                    break;
+            }
+        } else {
+            Log.d(TAG, "onItemClicked: " + position);
         }
     }
 

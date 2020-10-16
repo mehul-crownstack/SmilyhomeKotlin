@@ -16,6 +16,11 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
     private IBottomNavigationItemClickListener mListener;
     private List<String> mBottomNavigationList = new ArrayList<>();
+    private String mMode = "";
+
+    public void setMode(String mode) {
+        mMode = mode;
+    }
 
     public void setListener(IBottomNavigationItemClickListener listener) {
         mListener = listener;
@@ -51,7 +56,7 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
             super(itemView);
             bottomSheetCategoryTextView = itemView.findViewById(R.id.bottomSheetCategoryTextView);
             View bottomSheetContainer = itemView.findViewById(R.id.bottomSheetContainer);
-            bottomSheetContainer.setOnClickListener(view -> mListener.onItemClicked(getAdapterPosition()));
+            bottomSheetContainer.setOnClickListener(view -> mListener.onItemClicked(getAdapterPosition(), mMode));
         }
     }
 }

@@ -1,5 +1,10 @@
 package com.smilyhome.css.activities;
 
+import com.smilyhome.css.activities.models.response.CategoryItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Constants {
 
     public static final String SHARED_PREF_NAME = "SHARED_PREF_SMILYHOME";
@@ -10,6 +15,15 @@ public class Constants {
     public static final String YES = "YES";
     public static final String NO = "NO";
     public static final int PERMISSION_REQUEST_CODE = 1001;
+    private static List<CategoryItem> sCategoryList = new ArrayList<>();
+
+    public static List<CategoryItem> getCategoryList() {
+        return sCategoryList;
+    }
+
+    public static void setCategoryList(List<CategoryItem> categoryList) {
+        sCategoryList = categoryList;
+    }
 
     public interface HomeScreenProductMode {
         int FEATURED = 1;
@@ -17,5 +31,10 @@ public class Constants {
         int TRENDING = 3;
         int AAJ_KA_OFFER = 4;
         int SUPER_SAVER = 5;
+    }
+
+    public interface BottomSheetMode {
+        String MENU = "MENU";
+        String CATEGORY = "CATEGORY";
     }
 }

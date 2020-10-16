@@ -86,8 +86,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         DividerItemDecoration superSaverDecoration = new DividerItemDecoration(superSaverRecyclerView.getContext(), superSaverLayoutManager.getOrientation());
         superSaverRecyclerView.addItemDecoration(superSaverDecoration);
         superSaverRecyclerView.setAdapter(mSuperSaverAdapter);
-
-
         RecyclerView trendingRecyclerView = mContentView.findViewById(R.id.trendingRecyclerView);
         mTrendingAdapter = new AajKaOfferAdapter();
         GridLayoutManager trendingLayoutManager = new GridLayoutManager(mActivity, 2);
@@ -95,7 +93,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         DividerItemDecoration trendingDecoration = new DividerItemDecoration(trendingRecyclerView.getContext(), trendingLayoutManager.getOrientation());
         trendingRecyclerView.addItemDecoration(trendingDecoration);
         trendingRecyclerView.setAdapter(mTrendingAdapter);
-
         RecyclerView featuredRecyclerView = mContentView.findViewById(R.id.featuredRecyclerView);
         mFeaturedAdapter = new AajKaOfferAdapter();
         GridLayoutManager featuredLayoutManager = new GridLayoutManager(mActivity, 2);
@@ -103,8 +100,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         DividerItemDecoration featuredDecoration = new DividerItemDecoration(featuredRecyclerView.getContext(), featuredLayoutManager.getOrientation());
         featuredRecyclerView.addItemDecoration(featuredDecoration);
         featuredRecyclerView.setAdapter(mFeaturedAdapter);
-
-
         showProgress();
         fetchProductCategoryServerCall();
         fetchProductsServerCall(Constants.HomeScreenProductMode.SUPER_SAVER);
@@ -141,8 +136,12 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 if (response.isSuccessful()) {
                     ProductCategoryResponse productResponse = response.body();
                     if (productResponse != null) {
+                        if (Utility.isNotEmpty(Constants.getCategoryList())) {
+                            Constants.getCategoryList().clear();
+                        }
                         if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
                             mTopCategoryAdapter.setImageBaseUrl(productResponse.getImageBaseUrl());
+                            Constants.setCategoryList(productResponse.getProductList());
                             mTopCategoryAdapter.setCategoryList(productResponse.getProductList());
                             mTopCategoryAdapter.notifyDataSetChanged();
                         } else {
@@ -269,11 +268,11 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productImageView.setOnClickListener(view -> showImageDialog(productItemList.get(getAdapterPosition()).getImage()));
             }
-
-            private void launchProductDetailFragment(String productId) {
-                launchFragment(new ProductDetailFragment(productId), true);
-            }
         }
+    }
+
+    private void launchProductDetailFragment(String productId) {
+        launchFragment(new ProductDetailFragment(productId), true);
     }
 
     public class AajKaOfferAdapter extends RecyclerView.Adapter<AajKaOfferAdapter.AajKaOfferAdapterViewHolder> {
@@ -325,6 +324,9 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 buyTextView = itemView.findViewById(R.id.buyTextView);
+                productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productImageView.setOnClickListener(view -> showImageDialog(productItemList.get(getAdapterPosition()).getImage()));
                 buyTextView.setOnClickListener(view -> {
                     showToast("buy now clicked");
