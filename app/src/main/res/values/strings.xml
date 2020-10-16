@@ -29,4 +29,8 @@
     <string name="wallet">Wallet</string>
     <string name="cart">Cart</string>
     <string name="profile">Profile</string>
+    <string name="description">Description</string>
+    <string name="share_earn"><![CDATA[Share & Earn]]></string>
+    <string name="add_to_bag">Add to Bag</string>
+    <string name="buy_now">Buy Now</string>
 </resources>
