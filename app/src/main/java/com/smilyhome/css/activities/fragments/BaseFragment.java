@@ -142,7 +142,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
                     ProductResponse productResponse = response.body();
                     if (productResponse != null) {
                         if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
-                            onProductUpdated(productResponse.getProductList(), mode, productResponse.getImageBaseUrl());
+                            onProductUpdated(productResponse.getProductList(), mode);
                         } else {
                             showToast(productResponse.getErrorMessage());
                         }
@@ -162,7 +162,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         updateOnUiThread(() -> mActivity.navigationItemClick(position));
     }
 
-    protected void onProductUpdated(List<ProductItem> productItemList, int mode, String imageBaseUrl) {
+    protected void onProductUpdated(List<ProductItem> productItemList, int mode) {
 
     }
 

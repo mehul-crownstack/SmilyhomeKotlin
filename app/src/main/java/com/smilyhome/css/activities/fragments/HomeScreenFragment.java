@@ -38,6 +38,8 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     private HotDealsAdapter mHotDealsAdapter;
     private AajKaOfferAdapter mAajKaOfferAdapter;
     private AajKaOfferAdapter mSuperSaverAdapter;
+    private AajKaOfferAdapter mTrendingAdapter;
+    private AajKaOfferAdapter mFeaturedAdapter;
     private TopCategoryAdapter mTopCategoryAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -84,11 +86,32 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         DividerItemDecoration superSaverDecoration = new DividerItemDecoration(superSaverRecyclerView.getContext(), superSaverLayoutManager.getOrientation());
         superSaverRecyclerView.addItemDecoration(superSaverDecoration);
         superSaverRecyclerView.setAdapter(mSuperSaverAdapter);
+
+
+        RecyclerView trendingRecyclerView = mContentView.findViewById(R.id.trendingRecyclerView);
+        mTrendingAdapter = new AajKaOfferAdapter();
+        GridLayoutManager trendingLayoutManager = new GridLayoutManager(mActivity, 2);
+        trendingRecyclerView.setLayoutManager(trendingLayoutManager);
+        DividerItemDecoration trendingDecoration = new DividerItemDecoration(trendingRecyclerView.getContext(), trendingLayoutManager.getOrientation());
+        trendingRecyclerView.addItemDecoration(trendingDecoration);
+        trendingRecyclerView.setAdapter(mTrendingAdapter);
+
+        RecyclerView featuredRecyclerView = mContentView.findViewById(R.id.featuredRecyclerView);
+        mFeaturedAdapter = new AajKaOfferAdapter();
+        GridLayoutManager featuredLayoutManager = new GridLayoutManager(mActivity, 2);
+        featuredRecyclerView.setLayoutManager(featuredLayoutManager);
+        DividerItemDecoration featuredDecoration = new DividerItemDecoration(featuredRecyclerView.getContext(), featuredLayoutManager.getOrientation());
+        featuredRecyclerView.addItemDecoration(featuredDecoration);
+        featuredRecyclerView.setAdapter(mFeaturedAdapter);
+
+
         showProgress();
         fetchProductCategoryServerCall();
         fetchProductsServerCall(Constants.HomeScreenProductMode.SUPER_SAVER);
         fetchProductsServerCall(Constants.HomeScreenProductMode.AAJ_KA_OFFER);
         fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
+        fetchProductsServerCall(Constants.HomeScreenProductMode.TRENDING);
+        fetchProductsServerCall(Constants.HomeScreenProductMode.FEATURED);
     }
 
     private void setupToolbarUI() {
@@ -134,9 +157,11 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     }
 
     @Override
-    protected void onProductUpdated(List<ProductItem> productItemList, int mode, String imageBaseUrl) {
+    protected void onProductUpdated(List<ProductItem> productItemList, int mode) {
         switch (mode) {
             case Constants.HomeScreenProductMode.FEATURED:
+                mFeaturedAdapter.setProductItemList(productItemList);
+                mFeaturedAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.AAJ_KA_OFFER:
                 mAajKaOfferAdapter.setProductItemList(productItemList);
@@ -151,6 +176,8 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 mHotDealsAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.TRENDING:
+                mTrendingAdapter.setProductItemList(productItemList);
+                mTrendingAdapter.notifyDataSetChanged();
                 break;
         }
         stopProgress();
