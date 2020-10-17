@@ -31,6 +31,7 @@ public class Constants {
         int TRENDING = 3;
         int AAJ_KA_OFFER = 4;
         int SUPER_SAVER = 5;
+        int WHAT_S_NEW = 6;
     }
 
     public interface BottomSheetMode {

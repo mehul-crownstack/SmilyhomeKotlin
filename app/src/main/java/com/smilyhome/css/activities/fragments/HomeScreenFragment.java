@@ -36,6 +36,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
 
     private boolean mIsDoubleBackPressClicked = false;
     private HotDealsAdapter mHotDealsAdapter;
+    private HotDealsAdapter mWhatsNewAdapter;
     private AajKaOfferAdapter mAajKaOfferAdapter;
     private AajKaOfferAdapter mSuperSaverAdapter;
     private AajKaOfferAdapter mTrendingAdapter;
@@ -44,8 +45,8 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         showBottomNavigationView(true);
         navigationItemClick(1);
     }
@@ -67,6 +68,11 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
         hotDealRecyclerView.setLayoutManager(linearLayoutManager);
         hotDealRecyclerView.setAdapter(mHotDealsAdapter);
+        RecyclerView whatsNewRecyclerView = mContentView.findViewById(R.id.whatsNewRecyclerView);
+        mWhatsNewAdapter = new HotDealsAdapter();
+        LinearLayoutManager whatsNewLayoutManager = new LinearLayoutManager(mActivity);
+        whatsNewRecyclerView.setLayoutManager(whatsNewLayoutManager);
+        whatsNewRecyclerView.setAdapter(mWhatsNewAdapter);
         RecyclerView aajKaOfferRecyclerView = mContentView.findViewById(R.id.aajKaOfferRecyclerView);
         mAajKaOfferAdapter = new AajKaOfferAdapter();
         GridLayoutManager aajKaOfferLayoutManager = new GridLayoutManager(mActivity, 2);
@@ -107,6 +113,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
         fetchProductsServerCall(Constants.HomeScreenProductMode.TRENDING);
         fetchProductsServerCall(Constants.HomeScreenProductMode.FEATURED);
+        fetchLatestProductServerCall(Constants.HomeScreenProductMode.WHAT_S_NEW);
     }
 
     private void setupToolbarUI() {
@@ -178,6 +185,10 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 mTrendingAdapter.setProductItemList(productItemList);
                 mTrendingAdapter.notifyDataSetChanged();
                 break;
+            case Constants.HomeScreenProductMode.WHAT_S_NEW:
+                mTrendingAdapter.setProductItemList(productItemList);
+                mTrendingAdapter.notifyDataSetChanged();
+                break;
         }
         stopProgress();
         if (swipeRefreshLayout.isRefreshing()) {
@@ -208,6 +219,9 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         fetchProductsServerCall(Constants.HomeScreenProductMode.SUPER_SAVER);
         fetchProductsServerCall(Constants.HomeScreenProductMode.AAJ_KA_OFFER);
         fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
+        fetchProductsServerCall(Constants.HomeScreenProductMode.TRENDING);
+        fetchProductsServerCall(Constants.HomeScreenProductMode.FEATURED);
+        fetchLatestProductServerCall(Constants.HomeScreenProductMode.WHAT_S_NEW);
     }
 
     public class HotDealsAdapter extends RecyclerView.Adapter<HotDealsAdapter.HotDealsAdapterViewHolder> {

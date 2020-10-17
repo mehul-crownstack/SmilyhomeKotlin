@@ -153,6 +153,32 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/whatsNewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:text="@string/whats_s_new"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_16sdp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/whatsNewRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/hot_deal_item"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/trendingContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

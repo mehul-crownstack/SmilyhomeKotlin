@@ -29,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.adapters.BottomSheetAdapter;
 import com.smilyhome.css.activities.fragments.BaseFragment;
 import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;

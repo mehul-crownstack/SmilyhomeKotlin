@@ -32,4 +32,7 @@ public interface IAppServices {
 
     @POST("fetchproductbyid.php")
     Call<ProductDetailResponse> productDetailServerCall(@Body ProductRequest request);
+
+    @POST("latestuploading.php")
+    Call<ProductResponse> fetchLatestProductServerCall();
 }

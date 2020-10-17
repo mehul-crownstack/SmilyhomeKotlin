@@ -154,6 +154,37 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         }).start();
     }
 
+    void fetchLatestProductServerCall(int mode) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Call<ProductResponse> call = RetrofitApi.getAppServicesObjectForProducts().fetchLatestProductServerCall();
+                    final Response<ProductResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response, mode));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<ProductResponse> response, int mode) {
+                if (response.isSuccessful()) {
+                    ProductResponse productResponse = response.body();
+                    if (productResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
+                            onProductUpdated(productResponse.getProductList(), mode);
+                        } else {
+                            showToast(productResponse.getErrorMessage());
+                        }
+                    }
+                } else {
+                    stopProgress();
+                }
+            }
+        }).start();
+    }
+
     protected void showBottomNavigationView(boolean toShow) {
         updateOnUiThread(() -> mActivity.showBottomNavigationView(toShow));
     }

@@ -1,4 +1,4 @@
-package com.smilyhome.css.activities;
+package com.smilyhome.css.activities.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
