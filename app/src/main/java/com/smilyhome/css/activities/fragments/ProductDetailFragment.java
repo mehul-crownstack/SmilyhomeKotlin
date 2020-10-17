@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,12 +27,20 @@ import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailFragment extends BaseFragment implements IImageSliderClickListener {
+public class ProductDetailFragment extends BaseFragment implements IImageSliderClickListener, RadioGroup.OnCheckedChangeListener {
 
     private String mProductId;
     private SlidingImageAdapter mSlidingImageAdapter;
     private TextView productDescriptionTextView;
-    private TextView disclaimerTextView;
+    private TextView productNameTextView;
+
+    private TextView productPriceTextView;
+    private TextView productDiscountPriceTextView;
+    private TextView productDiscountTextView;
+    private RadioButton buyOneRadioButton;
+    private RadioButton buyMoreRadioButton;
+    private RadioGroup buyRadioGroup;
+
     private List<String> mSlidingImageList;
 
     public ProductDetailFragment(String productId) {
@@ -51,11 +61,19 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         mSlidingImageAdapter = new SlidingImageAdapter(mActivity, new ArrayList<>(), this);
         ViewPager viewPager = mContentView.findViewById(R.id.viewPager);
         productDescriptionTextView = mContentView.findViewById(R.id.productDescriptionTextView);
-        disclaimerTextView = mContentView.findViewById(R.id.disclaimerTextView);
+        productPriceTextView = mContentView.findViewById(R.id.productPriceTextView);
+        productDiscountPriceTextView = mContentView.findViewById(R.id.productDiscountPriceTextView);
+        productDiscountTextView = mContentView.findViewById(R.id.productDiscountTextView);
+        productNameTextView = mContentView.findViewById(R.id.productNameTextView);
+        buyOneRadioButton = mContentView.findViewById(R.id.buyOneRadioButton);
+        buyMoreRadioButton = mContentView.findViewById(R.id.buyMoreRadioButton);
+        buyRadioGroup = mContentView.findViewById(R.id.buyRadioGroup);
+        buyRadioGroup.setOnCheckedChangeListener(this);
         viewPager.setAdapter(mSlidingImageAdapter);
         CirclePageIndicator indicator = mContentView.findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
         fetchProductDetail();
+        buyOneRadioButton.setChecked(true);
     }
 
     private void setupToolbarUI() {
@@ -101,7 +119,11 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                             mSlidingImageAdapter.setArrayList(mSlidingImageList);
                             mSlidingImageAdapter.notifyDataSetChanged();
                             Utility.writeHtmlCode(productResponse.getProductDescription(), productDescriptionTextView);
-                            Utility.writeHtmlCode(productResponse.getProductDisclaimer(), disclaimerTextView);
+                            Utility.writeHtmlCode(productResponse.getProductName(), productNameTextView);
+                            productPriceTextView.setText(getString(R.string.currency).concat(productResponse.getProductPrice()));
+                            productDiscountPriceTextView.setText(getString(R.string.currency).concat(productResponse.getProductSalePrice()));
+                            Utility.writeStrikeOffText(productPriceTextView);
+                            productDiscountTextView.setText(productResponse.getProductDiscount().concat("% off"));
                         }
                     }
                 }
@@ -112,5 +134,15 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     @Override
     public void onGalleryImageClicked() {
         launchFragment(new GalleryFragment(mSlidingImageList), true);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (radioGroup.getId()) {
+            case R.id.buyOneRadioButton:
+                break;
+            case R.id.buyMoreRadioButton:
+                break;
+        }
     }
 }

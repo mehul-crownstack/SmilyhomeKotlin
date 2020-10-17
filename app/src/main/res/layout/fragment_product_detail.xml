@@ -1,179 +1,347 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/medium_grey_bg"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/searchContainer"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/medium_grey_bg"
-            android:padding="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/curve_rectangle_white"
-                android:drawablePadding="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingTop="@dimen/_5sdp"
-                android:text="@string/search"
-                android:textSize="@dimen/_14sdp"
-                app:drawableStartCompat="@drawable/ic_search" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/viewFlipperContainer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
-            android:background="@color/medium_grey_bg"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/searchContainer">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.viewpagerindicator.CirclePageIndicator
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                app:centered="true"
-                app:fillColor="@color/theme_green_dark"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_2sdp"
-            android:background="@color/dark_grey_bg"
-            app:layout_constraintTop_toBottomOf="@id/viewFlipperContainer"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/priceContainer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@id/viewFlipperContainer">
-
-            <TextView
-                android:id="@+id/disclaimerTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/separator2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_2sdp"
-            android:background="@color/dark_grey_bg"
-            app:layout_constraintTop_toBottomOf="@id/priceContainer"/>
-
-        <LinearLayout
-            android:id="@+id/productDescriptionContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:padding="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/priceContainer">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/colorBlack" />
-
-            <TextView
-                android:id="@+id/productDescriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp" />
-
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/productDescriptionContainer">
-
-            <TextView
-                android:id="@+id/shareEarnTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@drawable/green_border_bg"
-                android:gravity="center"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:text="@string/share_earn"
-                android:textColor="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toBottomOf="@+id/addToBagTextView"
-                app:layout_constraintEnd_toStartOf="@+id/addToBagTextView"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/addToBagTextView" />
-
-            <TextView
-                android:id="@+id/addToBagTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:background="@drawable/buy_button_bg"
-                android:gravity="center"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:text="@string/add_to_bag"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/buyNowTextView"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/shareEarnTextView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/buyNowTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:background="@drawable/buy_button_bg"
-                android:gravity="center"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:text="@string/buy_now"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/addToBagTextView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:background="@drawable/curve_rectangle_white"
+            android:drawablePadding="@dimen/_5sdp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:text="@string/search"
+            android:textSize="@dimen/_14sdp"
+            app:drawableStartCompat="@drawable/ic_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/shareEarnTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/green_border_bg"
+            android:gravity="center"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/share_earn"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@id/addToBagTextView"
+            app:layout_constraintEnd_toStartOf="@id/addToBagTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/addToBagTextView" />
+
+        <TextView
+            android:id="@+id/addToBagTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/buy_button_bg"
+            android:gravity="center"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/add_to_bag"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/buyNowTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/shareEarnTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/buyNowTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/buy_button_bg"
+            android:gravity="center"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/buy_now"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/addToBagTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/productDescriptionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/priceContainer">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="@string/description"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/productDescriptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/dark_grey_bg"
+                app:layout_constraintTop_toBottomOf="@id/priceContainer" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/dark_grey_bg"
+                app:layout_constraintTop_toBottomOf="@id/viewFlipperContainer" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewFlipperContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:background="@color/medium_grey_bg"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    app:centered="true"
+                    app:fillColor="@color/theme_green_dark"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/priceContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewFlipperContainer">
+
+                <RadioGroup
+                    android:id="@+id/buyRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintTop_toBottomOf="@id/productPriceTextView" >
+
+                    <RadioButton
+                        android:id="@+id/buyOneRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/_8sdp"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:text="Buy 1 for Rs 400"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintEnd_toStartOf="@id/buyMoreRadioButton"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/productPriceTextView" />
+
+                    <RadioButton
+                        android:id="@+id/buyMoreRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/_8sdp"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:text="@string/buy_more"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@id/buyOneRadioButton"
+                        app:layout_constraintTop_toTopOf="@id/buyOneRadioButton" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/productDiscountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/_3sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_1sdp"
+                    android:text="@string/sample_currency"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/productDiscountPriceTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/productDiscountPriceTextView" />
+
+                <TextView
+                    android:id="@+id/productDiscountPriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_3sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:text="@string/sample_currency"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/productPriceTextView"
+                    app:layout_constraintEnd_toStartOf="@id/productDiscountTextView"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/productPriceTextView" />
+
+                <TextView
+                    android:id="@+id/productNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/sample_category_name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/productPriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="@dimen/_3sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:text="@string/sample_currency"
+                    android:textSize="@dimen/_13sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/productDiscountPriceTextView"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productNameTextView" />
+
+                <TextView
+                    android:id="@+id/yourPayHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:text="@string/your_total_pay"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buyRadioGroup" />
+
+                <TextView
+                    android:id="@+id/yourPayTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="@string/sample_currency"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_13sdp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/yourPayHeading"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/codAvailableTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:text="@string/free_deliver_cash_on_delivery_available"
+                    android:textColor="@color/dark_grey_bg"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/yourPayHeading" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

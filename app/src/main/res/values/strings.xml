@@ -39,4 +39,7 @@
     <string name="select_category">Select Category</string>
     <string name="whats_s_new">Whats\'s New</string>
     <string name="gallery">Gallery</string>
+    <string name="buy_more">Buy More</string>
+    <string name="your_total_pay">Your Total Pay :</string>
+    <string name="free_deliver_cash_on_delivery_available"><![CDATA[Free Deliver & Cash on Delivery available]]></string>
 </resources>

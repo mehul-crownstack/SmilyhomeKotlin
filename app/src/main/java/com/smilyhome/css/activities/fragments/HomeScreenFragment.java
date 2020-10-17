@@ -186,8 +186,8 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 mTrendingAdapter.notifyDataSetChanged();
                 break;
             case Constants.HomeScreenProductMode.WHAT_S_NEW:
-                mTrendingAdapter.setProductItemList(productItemList);
-                mTrendingAdapter.notifyDataSetChanged();
+                mWhatsNewAdapter.setProductItemList(productItemList);
+                mWhatsNewAdapter.notifyDataSetChanged();
                 break;
         }
         stopProgress();
