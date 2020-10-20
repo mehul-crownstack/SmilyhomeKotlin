@@ -44,4 +44,11 @@
     <string name="free_deliver_cash_on_delivery_available"><![CDATA[Free Deliver & Cash on Delivery available]]></string>
     <string name="product_detail">Product Detail</string>
     <string name="continue_shopping">Continue Shopping</string>
+    <string name="remove">Remove</string>
+    <string name="you_pay">You Pay</string>
+    <string name="quantity_s">Quantity(s)</string>
+    <string name="discount">Discount</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove_product_msg">Do you want to remove this product?</string>
 </resources>

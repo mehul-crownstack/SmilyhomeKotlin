@@ -21,8 +21,9 @@ import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.MainActivity;
 import com.smilyhome.css.activities.Utility;
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
+import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
-import com.smilyhome.css.activities.models.response.CommonResponse;
+import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductItem;
 import com.smilyhome.css.activities.models.response.ProductResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -119,6 +120,10 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         return false;
     }
 
+    protected void launchProductDetailFragment(String productId) {
+        launchFragment(new ProductDetailFragment(productId), true);
+    }
+
     void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
@@ -130,8 +135,8 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    Call<CommonResponse> call = RetrofitApi.getAppServicesObjectForData().addToCartServerCall(request);
-                    final Response<CommonResponse> response = call.execute();
+                    Call<MyCartResponse> call = RetrofitApi.getAppServicesObjectForData().addToCartServerCall(request);
+                    final Response<MyCartResponse> response = call.execute();
                     updateOnUiThread(() -> handleResponse(response));
                 } catch (Exception e) {
                     stopProgress();
@@ -139,10 +144,10 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
                 }
             }
 
-            private void handleResponse(Response<CommonResponse> response) {
+            private void handleResponse(Response<MyCartResponse> response) {
                 stopProgress();
                 if (response.isSuccessful()) {
-                    CommonResponse addToCartResponse = response.body();
+                    MyCartResponse addToCartResponse = response.body();
                     if (addToCartResponse != null) {
                         onUpdatedAddToCartResponse(addToCartResponse);
                     }
@@ -151,7 +156,38 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         }).start();
     }
 
-    protected void onUpdatedAddToCartResponse(CommonResponse response) {
+    protected void fetchMyCartServerCall() {
+        showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Call<MyCartResponse> call = RetrofitApi.getAppServicesObjectForData().fetchMyCartServerCall(new CommonRequest(getStringDataFromSharedPref(Constants.USER_ID)));
+                    final Response<MyCartResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<MyCartResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    MyCartResponse myCartResponse = response.body();
+                    if (myCartResponse != null) {
+                        onMyCartResponse(myCartResponse);
+                    }
+                }
+            }
+        }).start();
+    }
+
+    protected void onMyCartResponse(MyCartResponse myCartResponse) {
+
+    }
+
+    protected void onUpdatedAddToCartResponse(MyCartResponse response) {
     }
 
     void fetchProductsServerCall(int mode) {

@@ -280,16 +280,11 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productDescriptionTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
-                productImageView.setOnClickListener(view -> showImageDialog(productItemList.get(getAdapterPosition()).getImage()));
             }
         }
     }
 
-    private void launchProductDetailFragment(String productId) {
-        launchFragment(new ProductDetailFragment(productId), true);
-    }
-
-    public class AajKaOfferAdapter extends RecyclerView.Adapter<AajKaOfferAdapter.AajKaOfferAdapterViewHolder> {
+    private class AajKaOfferAdapter extends RecyclerView.Adapter<AajKaOfferAdapter.AajKaOfferAdapterViewHolder> {
 
         private List<ProductItem> productItemList = new ArrayList<>();
 
@@ -341,7 +336,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
-                productImageView.setOnClickListener(view -> showImageDialog(productItemList.get(getAdapterPosition()).getImage()));
                 buyTextView.setOnClickListener(view -> {
                     showToast("buy now clicked");
                 });
@@ -391,7 +385,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 super(itemView);
                 productImageView = itemView.findViewById(R.id.productImageView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
-                productImageView.setOnClickListener(view -> showImageDialog(mCategoryList.get(getAdapterPosition()).getCategoryImage()));
             }
         }
     }

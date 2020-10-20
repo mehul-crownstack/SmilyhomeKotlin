@@ -2,11 +2,13 @@ package com.smilyhome.css.activities.retrofit;
 
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
+import com.smilyhome.css.activities.models.requests.DeleteProductRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
 import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
 import com.smilyhome.css.activities.models.response.CommonResponse;
+import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductCategoryResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
 import com.smilyhome.css.activities.models.response.ProductResponse;
@@ -38,5 +40,11 @@ public interface IAppServices {
     Call<ProductResponse> fetchLatestProductServerCall();
 
     @POST("addtocart.php")
-    Call<CommonResponse> addToCartServerCall(@Body AddToCartRequest request);
+    Call<MyCartResponse> addToCartServerCall(@Body AddToCartRequest request);
+
+    @POST("getcartitems.php")
+    Call<MyCartResponse> fetchMyCartServerCall(@Body CommonRequest request);
+
+    @POST("deletefromcart.php")
+    Call<MyCartResponse> deleteItemFromCartServerCall(@Body DeleteProductRequest request);
 }

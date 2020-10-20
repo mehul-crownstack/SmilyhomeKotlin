@@ -18,7 +18,7 @@ import com.smilyhome.css.activities.adapters.SlidingImageAdapter;
 import com.smilyhome.css.activities.interfaces.IImageSliderClickListener;
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
-import com.smilyhome.css.activities.models.response.CommonResponse;
+import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
 import com.smilyhome.css.activities.models.response.ProductImageItem;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -65,7 +65,6 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     public void onStart() {
         super.onStart();
         showBottomNavigationView(true);
-        navigationItemClick(1);
     }
 
     private void setupUI() {
@@ -193,10 +192,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     }
 
     @Override
-    protected void onUpdatedAddToCartResponse(CommonResponse response) {
+    protected void onUpdatedAddToCartResponse(MyCartResponse response) {
         showToast(response.getErrorMessage());
-        if (Constants.SUCCESS.equalsIgnoreCase(response.getErrorCode())) {
-            showToast(response.toString());
-        }
     }
 }

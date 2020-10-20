@@ -10,4 +10,5 @@
     <color name="dark_grey_bg">#323232</color>
     <color name="theme_green_dark">#29a140</color>
     <color name="toolbar_color_code">#24386b</color>
+    <color name="red_background">#BD0606</color>
 </resources>
