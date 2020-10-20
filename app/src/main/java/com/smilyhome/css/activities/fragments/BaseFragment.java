@@ -228,4 +228,20 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
             fm.popBackStack();
         }
     }
+
+    protected void showListAlertDialog(final String[] list, final int id, String title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle(title);
+        builder.setItems(list, (dialogInterface, i) -> {
+            onAlertDialogItemClicked(list[i], id, i);
+            dialogInterface.dismiss();
+        });
+        builder.setCancelable(false);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    protected void onAlertDialogItemClicked(String selectedStr, int id, int position) {
+
+    }
 }

@@ -33,14 +33,16 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     private SlidingImageAdapter mSlidingImageAdapter;
     private TextView productDescriptionTextView;
     private TextView productNameTextView;
-
+    private ProductDetailResponse mProductDetailResponse;
     private TextView productPriceTextView;
     private TextView productDiscountPriceTextView;
     private TextView productDiscountTextView;
+    private TextView yourPayTextView;
     private RadioButton buyOneRadioButton;
     private RadioButton buyMoreRadioButton;
     private RadioGroup buyRadioGroup;
-
+    private double mProductPrice;
+    private String[] mBuyMoreList;
     private List<String> mSlidingImageList;
 
     public ProductDetailFragment(String productId) {
@@ -64,6 +66,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         productPriceTextView = mContentView.findViewById(R.id.productPriceTextView);
         productDiscountPriceTextView = mContentView.findViewById(R.id.productDiscountPriceTextView);
         productDiscountTextView = mContentView.findViewById(R.id.productDiscountTextView);
+        yourPayTextView = mContentView.findViewById(R.id.yourPayTextView);
         productNameTextView = mContentView.findViewById(R.id.productNameTextView);
         buyOneRadioButton = mContentView.findViewById(R.id.buyOneRadioButton);
         buyMoreRadioButton = mContentView.findViewById(R.id.buyMoreRadioButton);
@@ -103,10 +106,10 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
             private void handleResponse(Response<ProductDetailResponse> response) {
                 stopProgress();
                 if (response.isSuccessful()) {
-                    ProductDetailResponse productResponse = response.body();
-                    if (productResponse != null) {
-                        if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
-                            List<ProductImageItem> imageList = productResponse.getProductImagesList();
+                    mProductDetailResponse = response.body();
+                    if (mProductDetailResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(mProductDetailResponse.getErrorCode())) {
+                            List<ProductImageItem> imageList = mProductDetailResponse.getProductImagesList();
                             mSlidingImageList = new ArrayList<>();
                             if (Utility.isNotEmpty(imageList)) {
                                 for (ProductImageItem productImage : imageList) {
@@ -118,12 +121,20 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                             }
                             mSlidingImageAdapter.setArrayList(mSlidingImageList);
                             mSlidingImageAdapter.notifyDataSetChanged();
-                            Utility.writeHtmlCode(productResponse.getProductDescription(), productDescriptionTextView);
-                            Utility.writeHtmlCode(productResponse.getProductName(), productNameTextView);
-                            productPriceTextView.setText(getString(R.string.currency).concat(productResponse.getProductPrice()));
-                            productDiscountPriceTextView.setText(getString(R.string.currency).concat(productResponse.getProductSalePrice()));
+                            Utility.writeHtmlCode(mProductDetailResponse.getProductDescription(), productDescriptionTextView);
+                            Utility.writeHtmlCode(mProductDetailResponse.getProductName(), productNameTextView);
+                            productPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductPrice()));
+                            productDiscountPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductSalePrice()));
                             Utility.writeStrikeOffText(productPriceTextView);
-                            productDiscountTextView.setText(productResponse.getProductDiscount().concat("% off"));
+                            mProductPrice = Double.parseDouble(mProductDetailResponse.getProductSalePrice());
+                            buyOneRadioButton.setText(String.format("Buy 1 for %s %s", getString(R.string.currency), mProductPrice));
+                            yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), mProductPrice));
+                            productDiscountTextView.setText(mProductDetailResponse.getProductDiscount().concat("% off"));
+                            mBuyMoreList = new String[]{"Buy 1 for " + getString(R.string.currency) + mProductPrice,
+                                "Buy 2 for " + getString(R.string.currency) + (2 * mProductPrice),
+                                "Buy 3 for " + getString(R.string.currency) + (3 * mProductPrice),
+                                "Buy 4 for " + getString(R.string.currency) + (4 * mProductPrice),
+                                "Buy 5 for " + getString(R.string.currency) + (5 * mProductPrice)};
                         }
                     }
                 }
@@ -137,12 +148,23 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (radioGroup.getId()) {
+    public void onCheckedChanged(RadioGroup radioGroup, int id) {
+        switch (id) {
             case R.id.buyOneRadioButton:
+                yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), mProductPrice));
                 break;
             case R.id.buyMoreRadioButton:
+                showListAlertDialog(mBuyMoreList, R.id.buyMoreRadioButton, "Select ".concat(mProductDetailResponse.getProductName()));
                 break;
+        }
+    }
+
+    @Override
+    protected void onAlertDialogItemClicked(String selectedStr, int id, int position) {
+        if (id == R.id.buyMoreRadioButton) {
+            buyMoreRadioButton.setText(mBuyMoreList[position]);
+            double payAmount = mProductPrice * (position + 1);
+            yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), payAmount));
         }
     }
 }
