@@ -31,6 +31,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.adapters.BottomSheetAdapter;
 import com.smilyhome.css.activities.fragments.BaseFragment;
+import com.smilyhome.css.activities.fragments.CategoryProductFragment;
 import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
 import com.smilyhome.css.activities.fragments.MyCartFragment;
@@ -314,7 +315,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
         } else {
-            Log.d(TAG, "onItemClicked: " + position);
+            if (Utility.isNotEmpty(Constants.getCategoryList())) {
+                launchFragment(new CategoryProductFragment(Constants.getCategoryList().get(position).getId()), true);
+            }
         }
     }
 
