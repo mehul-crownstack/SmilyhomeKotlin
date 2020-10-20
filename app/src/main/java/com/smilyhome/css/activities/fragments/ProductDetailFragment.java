@@ -16,7 +16,9 @@ import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
 import com.smilyhome.css.activities.adapters.SlidingImageAdapter;
 import com.smilyhome.css.activities.interfaces.IImageSliderClickListener;
+import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
+import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
 import com.smilyhome.css.activities.models.response.ProductImageItem;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -44,6 +46,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     private double mProductPrice;
     private String[] mBuyMoreList;
     private List<String> mSlidingImageList;
+    private int mSelectedQuantity = 1;
 
     public ProductDetailFragment(String productId) {
         mProductId = productId;
@@ -86,6 +89,19 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
         ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.addToBagTextView) {
+            AddToCartRequest request = new AddToCartRequest();
+            request.setProductId(mProductDetailResponse.getProductId());
+            request.setUserId(getStringDataFromSharedPref(Constants.USER_ID));
+            request.setProductQuantity(String.valueOf(mSelectedQuantity));
+            request.setProductImage(mProductDetailResponse.getProductImage());
+            request.setProductName(mProductDetailResponse.getProductName());
+            addToCartServerCall(request);
+        }
     }
 
     private void fetchProductDetail() {
@@ -151,6 +167,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
         switch (id) {
             case R.id.buyOneRadioButton:
+                mSelectedQuantity = 1;
                 yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), mProductPrice));
                 break;
             case R.id.buyMoreRadioButton:
@@ -162,9 +179,18 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     @Override
     protected void onAlertDialogItemClicked(String selectedStr, int id, int position) {
         if (id == R.id.buyMoreRadioButton) {
+            mSelectedQuantity = position + 1;
             buyMoreRadioButton.setText(mBuyMoreList[position]);
-            double payAmount = mProductPrice * (position + 1);
+            double payAmount = mProductPrice * mSelectedQuantity;
             yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), payAmount));
+        }
+    }
+
+    @Override
+    protected void onUpdatedAddToCartResponse(CommonResponse response) {
+        showToast(response.getErrorMessage());
+        if (Constants.SUCCESS.equalsIgnoreCase(response.getErrorCode())) {
+            showToast(response.toString());
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.smilyhome.css.activities.retrofit;
 
+import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
@@ -35,4 +36,7 @@ public interface IAppServices {
 
     @POST("latestuploading.php")
     Call<ProductResponse> fetchLatestProductServerCall();
+
+    @POST("addtocart.php")
+    Call<CommonResponse> addToCartServerCall(@Body AddToCartRequest request);
 }

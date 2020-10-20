@@ -17,9 +17,11 @@ public class RetrofitApi {
 
     private static final String BASE_URL_USER = "https://smilyhome.in/appapi/usrapi/data/";
     private static final String BASE_URL_PRODUCT = "https://smilyhome.in/appapi/shapi/data/";
+    private static final String BASE_URL_DATA = "https://smilyhome.in/appapi/igetapi/data/";
 
     private static IAppServices sAppServices = null;
     private static IAppServices sAppServicesProduct = null;
+    private static IAppServices sAppServicesData = null;
 
     public static IAppServices getAppServicesObject() {
         if (null == sAppServices) {
@@ -49,5 +51,20 @@ public class RetrofitApi {
             sAppServicesProduct = retrofit.create(IAppServices.class);
         }
         return sAppServicesProduct;
+    }
+
+    public static IAppServices getAppServicesObjectForData() {
+        if (null == sAppServicesData) {
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.level(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).protocols(Util.immutableListOf(Protocol.HTTP_1_1)).build();
+            Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL_DATA)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+            sAppServicesData = retrofit.create(IAppServices.class);
+        }
+        return sAppServicesData;
     }
 }

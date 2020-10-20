@@ -20,7 +20,9 @@ import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.MainActivity;
 import com.smilyhome.css.activities.Utility;
+import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
+import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.models.response.ProductItem;
 import com.smilyhome.css.activities.models.response.ProductResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -122,6 +124,36 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
+    protected void addToCartServerCall(AddToCartRequest request) {
+        showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Call<CommonResponse> call = RetrofitApi.getAppServicesObjectForData().addToCartServerCall(request);
+                    final Response<CommonResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<CommonResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    CommonResponse addToCartResponse = response.body();
+                    if (addToCartResponse != null) {
+                        onUpdatedAddToCartResponse(addToCartResponse);
+                    }
+                }
+            }
+        }).start();
+    }
+
+    protected void onUpdatedAddToCartResponse(CommonResponse response) {
+    }
+
     void fetchProductsServerCall(int mode) {
         new Thread(new Runnable() {
             @Override
@@ -194,7 +226,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     protected void onProductUpdated(List<ProductItem> productItemList, int mode) {
-
     }
 
     public boolean onBackPressed() {
@@ -242,6 +273,5 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     protected void onAlertDialogItemClicked(String selectedStr, int id, int position) {
-
     }
 }
