@@ -224,7 +224,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         fetchLatestProductServerCall(Constants.HomeScreenProductMode.WHAT_S_NEW);
     }
 
-    public class HotDealsAdapter extends RecyclerView.Adapter<HotDealsAdapter.HotDealsAdapterViewHolder> {
+    private class HotDealsAdapter extends RecyclerView.Adapter<HotDealsAdapter.HotDealsAdapterViewHolder> {
 
         private List<ProductItem> productItemList = new ArrayList<>();
 
@@ -385,6 +385,8 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 super(itemView);
                 productImageView = itemView.findViewById(R.id.productImageView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
+                View categoryContainer = itemView.findViewById(R.id.categoryContainer);
+                categoryContainer.setOnClickListener(view -> launchFragment(new CategoryProductFragment(mCategoryList.get(getAdapterPosition()).getId()), true));
             }
         }
     }

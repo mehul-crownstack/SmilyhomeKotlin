@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.text.Html;
 import android.util.Base64;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -27,7 +26,7 @@ public class Utility {
         return !isEmpty(text);
     }
 
-    public static boolean isEmpty(EditText view) {
+    public static boolean isEmpty(TextView view) {
         return (view == null || "".equals(view.getText().toString()) || view.getText().toString().isEmpty());
     }
 
@@ -39,17 +38,17 @@ public class Utility {
         return !(isEmpty(list));
     }
 
-    public static String toCamelCase(final String init) {
-        if (init == null) {
+    public static String toCamelCase(String str) {
+        if (isEmpty(str)) {
             return "";
         }
-        final StringBuilder ret = new StringBuilder(init.length());
-        for (final String word : init.split(" ")) {
+        final StringBuilder ret = new StringBuilder(str.length());
+        for (final String word : str.split(" ")) {
             if (!word.isEmpty()) {
                 ret.append(Character.toUpperCase(word.charAt(0)));
                 ret.append(word.substring(1).toLowerCase());
             }
-            if (!(ret.length() == init.length())) {
+            if (!(ret.length() == str.length())) {
                 ret.append(" ");
             }
         }
@@ -96,6 +95,9 @@ public class Utility {
     }
 
     public static void writeHtmlCode(String msg, TextView textView) {
+        if (isEmpty(msg) || isEmpty(textView)) {
+            return;
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             textView.setText(Html.fromHtml(msg, Html.FROM_HTML_MODE_COMPACT));
         } else {
@@ -119,6 +121,9 @@ public class Utility {
     }
 
     public static void writeStrikeOffText(TextView textView) {
+        if (isEmpty(textView)) {
+            return;
+        }
         textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 

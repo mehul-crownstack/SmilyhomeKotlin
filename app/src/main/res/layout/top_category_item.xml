@@ -8,15 +8,16 @@
     android:onClick="onClick">
 
     <LinearLayout
+        android:id="@+id/categoryContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_1sdp"
-        android:paddingTop="@dimen/_2sdp"
-        android:minWidth="@dimen/_120sdp"
-        android:gravity="center_horizontal"
         android:background="@drawable/grey_gradient"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:minWidth="@dimen/_120sdp"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_2sdp">
 
         <ImageView
             android:id="@+id/productImageView"
@@ -36,10 +37,10 @@
             android:gravity="center"
             android:maxLines="2"
             android:minLines="2"
+            android:paddingBottom="@dimen/_2sdp"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingStart="@dimen/_5sdp"
             android:paddingTop="@dimen/_3sdp"
-            android:paddingBottom="@dimen/_2sdp"
             android:text="@string/sample_category_name"
             android:textSize="@dimen/_12sdp" />
 

@@ -147,7 +147,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                             productPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductPrice()));
                             productDiscountPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductSalePrice()));
                             Utility.writeStrikeOffText(productPriceTextView);
-                            mProductPrice = Double.parseDouble(mProductDetailResponse.getProductSalePrice());
+                            mProductPrice = Double.parseDouble(Utility.isEmpty(mProductDetailResponse.getProductSalePrice()) ? "0" : mProductDetailResponse.getProductSalePrice());
                             buyOneRadioButton.setText(String.format("Buy 1 for %s %s", getString(R.string.currency), mProductPrice));
                             yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), mProductPrice));
                             productDiscountTextView.setText(mProductDetailResponse.getProductDiscount().concat("% off"));

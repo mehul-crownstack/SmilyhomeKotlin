@@ -1,6 +1,7 @@
 package com.smilyhome.css.activities.retrofit;
 
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
+import com.smilyhome.css.activities.models.requests.CategoryProductRequest;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.requests.DeleteProductRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
@@ -47,4 +48,7 @@ public interface IAppServices {
 
     @POST("deletefromcart.php")
     Call<MyCartResponse> deleteItemFromCartServerCall(@Body DeleteProductRequest request);
+
+    @POST("productbymaincat.php")
+    Call<ProductResponse> fetchCategoryProductsServerCall(@Body CategoryProductRequest request);
 }
