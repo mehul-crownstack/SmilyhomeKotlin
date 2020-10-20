@@ -27,7 +27,7 @@
     <string name="menu">Menu</string>
     <string name="home">Home</string>
     <string name="wallet">Wallet</string>
-    <string name="cart">Cart</string>
+    <string name="my_cart"> My Cart</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
     <string name="share_earn"><![CDATA[Share & Earn]]></string>
@@ -42,4 +42,6 @@
     <string name="buy_more">Buy More</string>
     <string name="your_total_pay">Your Total Pay :</string>
     <string name="free_deliver_cash_on_delivery_available"><![CDATA[Free Deliver & Cash on Delivery available]]></string>
+    <string name="product_detail">Product Detail</string>
+    <string name="continue_shopping">Continue Shopping</string>
 </resources>

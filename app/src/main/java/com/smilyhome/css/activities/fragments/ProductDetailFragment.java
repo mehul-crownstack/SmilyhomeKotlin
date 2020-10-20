@@ -58,8 +58,14 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         mContentView = inflater.inflate(R.layout.fragment_product_detail, container, false);
         setupToolbarUI();
         setupUI();
-        showBottomNavigationView(false);
         return mContentView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showBottomNavigationView(true);
+        navigationItemClick(1);
     }
 
     private void setupUI() {
@@ -86,7 +92,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         ToolBarManager.getInstance().hideToolBar(mActivity, false);
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
-        ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
+        ToolBarManager.getInstance().setHeaderTitle(getString(R.string.product_detail));
         ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }

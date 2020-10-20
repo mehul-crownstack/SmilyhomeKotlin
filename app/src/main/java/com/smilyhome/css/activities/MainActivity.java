@@ -33,6 +33,7 @@ import com.smilyhome.css.activities.adapters.BottomSheetAdapter;
 import com.smilyhome.css.activities.fragments.BaseFragment;
 import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
+import com.smilyhome.css.activities.fragments.MyCartFragment;
 import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
@@ -228,14 +229,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             case R.id.nav_home:
                 if (!(currentFragment instanceof HomeScreenFragment)) {
-                    showToast(getString(R.string.home));
+                    launchFragment(new HomeScreenFragment(), true);
                 }
                 break;
             case R.id.nav_wallet:
                 showToast(getString(R.string.wallet));
                 break;
             case R.id.nav_cart:
-                showToast(getString(R.string.cart));
+                if (!(currentFragment instanceof MyCartFragment)) {
+                    launchFragment(new MyCartFragment(), true);
+                }
                 break;
             case R.id.nav_profile:
                 showToast(getString(R.string.profile));
@@ -291,8 +294,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     recyclerView.setAdapter(adapter);
                     mBottomSheetDialog.setContentView(bottomSheetView);
                     mBottomSheetDialog.show();
-
-
                     break;
                 case 1:
                     break;
