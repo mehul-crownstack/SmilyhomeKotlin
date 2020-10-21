@@ -6,7 +6,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -21,7 +20,9 @@ import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
+import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
+import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductCategoryResponse;
 import com.smilyhome.css.activities.models.response.ProductItem;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -266,7 +267,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             private TextView productDiscountPriceTextView;
             private TextView productDiscountTextView;
             private ImageView productImageView;
-            private Button buyTextView;
 
             public HotDealsAdapterViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -276,11 +276,20 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
-                buyTextView = itemView.findViewById(R.id.buyTextView);
+                TextView buyTextView = itemView.findViewById(R.id.buyTextView);
                 productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDescriptionTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                buyTextView.setOnClickListener(view -> {
+                    AddToCartRequest request = new AddToCartRequest();
+                    request.setProductId(productItemList.get(getAdapterPosition()).getId());
+                    request.setUserId(getStringDataFromSharedPref(Constants.USER_ID));
+                    request.setProductQuantity("1");
+                    request.setProductImage(productItemList.get(getAdapterPosition()).getImage());
+                    request.setProductName(productItemList.get(getAdapterPosition()).getProductName());
+                    addToCartServerCall(request);
+                });
             }
         }
     }
@@ -324,7 +333,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
             private TextView productPriceTextView;
             private TextView productDiscountPriceTextView;
             private TextView productDiscountTextView;
-            private TextView buyTextView;
 
             public AajKaOfferAdapterViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -333,12 +341,18 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
-                buyTextView = itemView.findViewById(R.id.buyTextView);
+                TextView buyTextView = itemView.findViewById(R.id.buyTextView);
                 productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 buyTextView.setOnClickListener(view -> {
-                    showToast("buy now clicked");
+                    AddToCartRequest request = new AddToCartRequest();
+                    request.setProductId(productItemList.get(getAdapterPosition()).getId());
+                    request.setUserId(getStringDataFromSharedPref(Constants.USER_ID));
+                    request.setProductQuantity("1");
+                    request.setProductImage(productItemList.get(getAdapterPosition()).getImage());
+                    request.setProductName(productItemList.get(getAdapterPosition()).getProductName());
+                    addToCartServerCall(request);
                 });
             }
         }
@@ -390,5 +404,10 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 categoryContainer.setOnClickListener(view -> launchFragment(new CategoryProductFragment(mCategoryList.get(getAdapterPosition()).getId()), true));
             }
         }
+    }
+
+    @Override
+    protected void onUpdatedAddToCartResponse(MyCartResponse response) {
+        showToast(response.getErrorMessage());
     }
 }

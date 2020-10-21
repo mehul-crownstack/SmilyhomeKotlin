@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
+import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.CategoryProductRequest;
 import com.smilyhome.css.activities.models.response.ProductItem;
 import com.smilyhome.css.activities.models.response.ProductResponse;
@@ -140,7 +141,6 @@ public class CategoryProductFragment extends BaseFragment {
             private TextView productDiscountPriceTextView;
             private TextView productDiscountTextView;
             private ImageView productImageView;
-            private Button buyTextView;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -150,11 +150,20 @@ public class CategoryProductFragment extends BaseFragment {
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
-                buyTextView = itemView.findViewById(R.id.buyTextView);
+                TextView buyTextView = itemView.findViewById(R.id.buyTextView);
                 productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDescriptionTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                buyTextView.setOnClickListener(view -> {
+                    AddToCartRequest request = new AddToCartRequest();
+                    request.setProductId(productItemList.get(getAdapterPosition()).getId());
+                    request.setUserId(getStringDataFromSharedPref(Constants.USER_ID));
+                    request.setProductQuantity("1");
+                    request.setProductImage(productItemList.get(getAdapterPosition()).getImage());
+                    request.setProductName(productItemList.get(getAdapterPosition()).getProductName());
+                    addToCartServerCall(request);
+                });
             }
         }
     }

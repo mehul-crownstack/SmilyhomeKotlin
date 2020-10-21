@@ -52,4 +52,10 @@
     <string name="cancel">Cancel</string>
     <string name="remove_product_msg">Do you want to remove this product?</string>
     <string name="product_features">Product Features</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="mrp">MRP</string>
+    <string name="product_discount">Product Discount</string>
+    <string name="my_earning_discount">My Earning Discount</string>
+    <string name="delivery_charges">Delivery Charges</string>
 </resources>

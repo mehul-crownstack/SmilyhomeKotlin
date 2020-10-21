@@ -29,6 +29,12 @@ import java.util.List;
 public class MyCartFragment extends BaseFragment {
 
     private MyCartAdapter mCartAdapter;
+    private TextView cartMessageTextView;
+    private TextView mrpTextView;
+    private TextView productDiscountTextView;
+    private TextView earningDiscountTextView;
+    private TextView deliveryChargesTextView;
+    private TextView totalAmountToPayTextView;
 
     @Nullable
     @Override
@@ -40,12 +46,27 @@ public class MyCartFragment extends BaseFragment {
     }
 
     private void setupUI() {
+        mrpTextView = mContentView.findViewById(R.id.mrpTextView);
+        productDiscountTextView = mContentView.findViewById(R.id.productDiscountTextView);
+        earningDiscountTextView = mContentView.findViewById(R.id.earningDiscountTextView);
+        deliveryChargesTextView = mContentView.findViewById(R.id.deliveryChargesTextView);
+        totalAmountToPayTextView = mContentView.findViewById(R.id.totalAmountToPayTextView);
         RecyclerView cartRecyclerView = mContentView.findViewById(R.id.cartRecyclerView);
+        cartMessageTextView = mContentView.findViewById(R.id.cartMessageTextView);
         mCartAdapter = new MyCartAdapter();
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         cartRecyclerView.setAdapter(mCartAdapter);
         showProgress();
         fetchMyCartServerCall();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.continueShoppingTextView:
+                launchFragment(new HomeScreenFragment(), false);
+                break;
+        }
     }
 
     private void setupToolbarUI() {
@@ -61,6 +82,12 @@ public class MyCartFragment extends BaseFragment {
     protected void onMyCartResponse(MyCartResponse myCartResponse) {
         showToast(myCartResponse.getErrorMessage());
         if (Constants.SUCCESS.equalsIgnoreCase(myCartResponse.getErrorCode())) {
+            mrpTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalMrp()));
+            productDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getProductDiscount()));
+            earningDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getEarningDiscount()));
+            deliveryChargesTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getDeliveryCharges()));
+            totalAmountToPayTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalPaybleAmount()));
+            Utility.writeHtmlCode(myCartResponse.getDisplayMessage(), cartMessageTextView);
             List<CartItem> list = myCartResponse.getCartItemList();
             mCartAdapter.setProductItemList(list);
             mCartAdapter.notifyDataSetChanged();
@@ -122,7 +149,9 @@ public class MyCartFragment extends BaseFragment {
             holder.productNameTextView.setText(item.getProductName());
             holder.productPriceTextView.setText(getString(R.string.currency).concat(item.getProductPrice()));
             holder.productDiscountPriceTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
-            holder.yourPayTextView.setText(getString(R.string.currency).concat(item.getProductSalePrice()));
+            double salePrice = Double.parseDouble(Utility.isNotEmpty(item.getProductSalePrice()) ? item.getProductSalePrice() : "0");
+            double quantity = Double.parseDouble(Utility.isNotEmpty(quantityCount) ? quantityCount : "0");
+            holder.yourPayTextView.setText(String.format("%s %s", getString(R.string.currency), salePrice * quantity));
             holder.productDiscountTextView.setText(item.getProductDiscount().concat("% off"));
             Utility.writeStrikeOffText(holder.productPriceTextView);
             Picasso.get().load(item.getImage()).placeholder(R.drawable.default_image).into(holder.productImageView);

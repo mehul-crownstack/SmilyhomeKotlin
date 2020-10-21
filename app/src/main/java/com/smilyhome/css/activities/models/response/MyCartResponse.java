@@ -8,7 +8,7 @@ import java.util.List;
 public class MyCartResponse extends CommonResponse {
 
     @SerializedName("totalMrp")
-    private String totalMrp = "";
+    private String mTotalMrp = "";
     @SerializedName("paybleAmount")
     private String paybleAmount = "";
     @SerializedName("productDiscount")
@@ -19,11 +19,17 @@ public class MyCartResponse extends CommonResponse {
     private String deliveryCharges = "";
     @SerializedName("totalPaybleAmount")
     private String totalPaybleAmount = "";
+    @SerializedName("displayMessage")
+    private String displayMessage = "";
     @SerializedName("data")
     private List<CartItem> mCartItemList = new ArrayList<>();
 
+    public String getDisplayMessage() {
+        return displayMessage;
+    }
+
     public String getTotalMrp() {
-        return totalMrp;
+        return mTotalMrp;
     }
 
     public String getPaybleAmount() {

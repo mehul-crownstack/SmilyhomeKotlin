@@ -118,6 +118,10 @@
                     android:id="@+id/topCategoryRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/top_category_item"
                     android:layout_marginTop="@dimen/_5sdp" />
 
             </LinearLayout>

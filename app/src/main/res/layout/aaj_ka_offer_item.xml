@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/_2sdp"
             android:background="@drawable/grey_gradient">
 
-            <Button
+            <TextView
                 android:id="@+id/buyTextView"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_18sdp"
