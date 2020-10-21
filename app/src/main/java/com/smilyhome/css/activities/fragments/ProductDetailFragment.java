@@ -9,6 +9,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
@@ -20,6 +22,7 @@ import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
 import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
+import com.smilyhome.css.activities.models.response.ProductFeatureItem;
 import com.smilyhome.css.activities.models.response.ProductImageItem;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -40,13 +43,14 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     private TextView productDiscountPriceTextView;
     private TextView productDiscountTextView;
     private TextView yourPayTextView;
+    private TextView productDisclaimerTextView;
     private RadioButton buyOneRadioButton;
     private RadioButton buyMoreRadioButton;
-    private RadioGroup buyRadioGroup;
     private double mProductPrice;
     private String[] mBuyMoreList;
     private List<String> mSlidingImageList;
     private int mSelectedQuantity = 1;
+    private RecyclerView featuresRecyclerView;
 
     public ProductDetailFragment(String productId) {
         mProductId = productId;
@@ -78,13 +82,15 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         productNameTextView = mContentView.findViewById(R.id.productNameTextView);
         buyOneRadioButton = mContentView.findViewById(R.id.buyOneRadioButton);
         buyMoreRadioButton = mContentView.findViewById(R.id.buyMoreRadioButton);
-        buyRadioGroup = mContentView.findViewById(R.id.buyRadioGroup);
+        productDisclaimerTextView = mContentView.findViewById(R.id.productDisclaimerTextView);
+        RadioGroup buyRadioGroup = mContentView.findViewById(R.id.buyRadioGroup);
         buyRadioGroup.setOnCheckedChangeListener(this);
         viewPager.setAdapter(mSlidingImageAdapter);
         CirclePageIndicator indicator = mContentView.findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
         fetchProductDetail();
         buyOneRadioButton.setChecked(true);
+        featuresRecyclerView = mContentView.findViewById(R.id.featuresRecyclerView);
     }
 
     private void setupToolbarUI() {
@@ -144,6 +150,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                             mSlidingImageAdapter.notifyDataSetChanged();
                             Utility.writeHtmlCode(mProductDetailResponse.getProductDescription(), productDescriptionTextView);
                             Utility.writeHtmlCode(mProductDetailResponse.getProductName(), productNameTextView);
+                            Utility.writeHtmlCode(mProductDetailResponse.getProductDisclaimer(), productDisclaimerTextView);
                             productPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductPrice()));
                             productDiscountPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductSalePrice()));
                             Utility.writeStrikeOffText(productPriceTextView);
@@ -157,10 +164,31 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                                 "Buy 4 for " + getString(R.string.currency) + (4 * mProductPrice),
                                 "Buy 5 for " + getString(R.string.currency) + (5 * mProductPrice)};
                         }
+                        TextView expressDeliveryTextView = mContentView.findViewById(R.id.expressDeliveryTextView);
+                        Utility.writeHtmlCode(mProductDetailResponse.getExpressDelivery(), expressDeliveryTextView);
+                        TextView standardDeliveryTextView = mContentView.findViewById(R.id.standardDeliveryTextView);
+                        Utility.writeHtmlCode(mProductDetailResponse.getStandardDelivery(), standardDeliveryTextView);
+                        setupFeatureRecyclerView(mProductDetailResponse);
                     }
                 }
             }
         }).start();
+    }
+
+    private void setupFeatureRecyclerView(ProductDetailResponse response) {
+        List<ProductFeatureItem> featureItemList = new ArrayList<>();
+        if (Utility.isNotEmpty(response.getProductDataSize())) {
+            featureItemList.addAll(response.getProductDataSize());
+        }
+        if (Utility.isNotEmpty(response.getProductDataAttribute())) {
+            featureItemList.addAll(response.getProductDataAttribute());
+        }
+        FeaturesAdapter adapter = new FeaturesAdapter();
+        LinearLayoutManager manager = new LinearLayoutManager(mActivity);
+        featuresRecyclerView.setLayoutManager(manager);
+        featuresRecyclerView.setAdapter(adapter);
+        adapter.setFeatureList(featureItemList);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -194,5 +222,46 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     @Override
     protected void onUpdatedAddToCartResponse(MyCartResponse response) {
         showToast(response.getErrorMessage());
+    }
+
+    private static class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.TopCategoryViewHolder> {
+
+        private List<ProductFeatureItem> mFeatureList = new ArrayList<>();
+
+        public void setFeatureList(List<ProductFeatureItem> featureList) {
+            mFeatureList = featureList;
+        }
+
+        @NonNull
+        @Override
+        public FeaturesAdapter.TopCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            View view = layoutInflater.inflate(R.layout.product_features_item, parent, false);
+            return new FeaturesAdapter.TopCategoryViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull FeaturesAdapter.TopCategoryViewHolder holder, int position) {
+            ProductFeatureItem item = mFeatureList.get(position);
+            Utility.writeHtmlCode(item.getFeatureLabel(), holder.featureLabelTextView);
+            Utility.writeHtmlCode(item.getFeatureValue(), holder.featureValueTextView);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mFeatureList.size();
+        }
+
+        private static class TopCategoryViewHolder extends RecyclerView.ViewHolder {
+
+            private TextView featureLabelTextView;
+            private TextView featureValueTextView;
+
+            public TopCategoryViewHolder(@NonNull View itemView) {
+                super(itemView);
+                featureLabelTextView = itemView.findViewById(R.id.featureLabelTextView);
+                featureValueTextView = itemView.findViewById(R.id.featureValueTextView);
+            }
+        }
     }
 }

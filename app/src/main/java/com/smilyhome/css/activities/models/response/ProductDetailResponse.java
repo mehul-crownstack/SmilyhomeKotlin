@@ -33,6 +33,18 @@ public class ProductDetailResponse extends CommonResponse {
     private String mProductDescription = "";
     @SerializedName("dataImages")
     List<ProductImageItem> mProductImagesList = new ArrayList<>();
+    @SerializedName("dataSize")
+    List<ProductFeatureItem> mProductDataSize = new ArrayList<>();
+    @SerializedName("dataAttribute")
+    List<ProductFeatureItem> mProductDataAttribute = new ArrayList<>();
+
+    public List<ProductFeatureItem> getProductDataSize() {
+        return mProductDataSize;
+    }
+
+    public List<ProductFeatureItem> getProductDataAttribute() {
+        return mProductDataAttribute;
+    }
 
     public String getProductDisclaimer() {
         return mProductDisclaimer;
