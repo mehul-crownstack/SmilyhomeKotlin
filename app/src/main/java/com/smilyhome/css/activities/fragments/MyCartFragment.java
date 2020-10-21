@@ -44,6 +44,7 @@ public class MyCartFragment extends BaseFragment {
         mCartAdapter = new MyCartAdapter();
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         cartRecyclerView.setAdapter(mCartAdapter);
+        showProgress();
         fetchMyCartServerCall();
     }
 
@@ -89,6 +90,7 @@ public class MyCartFragment extends BaseFragment {
                 if (response.isSuccessful()) {
                     MyCartResponse myCartResponse = response.body();
                     if (myCartResponse != null) {
+                        mActivity.setCountOnCartIcon(myCartResponse.getCartItemList().size());
                         onMyCartResponse(myCartResponse);
                     }
                 }

@@ -19,6 +19,9 @@ public class SplashActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         TextView appVersionTextView = findViewById(R.id.appVersionTextView);
         appVersionTextView.setText("v".concat(BuildConfig.VERSION_NAME));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();

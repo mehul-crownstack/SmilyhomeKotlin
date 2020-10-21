@@ -49,6 +49,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         super.onStart();
         showBottomNavigationView(true);
         navigationItemClick(1);
+        fetchMyCartServerCall();
     }
 
     @Nullable

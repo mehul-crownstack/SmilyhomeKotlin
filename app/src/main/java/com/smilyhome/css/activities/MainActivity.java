@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar toolbarLayout = findViewById(R.id.toolbarLayout);
         ToolBarManager.getInstance().setupToolbar(toolbarLayout);
@@ -355,5 +358,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }).start();
+    }
+
+    public void setCountOnCartIcon(int count) {
+        bottomNavigationView.getOrCreateBadge(R.id.nav_cart).setNumber(count);
     }
 }

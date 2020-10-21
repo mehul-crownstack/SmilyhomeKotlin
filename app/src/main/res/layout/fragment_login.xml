@@ -101,6 +101,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/colorWhite"
                     android:drawablePadding="@dimen/_10sdp"
                     android:hint="@string/enter_6_digit_otp_here"
                     android:inputType="number"
@@ -153,6 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/_10sdp"
+                    android:background="@color/colorWhite"
                     android:hint="@string/mobile_number"
                     android:inputType="number"
                     android:maxLength="@integer/mobile_length" />
@@ -172,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/name_login_dot"
                     android:drawablePadding="@dimen/_10sdp"
+                    android:background="@color/colorWhite"
                     android:hint="@string/name"
                     android:inputType="textPersonName"
                     android:maxLength="@integer/name_length" />
@@ -186,6 +190,7 @@
         android:id="@+id/loginContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         card_view:constraint_referenced_ids="cardView,generateOtpTextView" />
 
     <androidx.constraintlayout.widget.Group

@@ -149,6 +149,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     MyCartResponse addToCartResponse = response.body();
                     if (addToCartResponse != null) {
+                        mActivity.setCountOnCartIcon(addToCartResponse.getCartItemList().size());
                         onUpdatedAddToCartResponse(addToCartResponse);
                     }
                 }
@@ -157,7 +158,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     protected void fetchMyCartServerCall() {
-        showProgress();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -176,6 +176,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     MyCartResponse myCartResponse = response.body();
                     if (myCartResponse != null) {
+                        mActivity.setCountOnCartIcon(myCartResponse.getCartItemList().size());
                         onMyCartResponse(myCartResponse);
                     }
                 }
