@@ -35,6 +35,7 @@ public class MyCartFragment extends BaseFragment {
     private TextView earningDiscountTextView;
     private TextView deliveryChargesTextView;
     private TextView totalAmountToPayTextView;
+    private MyCartResponse mCartResponse;
 
     @Nullable
     @Override
@@ -66,6 +67,9 @@ public class MyCartFragment extends BaseFragment {
             case R.id.continueShoppingTextView:
                 launchFragment(new HomeScreenFragment(), false);
                 break;
+            case R.id.addToBagTextView:
+                launchFragment(new OrderConfirmationFragment(mCartResponse), true);
+                break;
         }
     }
 
@@ -82,6 +86,7 @@ public class MyCartFragment extends BaseFragment {
     protected void onMyCartResponse(MyCartResponse myCartResponse) {
         showToast(myCartResponse.getErrorMessage());
         if (Constants.SUCCESS.equalsIgnoreCase(myCartResponse.getErrorCode())) {
+            mCartResponse = myCartResponse;
             mrpTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalMrp()));
             productDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getProductDiscount()));
             earningDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getEarningDiscount()));
