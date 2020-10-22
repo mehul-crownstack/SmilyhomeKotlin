@@ -32,12 +32,32 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
         return mContentView;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.placeOrderTextView:
+            case R.id.onlineOrderContainer:
+                if (mIsCodSelected) {
+                    showToast("COD Initiated");
+                } else {
+                    mActivity.startPayment(totalAmount);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onTransactionResponse(String txnId) {
+        showToast("Payment done successfully " + txnId);
+    }
+
     private void setupUI() {
         TextView orderSummaryHeading = mContentView.findViewById(R.id.orderSummaryHeading);
         onlineCheckBox = mContentView.findViewById(R.id.onlineCheckBox);
         codCheckBox = mContentView.findViewById(R.id.codCheckBox);
         codCheckBox.setOnCheckedChangeListener(this);
         onlineCheckBox.setOnCheckedChangeListener(this);
+        onlineCheckBox.setChecked(true);
         orderSummaryHeading.setText(String.format("Total amount to pay %s%s", getString(R.string.currency), totalAmount));
     }
 

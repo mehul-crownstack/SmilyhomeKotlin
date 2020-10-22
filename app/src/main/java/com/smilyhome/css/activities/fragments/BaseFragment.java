@@ -317,6 +317,9 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         alertDialog.show();
     }
 
+    public void onTransactionResponse(String txnId) {
+    }
+
     protected void onAlertDialogItemClicked(String selectedStr, int id, int position) {
     }
 }

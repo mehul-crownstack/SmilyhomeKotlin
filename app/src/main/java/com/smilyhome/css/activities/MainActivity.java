@@ -28,6 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+import com.smilyhome.css.BuildConfig;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.adapters.BottomSheetAdapter;
 import com.smilyhome.css.activities.fragments.BaseFragment;
@@ -40,16 +43,18 @@ import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
 import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
+import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static com.smilyhome.css.activities.Constants.SHARED_PREF_NAME;
 import static com.smilyhome.css.activities.Constants.USER_ID;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, IBottomNavigationItemClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, IBottomNavigationItemClickListener, PaymentResultListener {
 
     private BottomNavigationView bottomNavigationView;
     private List<String> mBottomNavigationList = new ArrayList<>();
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Manifest.permission.RECEIVE_SMS
     };
     private static final String TAG = "MainActivity";
+    private Checkout mCheckoutInstance = new Checkout();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!checkPermission()) {
             requestPermission();
         }
+        mCheckoutInstance.setImage(R.drawable.app_icon);
+        Checkout.preload(this);
         SharedPreferences prefs = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
         if (Utility.isNotEmpty(prefs.getString(USER_ID, ""))) {
             launchFragment(new HomeScreenFragment(), true);
@@ -362,5 +370,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setCountOnCartIcon(int count) {
         bottomNavigationView.getOrCreateBadge(R.id.nav_cart).setNumber(count);
+    }
+
+    public void startPayment(String amount) {
+        if (BuildConfig.DEBUG) {
+            mCheckoutInstance.setKeyID("rzp_test_x9JZRqkA1akOFR");
+        } else {
+            mCheckoutInstance.setKeyID("rzp_live_ijj4PoFg4l6sD7");
+        }
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", getString(R.string.app_name));
+            options.put("description", "Reference No. #" + new Random(6).nextInt());
+            options.put("image", R.drawable.app_icon);
+            options.put("currency", "INR");
+            options.put("amount", String.valueOf(Utility.isEmpty(amount) ? "1" : (Double.parseDouble(amount)) * 100));
+            /*options.put("prefill.email", prefs.getString(USER_EMAIL, ""));
+            options.put("prefill.contact",mBookAppointmentRequest.getPhoneNumber());*/
+            mCheckoutInstance.open(this, options);
+        } catch (Exception e) {
+            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+        }
+    }
+
+    @Override
+    public void onPaymentSuccess(String transactionId) {
+        if (getCurrentFragment() != null) {
+            getCurrentFragment().onTransactionResponse(transactionId);
+        }
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(this, "Error " + s, Toast.LENGTH_SHORT).show();
+        if (getCurrentFragment() != null) {
+            getCurrentFragment().stopProgress();
+        }
     }
 }

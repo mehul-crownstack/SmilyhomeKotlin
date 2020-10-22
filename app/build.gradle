@@ -60,4 +60,6 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     //View pager circle indicator
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1@aar'
+    //razor-pay
+    implementation 'com.razorpay:checkout:1.5.16'
 }

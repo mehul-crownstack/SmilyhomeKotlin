@@ -321,7 +321,7 @@
             android:onClick="onClick"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingStart="@dimen/_10sdp"
-            android:text="@string/buy_now"
+            android:text="@string/buy"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="@id/continueShoppingTextView"
