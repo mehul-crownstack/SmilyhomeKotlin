@@ -248,10 +248,11 @@
                 android:id="@+id/noAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_2sdp"
                 android:paddingEnd="@dimen/_5sdp"
                 android:paddingStart="@dimen/_10sdp"
-                android:paddingTop="@dimen/_5sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/please_fill_your_address"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_11sdp"
@@ -259,7 +260,37 @@
                 app:layout_constraintTop_toBottomOf="@id/cartMessageCongratulationTextView" />
 
             <TextView
-                android:id="@+id/addToBagTextView"
+                android:id="@+id/zipCodeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_2sdp"
+                android:paddingEnd="@dimen/_5sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="@string/sample_category_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/noAddress" />
+
+            <TextView
+                android:id="@+id/fullAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_2sdp"
+                android:paddingEnd="@dimen/_5sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="@string/sample_category_desc"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zipCodeTextView" />
+
+            <TextView
+                android:id="@+id/addAddressTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="@drawable/buy_button_bg"
@@ -272,9 +303,9 @@
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/noAddress"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintStart_toEndOf="@+id/noAddress"
-                app:layout_constraintTop_toBottomOf="@+id/cartMessageCongratulationTextView" />
+                app:layout_constraintTop_toTopOf="@+id/noAddress" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

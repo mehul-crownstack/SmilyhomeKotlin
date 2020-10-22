@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,12 @@ public class OrderConfirmationFragment extends BaseFragment {
     private TextView earningDiscountTextView;
     private TextView deliveryChargesTextView;
     private TextView totalAmountToPayTextView;
+    private TextView proceedToPayTextView;
+    private boolean mIsDeliveryAvailable = false;
+    private TextView addAddressTextView;
+    private TextView zipCodeTextView;
+    private TextView fullAddressTextView;
+    private TextView nameAddress;
     private TextView zipCodeCityTextView;
     private Dialog mAddressDialog;
     private static final String TAG = "OrderConfirmation";
@@ -60,6 +67,11 @@ public class OrderConfirmationFragment extends BaseFragment {
         earningDiscountTextView = mContentView.findViewById(R.id.earningDiscountTextView);
         deliveryChargesTextView = mContentView.findViewById(R.id.deliveryChargesTextView);
         totalAmountToPayTextView = mContentView.findViewById(R.id.totalAmountToPayTextView);
+        zipCodeTextView = mContentView.findViewById(R.id.zipCodeTextView);
+        fullAddressTextView = mContentView.findViewById(R.id.fullAddressTextView);
+        nameAddress = mContentView.findViewById(R.id.noAddress);
+        proceedToPayTextView = mContentView.findViewById(R.id.proceedToPayTextView);
+        addAddressTextView = mContentView.findViewById(R.id.addAddressTextView);
         mrpTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalMrp()));
         productDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getProductDiscount()));
         earningDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getEarningDiscount()));
@@ -101,7 +113,14 @@ public class OrderConfirmationFragment extends BaseFragment {
             case R.id.cancel:
                 closeAddressDialog();
                 break;
-            case R.id.addToBagTextView:
+            case R.id.proceedToPayTextView:
+                if (mIsDeliveryAvailable) {
+                    showToast(getString(R.string.proceed_to_pay));
+                } else {
+                    showToast(getString(R.string.no_delivery_msg));
+                }
+                break;
+            case R.id.addAddressTextView:
                 showInsertAddressDialog();
                 break;
             default:
@@ -115,6 +134,7 @@ public class OrderConfirmationFragment extends BaseFragment {
             @Override
             public void run() {
                 try {
+                    mIsDeliveryAvailable = false;
                     Call<ZipCodeResponse> call = RetrofitApi.getAppServicesObject().fetchZipCodeServerCall(new ZipMappingRequest(zipCode));
                     final Response<ZipCodeResponse> response = call.execute();
                     updateOnUiThread(() -> handleResponse(response));
@@ -129,11 +149,14 @@ public class OrderConfirmationFragment extends BaseFragment {
                 if (response.isSuccessful()) {
                     ZipCodeResponse zipCodeResponse = response.body();
                     if (zipCodeResponse != null) {
-                        showToast(zipCodeResponse.getErrorMessage());
                         if (zipCodeResponse.getErrorCode().equalsIgnoreCase(Constants.SUCCESS)) {
+                            mIsDeliveryAvailable = true;
+                            showToast(zipCodeResponse.getErrorMessage());
                             zipCodeCityTextView.setVisibility(View.VISIBLE);
                             zipCodeCityTextView.setText(zipCodeResponse.getCity());
                         } else {
+                            showMessage(zipCodeResponse.getErrorMessage());
+                            closeAddressDialog();
                             zipCodeCityTextView.setText(null);
                             zipCodeCityTextView.setVisibility(View.GONE);
                         }
@@ -175,6 +198,7 @@ public class OrderConfirmationFragment extends BaseFragment {
                     CommonResponse commonResponse = response.body();
                     if (commonResponse != null) {
                         showToast(commonResponse.getErrorMessage());
+                        fetchUserAddressServerCall();
                     }
                 }
             }
@@ -204,7 +228,11 @@ public class OrderConfirmationFragment extends BaseFragment {
                     if (userAddressResponse != null) {
                         showToast(userAddressResponse.getErrorMessage());
                         if (Constants.SUCCESS.equalsIgnoreCase(userAddressResponse.getErrorCode())) {
-                            showToast("Address ka UI abhi banana hai");
+                            mIsDeliveryAvailable = true;
+                            zipCodeTextView.setText(String.format("Mob : %s", userAddressResponse.getUserPhone()));
+                            nameAddress.setText(userAddressResponse.getUserName());
+                            fullAddressTextView.setText(userAddressResponse.getFullAddress());
+                            addAddressTextView.setText(getString(R.string.change_address));
                         }
                     }
                 }
@@ -229,9 +257,8 @@ public class OrderConfirmationFragment extends BaseFragment {
 
     private void showInsertAddressDialog() {
         mAddressDialog = new Dialog(mActivity);
-        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mAddressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mAddressDialog.setCancelable(true);
-        mAddressDialog.setTitle(getString(R.string.add_address));
         mAddressDialog.setContentView(R.layout.dialog_add_address);
         View submit = mAddressDialog.findViewById(R.id.submit);
         View cancel = mAddressDialog.findViewById(R.id.cancel);
@@ -252,7 +279,11 @@ public class OrderConfirmationFragment extends BaseFragment {
             public void afterTextChanged(Editable editable) {
                 String text = editable.toString();
                 if (Utility.isNotEmpty(text) && text.length() == getResources().getInteger(R.integer.zip_code_length)) {
+                    hideKeyboard();
                     checkZipCodeServerCall(text);
+                } else {
+                    zipCodeCityTextView.setText(null);
+                    zipCodeCityTextView.setVisibility(View.GONE);
                 }
             }
         });

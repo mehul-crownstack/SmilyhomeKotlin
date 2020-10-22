@@ -120,6 +120,14 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         return false;
     }
 
+    protected void showMessage(String msg) {
+        new AlertDialog.Builder(mActivity)
+            .setMessage(msg)
+            .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+            .setIcon(android.R.drawable.ic_dialog_info)
+            .show();
+    }
+
     protected void launchProductDetailFragment(String productId) {
         launchFragment(new ProductDetailFragment(productId), true);
     }
