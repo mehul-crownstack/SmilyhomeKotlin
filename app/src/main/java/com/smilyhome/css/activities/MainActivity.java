@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bottomNavigationView.setSelectedItemId(R.id.nav_home);
                 break;
             case 2:
-                bottomNavigationView.setSelectedItemId(R.id.nav_wallet);
+                bottomNavigationView.setSelectedItemId(R.id.nav_my_orders);
                 break;
             case 3:
                 bottomNavigationView.setSelectedItemId(R.id.nav_cart);
@@ -236,8 +236,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     launchFragment(new HomeScreenFragment(), true);
                 }
                 break;
-            case R.id.nav_wallet:
-                showToast(getString(R.string.wallet));
+            case R.id.nav_my_orders:
+                showToast(getString(R.string.my_orders));
                 break;
             case R.id.nav_cart:
                 if (!(currentFragment instanceof MyCartFragment)) {

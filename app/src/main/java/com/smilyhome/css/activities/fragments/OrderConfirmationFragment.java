@@ -33,12 +33,6 @@ import static com.smilyhome.css.activities.Constants.USER_ID;
 public class OrderConfirmationFragment extends BaseFragment {
 
     private MyCartResponse myCartResponse;
-    private TextView mrpTextView;
-    private TextView productDiscountTextView;
-    private TextView earningDiscountTextView;
-    private TextView deliveryChargesTextView;
-    private TextView totalAmountToPayTextView;
-    private TextView proceedToPayTextView;
     private boolean mIsDeliveryAvailable = false;
     private TextView addAddressTextView;
     private TextView zipCodeTextView;
@@ -62,15 +56,14 @@ public class OrderConfirmationFragment extends BaseFragment {
     }
 
     private void setupUI() {
-        mrpTextView = mContentView.findViewById(R.id.mrpTextView);
-        productDiscountTextView = mContentView.findViewById(R.id.productDiscountTextView);
-        earningDiscountTextView = mContentView.findViewById(R.id.earningDiscountTextView);
-        deliveryChargesTextView = mContentView.findViewById(R.id.deliveryChargesTextView);
-        totalAmountToPayTextView = mContentView.findViewById(R.id.totalAmountToPayTextView);
+        TextView mrpTextView = mContentView.findViewById(R.id.mrpTextView);
+        TextView productDiscountTextView = mContentView.findViewById(R.id.productDiscountTextView);
+        TextView earningDiscountTextView = mContentView.findViewById(R.id.earningDiscountTextView);
+        TextView deliveryChargesTextView = mContentView.findViewById(R.id.deliveryChargesTextView);
+        TextView totalAmountToPayTextView = mContentView.findViewById(R.id.totalAmountToPayTextView);
         zipCodeTextView = mContentView.findViewById(R.id.zipCodeTextView);
         fullAddressTextView = mContentView.findViewById(R.id.fullAddressTextView);
         nameAddress = mContentView.findViewById(R.id.noAddress);
-        proceedToPayTextView = mContentView.findViewById(R.id.proceedToPayTextView);
         addAddressTextView = mContentView.findViewById(R.id.addAddressTextView);
         mrpTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalMrp()));
         productDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getProductDiscount()));
@@ -115,7 +108,7 @@ public class OrderConfirmationFragment extends BaseFragment {
                 break;
             case R.id.proceedToPayTextView:
                 if (mIsDeliveryAvailable) {
-                    showToast(getString(R.string.proceed_to_pay));
+                    launchFragment(new ChoosePaymentFragment(myCartResponse.getTotalPaybleAmount()), true);
                 } else {
                     showToast(getString(R.string.no_delivery_msg));
                 }

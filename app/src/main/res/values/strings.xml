@@ -26,7 +26,7 @@
     <string name="super_saver_deals">Super Saver Deals</string>
     <string name="menu">Menu</string>
     <string name="home">Home</string>
-    <string name="wallet">Wallet</string>
+    <string name="my_orders">My Orders</string>
     <string name="my_cart"> My Cart</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
@@ -68,4 +68,13 @@
     <string name="submit">Submit</string>
     <string name="change_address">Change Address</string>
     <string name="no_delivery_msg">Sorry, delivery isn\'t available</string>
+    <string name="choose_payment_option">Choose Payment Option</string>
+    <string name="google_pay">Google Pay</string>
+    <string name="phone_pay">Phone Pay</string>
+    <string name="paytm">Paytm</string>
+    <string name="popular_options">Popular Options</string>
+    <string name="pay_cash_on_delivery">Pay Cash on Delivery</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="pay_online">Pay Online</string>
+    <string name="place_order">Place Order</string>
 </resources>

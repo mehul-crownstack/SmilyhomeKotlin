@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/onlineOrderContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/grey_gradient"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:id="@+id/imageViewGooglePay"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:contentDescription="@string/image_view_content_description"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/app_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageViewPhonePay"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popularOptionsHeading"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <ImageView
+                android:id="@+id/imageViewPhonePay"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:contentDescription="@string/image_view_content_description"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/app_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewGooglePay"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewPayTm"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewGooglePay"
+                app:layout_constraintTop_toTopOf="@+id/imageViewGooglePay" />
+
+            <ImageView
+                android:id="@+id/imageViewPayTm"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:contentDescription="@string/image_view_content_description"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/app_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewPhonePay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPhonePay"
+                app:layout_constraintTop_toTopOf="@+id/imageViewPhonePay" />
+
+            <TextView
+                android:id="@+id/popularOptionsHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="@string/popular_options"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/paytm"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPayTm"
+                app:layout_constraintStart_toStartOf="@id/imageViewPayTm"
+                app:layout_constraintTop_toBottomOf="@id/imageViewPayTm" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/google_pay"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageViewGooglePay"
+                app:layout_constraintStart_toStartOf="@id/imageViewGooglePay"
+                app:layout_constraintTop_toBottomOf="@id/imageViewGooglePay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_pay"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/imageViewPhonePay"
+                app:layout_constraintStart_toStartOf="@id/imageViewPhonePay"
+                app:layout_constraintTop_toBottomOf="@id/imageViewPhonePay" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/codContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onlineOrderContainer">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_gradient"
+            android:padding="@dimen/_5sdp">
+
+            <CheckBox
+                android:id="@+id/codCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_10sdp"
+                android:drawableStart="@drawable/tick_small"
+                android:text="@string/cash_on_delivery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/codHeading"
+                app:layout_constraintTop_toBottomOf="@+id/codHeading" />
+
+            <TextView
+                android:id="@+id/codHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="@string/pay_cash_on_delivery"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/onlineContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/codContainer">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_gradient"
+            android:padding="@dimen/_5sdp">
+
+            <CheckBox
+                android:id="@+id/onlineCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_10sdp"
+                android:drawableStart="@drawable/tick_small"
+                android:text="@string/pay_online"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/payOnlineHeading"
+                app:layout_constraintTop_toBottomOf="@id/payOnlineHeading" />
+
+            <TextView
+                android:id="@+id/payOnlineHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="@string/pay_online"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/proceedToPayContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderSummaryHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="@dimen/_5sdp"
+                android:gravity="center"
+                android:paddingEnd="@dimen/_5sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:text="@string/order_summary"
+                android:textColor="@color/theme_green_dark"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/placeOrderTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:background="@drawable/buy_button_bg"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:paddingEnd="@dimen/_10sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:text="@string/place_order"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
