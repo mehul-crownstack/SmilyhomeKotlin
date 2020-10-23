@@ -150,7 +150,8 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                             mSlidingImageAdapter.notifyDataSetChanged();
                             Utility.writeHtmlCode(mProductDetailResponse.getProductDescription(), productDescriptionTextView);
                             Utility.writeHtmlCode(mProductDetailResponse.getProductName(), productNameTextView);
-                            Utility.writeHtmlCode(mProductDetailResponse.getProductDisclaimer(), productDisclaimerTextView);
+                            String disclaimerText = "Disclaimer : " + mProductDetailResponse.getProductDisclaimer();
+                            Utility.writeHtmlCode(disclaimerText, productDisclaimerTextView);
                             productPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductPrice()));
                             productDiscountPriceTextView.setText(getString(R.string.currency).concat(mProductDetailResponse.getProductSalePrice()));
                             Utility.writeStrikeOffText(productPriceTextView);

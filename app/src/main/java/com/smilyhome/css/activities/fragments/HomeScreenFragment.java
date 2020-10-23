@@ -281,6 +281,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productDescriptionTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productImageView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 buyTextView.setOnClickListener(view -> {
                     AddToCartRequest request = new AddToCartRequest();
                     request.setProductId(productItemList.get(getAdapterPosition()).getId());
@@ -345,6 +346,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
                 productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 productDiscountPriceTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
+                productImageView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getId()));
                 buyTextView.setOnClickListener(view -> {
                     AddToCartRequest request = new AddToCartRequest();
                     request.setProductId(productItemList.get(getAdapterPosition()).getId());

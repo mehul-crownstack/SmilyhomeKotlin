@@ -243,7 +243,7 @@ public class OrderConfirmationFragment extends BaseFragment {
         ToolBarManager.getInstance().hideToolBar(mActivity, false);
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
-        ToolBarManager.getInstance().setHeaderTitle(getString(R.string.confirmation));
+        ToolBarManager.getInstance().setHeaderTitle(getString(R.string.select_address));
         ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }

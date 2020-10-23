@@ -68,7 +68,7 @@
             android:onClick="onClick"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingStart="@dimen/_10sdp"
-            android:text="@string/add_to_bag"
+            android:text="@string/add_to_cart"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"

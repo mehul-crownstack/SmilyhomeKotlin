@@ -31,7 +31,7 @@
     <string name="profile">Profile</string>
     <string name="description">Description</string>
     <string name="share_earn"><![CDATA[Share & Earn]]></string>
-    <string name="add_to_bag">Add to Bag</string>
+    <string name="add_to_cart">Add to Cart</string>
     <string name="what_s_trending">What\'s Trending</string>
     <string name="featured_collection">Featured Collection</string>
     <string name="select_action">Select Action</string>
@@ -47,7 +47,7 @@
     <string name="you_pay">You Pay</string>
     <string name="quantity_s">Quantity(s)</string>
     <string name="discount">Discount</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="remove_product_msg">Do you want to remove this product?</string>
     <string name="product_features">Product Features</string>
@@ -57,7 +57,7 @@
     <string name="product_discount">Product Discount</string>
     <string name="my_earning_discount">My Earning Discount</string>
     <string name="delivery_charges">Delivery Charges</string>
-    <string name="confirmation">Confirmation</string>
+    <string name="select_address">Select Address</string>
     <string name="your_delivery_address">Your Delivery Address</string>
     <string name="add">Add</string>
     <string name="please_fill_your_address">Please Fill your Address</string>
