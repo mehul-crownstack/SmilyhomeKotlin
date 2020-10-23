@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -69,7 +70,6 @@
                         android:layout_marginStart="@dimen/_5sdp"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_10sdp"
-                        android:text="@string/sample_category_desc"
                         android:textSize="@dimen/_11sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -80,24 +80,14 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cartRecyclerView"
-                android:layout_width="match_parent"
-                tools:listitem="@layout/my_cart_item"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="1"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/myCartUpperContainer" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/orderSummaryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 app:cardCornerRadius="@dimen/_5sdp"
                 app:cardElevation="@dimen/_5sdp"
                 app:layout_constraintTop_toBottomOf="@+id/cartRecyclerView">
@@ -113,8 +103,8 @@
                         android:id="@+id/orderSummaryHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/order_summary"
@@ -128,11 +118,11 @@
                         android:id="@+id/mrpHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/mrp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -143,12 +133,11 @@
                         android:id="@+id/mrpTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
-                        android:text="@string/sample_currency"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -159,11 +148,11 @@
                         android:id="@+id/productDiscountHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/product_discount"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -178,7 +167,6 @@
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
-                        android:text="@string/sample_currency"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -189,11 +177,11 @@
                         android:id="@+id/earningDiscountHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/my_earning_discount"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -208,7 +196,7 @@
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
-                        android:text="@string/sample_currency"
+                        
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -219,11 +207,11 @@
                         android:id="@+id/deliveryChargesHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/delivery_charges"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -238,7 +226,7 @@
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
-                        android:text="@string/sample_currency"
+                        
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
@@ -249,11 +237,11 @@
                         android:id="@+id/totalAmountToPayHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
                         android:text="@string/your_total_pay"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/theme_green_dark"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold"
@@ -268,7 +256,7 @@
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_5sdp"
                         android:paddingStart="@dimen/_5sdp"
-                        android:text="@string/sample_currency"
+                        
                         android:textColor="@color/theme_green_dark"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold"
@@ -278,6 +266,16 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cartRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/myCartUpperContainer"
+                tools:itemCount="1"
+                tools:listitem="@layout/my_cart_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -331,5 +329,46 @@
             app:layout_constraintTop_toTopOf="@id/continueShoppingTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/myCartDataContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="nestedScrollView2,constraintLayout2" />
+
+    <ImageView
+        android:id="@+id/noItemFoundImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@drawable/ic_no_item_in_cart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/image_view_content_description" />
+
+    <TextView
+        android:id="@+id/continueShoppingTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/green_border_bg"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:text="@string/continue_shopping"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nestedScrollView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

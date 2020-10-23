@@ -95,7 +95,7 @@ public class Utility {
     }
 
     public static void writeHtmlCode(String msg, TextView textView) {
-        if (isEmpty(msg) || isEmpty(textView)) {
+        if (isEmpty(msg)) {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

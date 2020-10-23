@@ -36,6 +36,7 @@ public class MyCartFragment extends BaseFragment {
     private TextView deliveryChargesTextView;
     private TextView totalAmountToPayTextView;
     private MyCartResponse mCartResponse;
+    private View myCartDataContainer;
 
     @Nullable
     @Override
@@ -47,6 +48,7 @@ public class MyCartFragment extends BaseFragment {
     }
 
     private void setupUI() {
+        myCartDataContainer = mContentView.findViewById(R.id.myCartDataContainer);
         mrpTextView = mContentView.findViewById(R.id.mrpTextView);
         productDiscountTextView = mContentView.findViewById(R.id.productDiscountTextView);
         earningDiscountTextView = mContentView.findViewById(R.id.earningDiscountTextView);
@@ -64,6 +66,7 @@ public class MyCartFragment extends BaseFragment {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.continueShoppingTextView2:
             case R.id.continueShoppingTextView:
                 launchFragment(new HomeScreenFragment(), false);
                 break;
@@ -87,15 +90,19 @@ public class MyCartFragment extends BaseFragment {
         showToast(myCartResponse.getErrorMessage());
         if (Constants.SUCCESS.equalsIgnoreCase(myCartResponse.getErrorCode())) {
             mCartResponse = myCartResponse;
+            Utility.writeHtmlCode(myCartResponse.getDisplayMessage(), cartMessageTextView);
             mrpTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalMrp()));
             productDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getProductDiscount()));
             earningDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getEarningDiscount()));
             deliveryChargesTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getDeliveryCharges()));
             totalAmountToPayTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalPaybleAmount()));
-            Utility.writeHtmlCode(myCartResponse.getDisplayMessage(), cartMessageTextView);
             List<CartItem> list = myCartResponse.getCartItemList();
             mCartAdapter.setProductItemList(list);
             mCartAdapter.notifyDataSetChanged();
+        } else {
+            myCartDataContainer.setVisibility(View.GONE);
+            mContentView.findViewById(R.id.noItemFoundImageView).setVisibility(View.VISIBLE);
+            mContentView.findViewById(R.id.continueShoppingTextView2).setVisibility(View.VISIBLE);
         }
     }
 

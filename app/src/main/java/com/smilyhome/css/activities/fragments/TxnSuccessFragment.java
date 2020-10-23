@@ -20,7 +20,6 @@ import com.smilyhome.css.activities.models.response.CartItem;
 import com.smilyhome.css.activities.models.response.TransactionResponse;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TxnSuccessFragment extends BaseFragment {
@@ -98,7 +97,7 @@ public class TxnSuccessFragment extends BaseFragment {
 
     private class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder> {
 
-        private List<CartItem> productItemList = new ArrayList<>();
+        private List<CartItem> productItemList;
 
         public MyCartAdapter(List<CartItem> productItemList) {
             this.productItemList = productItemList;
@@ -153,10 +152,6 @@ public class TxnSuccessFragment extends BaseFragment {
                 productDiscountPriceTextView = itemView.findViewById(R.id.productDiscountPriceTextView);
                 productNameTextView = itemView.findViewById(R.id.productNameTextView);
                 itemView.findViewById(R.id.productDeleteTextView).setVisibility(View.INVISIBLE);
-                productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
-                yourPayTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
-                productDiscountTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
-                productImageView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
             }
         }
     }
