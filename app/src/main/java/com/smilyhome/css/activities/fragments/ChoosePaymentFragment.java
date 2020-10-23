@@ -10,7 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.smilyhome.css.R;
+import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
+import com.smilyhome.css.activities.models.requests.TransactionRequest;
+import com.smilyhome.css.activities.models.response.TransactionResponse;
+import com.smilyhome.css.activities.retrofit.RetrofitApi;
+import retrofit2.Call;
+import retrofit2.Response;
+
+import static com.smilyhome.css.activities.Constants.USER_ID;
 
 public class ChoosePaymentFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
@@ -38,8 +46,9 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
             case R.id.placeOrderTextView:
             case R.id.onlineOrderContainer:
                 if (mIsCodSelected) {
-                    showToast("COD Initiated");
+                    placeOrderServerCall("");
                 } else {
+                    showProgress();
                     mActivity.startPayment(totalAmount);
                 }
                 break;
@@ -48,7 +57,8 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
 
     @Override
     public void onTransactionResponse(String txnId) {
-        showToast("Payment done successfully " + txnId);
+        stopProgress();
+        placeOrderServerCall(txnId);
     }
 
     private void setupUI() {
@@ -81,5 +91,40 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
             codCheckBox.setChecked(false);
             onlineCheckBox.setChecked(true);
         }
+    }
+
+    private void placeOrderServerCall(String txnId) {
+        showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TransactionRequest request = new TransactionRequest();
+                    request.setUserId(getStringDataFromSharedPref(USER_ID));
+                    request.setModeOfPayment(mIsCodSelected ? Constants.ModeOfPayment.COD : Constants.ModeOfPayment.ONLINE);
+                    request.setTxnId(txnId);
+                    Call<TransactionResponse> call = RetrofitApi.getAppServicesObjectForData().placeOrderServerCall(request);
+                    final Response<TransactionResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<TransactionResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    TransactionResponse transactionResponse = response.body();
+                    if (transactionResponse != null) {
+                        showToast(transactionResponse.getErrorMessage());
+                        if (Constants.SUCCESS.equalsIgnoreCase(transactionResponse.getErrorCode())) {
+                            clearFragmentBackStack();
+                            launchFragment(new TxnSuccessFragment(transactionResponse), true);
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 }

@@ -409,5 +409,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
     @Override
     protected void onUpdatedAddToCartResponse(MyCartResponse response) {
         showToast(response.getErrorMessage());
+        launchFragment(new MyCartFragment(), true);
     }
 }

@@ -38,4 +38,9 @@ public class Constants {
         String MENU = "MENU";
         String CATEGORY = "CATEGORY";
     }
+
+    public interface ModeOfPayment {
+        String COD = "COD";
+        String ONLINE = "ONLINE";
+    }
 }
