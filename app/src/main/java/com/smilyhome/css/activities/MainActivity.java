@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -58,7 +59,8 @@ import static com.smilyhome.css.activities.Constants.USER_ID;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener, IBottomNavigationItemClickListener, PaymentResultListener {
 
     private BottomNavigationView bottomNavigationView;
-    private List<String> mBottomNavigationList = new ArrayList<>();
+    private List<String> mMenuBottomNavigationList = new ArrayList<>();
+    private List<String> mProfileBottomNavigationList = new ArrayList<>();
     private BottomSheetDialog mBottomSheetDialog;
     private String[] mPermissionArray = new String[]{
         Manifest.permission.RECEIVE_SMS
@@ -224,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BaseFragment currentFragment = getCurrentFragment();
         switch (item.getItemId()) {
             case R.id.nav_menu:
+                mBottomSheetDialog = null;
                 mBottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
                 View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_menu, findViewById(R.id.bottomSheetContainer));
                 RecyclerView recyclerView = bottomSheetView.findViewById(R.id.bottomSheetRecyclerView);
@@ -232,10 +235,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.setLayoutManager(manager);
                 DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
                 recyclerView.addItemDecoration(decoration);
-                prepareBottomNavigationList();
+                prepareMenuBottomNavigationList();
                 adapter.setListener(this);
                 adapter.setMode(Constants.BottomSheetMode.MENU);
-                adapter.setBottomNavigationList(mBottomNavigationList);
+                adapter.setBottomNavigationList(mMenuBottomNavigationList);
                 recyclerView.setAdapter(adapter);
                 mBottomSheetDialog.setContentView(bottomSheetView);
                 mBottomSheetDialog.show();
@@ -256,7 +259,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.nav_profile:
-                showToast(getString(R.string.profile));
+                mBottomSheetDialog = null;
+                mBottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
+                View bottomSheetViewProfile = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_menu, findViewById(R.id.bottomSheetContainer));
+                RecyclerView recyclerViewProfile = bottomSheetViewProfile.findViewById(R.id.bottomSheetRecyclerView);
+                BottomSheetAdapter sheetAdapter = new BottomSheetAdapter();
+                LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                recyclerViewProfile.setLayoutManager(layoutManager);
+                DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerViewProfile.getContext(), layoutManager.getOrientation());
+                recyclerViewProfile.addItemDecoration(itemDecoration);
+                prepareProfileBottomNavigationList();
+                sheetAdapter.setListener(this);
+                sheetAdapter.setMode(Constants.BottomSheetMode.PROFILE);
+                sheetAdapter.setBottomNavigationList(mProfileBottomNavigationList);
+                recyclerViewProfile.setAdapter(sheetAdapter);
+                mBottomSheetDialog.setContentView(bottomSheetViewProfile);
+                mBottomSheetDialog.show();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -264,19 +282,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    private void prepareBottomNavigationList() {
-        if (Utility.isNotEmpty(mBottomNavigationList)) {
-            mBottomNavigationList.clear();
+    private void prepareMenuBottomNavigationList() {
+        if (Utility.isNotEmpty(mMenuBottomNavigationList)) {
+            mMenuBottomNavigationList.clear();
         }
-        mBottomNavigationList.add("Category");
-        mBottomNavigationList.add("Contact Us");
-        mBottomNavigationList.add("Terms and Conditions");
-        mBottomNavigationList.add("Share APP");
-        mBottomNavigationList.add("Survey");
-        mBottomNavigationList.add("Update Address");
-        mBottomNavigationList.add("Update profile");
-        mBottomNavigationList.add("Rate Us");
-        mBottomNavigationList.add("Logout");
+        mMenuBottomNavigationList.add("Share APP");
+        mMenuBottomNavigationList.add("Survey");
+        mMenuBottomNavigationList.add("Shop by Category");
+        mMenuBottomNavigationList.add("Programs & Features");
+        mMenuBottomNavigationList.add("Terms and Conditions");
+        mMenuBottomNavigationList.add("Contact Us");
+    }
+
+    private void prepareProfileBottomNavigationList() {
+        if (Utility.isNotEmpty(mProfileBottomNavigationList)) {
+            mProfileBottomNavigationList.clear();
+        }
+        mProfileBottomNavigationList.add("Update Address");
+        mProfileBottomNavigationList.add("Update profile");
+        mProfileBottomNavigationList.add("Rate Us");
+        mProfileBottomNavigationList.add("Logout");
     }
 
     @Override
@@ -287,6 +312,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Constants.BottomSheetMode.MENU.equalsIgnoreCase(mode)) {
             switch (position) {
                 case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
                     mBottomSheetDialog = null;
                     mBottomSheetDialog = new BottomSheetDialog(MainActivity.this, R.style.BottomSheetDialogTheme);
                     View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_menu, findViewById(R.id.bottomSheetContainer));
@@ -298,7 +327,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     recyclerView.setLayoutManager(manager);
                     DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), manager.getOrientation());
                     recyclerView.addItemDecoration(decoration);
-                    prepareBottomNavigationList();
+                    prepareMenuBottomNavigationList();
                     adapter.setListener(this);
                     adapter.setMode(Constants.BottomSheetMode.CATEGORY);
                     List<String> categoryNameList = new ArrayList<>();
@@ -310,22 +339,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mBottomSheetDialog.setContentView(bottomSheetView);
                     mBottomSheetDialog.show();
                     break;
-                case 1:
-                    break;
-                case 2:
-                    break;
                 case 3:
                     break;
                 case 4:
                     break;
-                case 5:
+            }
+        } else if (Constants.BottomSheetMode.PROFILE.equalsIgnoreCase(mode)) {
+            switch (position) {
+                case 0:
                     break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    logoutServerCall();
+                case 3:
+                    showLogoutMessage();
                     break;
             }
         } else {
@@ -333,6 +357,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 launchFragment(new CategoryProductFragment(Constants.getCategoryList().get(position).getId()), true);
             }
         }
+    }
+
+    private void showLogoutMessage() {
+        new AlertDialog.Builder(MainActivity.this)
+            .setMessage(getString(R.string.msg_logout))
+            .setPositiveButton("OK", (dialog, which) -> {
+                dialog.dismiss();
+                logoutServerCall();
+            })
+            .show();
     }
 
     private void logoutServerCall() {

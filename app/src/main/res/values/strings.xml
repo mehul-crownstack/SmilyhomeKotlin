@@ -8,6 +8,7 @@
     <string name="image_view_content_description">ImageView</string>
     <string name="generate_otp">Generate OTP</string>
     <string name="msg_mandatory">This field is mandatory</string>
+    <string name="msg_invalid_zip_code_length">Zip code length must be of 6 digits</string>
     <string name="not_valid_mobile_number">Please provide valid Mobile Number</string>
     <string name="error">Error</string>
     <string name="remember_me">Remember me</string>
@@ -95,4 +96,5 @@
     <string name="cancel_item">Cancel Item</string>
     <string name="payment_summary">Payment Summary</string>
     <string name="cancel_item_message">Do you want to cancel this item?</string>
+    <string name="msg_logout">Do you want to Logout?</string>
 </resources>

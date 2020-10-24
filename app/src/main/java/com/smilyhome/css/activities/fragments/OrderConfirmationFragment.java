@@ -100,6 +100,11 @@ public class OrderConfirmationFragment extends BaseFragment {
                         zipPinInputEditText.requestFocus();
                         return;
                     }
+                    if (getResources().getInteger(R.integer.zip_code_length) != code.length()) {
+                        zipPinInputEditText.setError(getString(R.string.msg_invalid_zip_code_length));
+                        zipPinInputEditText.requestFocus();
+                        return;
+                    }
                     saveAddressServerCall(name, address, code);
                 }
                 closeAddressDialog();

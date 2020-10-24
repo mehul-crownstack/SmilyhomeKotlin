@@ -35,6 +35,7 @@ public class Constants {
     }
 
     public interface BottomSheetMode {
+        String PROFILE = "PROFILE";
         String MENU = "MENU";
         String CATEGORY = "CATEGORY";
     }
