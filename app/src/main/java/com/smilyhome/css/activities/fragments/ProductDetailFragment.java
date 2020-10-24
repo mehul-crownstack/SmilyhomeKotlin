@@ -98,20 +98,23 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.product_detail));
-        ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
+        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.addToBagTextView) {
-            AddToCartRequest request = new AddToCartRequest();
-            request.setProductId(mProductDetailResponse.getProductId());
-            request.setUserId(getStringDataFromSharedPref(Constants.USER_ID));
-            request.setProductQuantity(String.valueOf(mSelectedQuantity));
-            request.setProductImage(mProductDetailResponse.getProductImage());
-            request.setProductName(mProductDetailResponse.getProductName());
-            addToCartServerCall(request);
+        switch (view.getId()) {
+            case R.id.addToBagTextView:
+            case R.id.buyNowTextView:
+                AddToCartRequest request = new AddToCartRequest();
+                request.setProductId(mProductDetailResponse.getProductId());
+                request.setUserId(getStringDataFromSharedPref(Constants.USER_ID));
+                request.setProductQuantity(String.valueOf(mSelectedQuantity));
+                request.setProductImage(mProductDetailResponse.getProductImage());
+                request.setProductName(mProductDetailResponse.getProductName());
+                addToCartServerCall(request);
+                break;
         }
     }
 
@@ -223,6 +226,7 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
     @Override
     protected void onUpdatedAddToCartResponse(MyCartResponse response) {
         showToast(response.getErrorMessage());
+        launchFragment(new MyCartFragment(), true);
     }
 
     private static class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.TopCategoryViewHolder> {

@@ -70,6 +70,7 @@ public class OrderConfirmationFragment extends BaseFragment {
         earningDiscountTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getEarningDiscount()));
         deliveryChargesTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getDeliveryCharges()));
         totalAmountToPayTextView.setText(String.format("%s %s", getString(R.string.currency), myCartResponse.getTotalPaybleAmount()));
+        fetchUserAddressServerCallForOrderConfirmation();
         fetchUserAddressServerCall();
     }
 
@@ -191,6 +192,7 @@ public class OrderConfirmationFragment extends BaseFragment {
                     CommonResponse commonResponse = response.body();
                     if (commonResponse != null) {
                         showToast(commonResponse.getErrorMessage());
+                        fetchUserAddressServerCallForOrderConfirmation();
                         fetchUserAddressServerCall();
                     }
                 }
@@ -198,7 +200,7 @@ public class OrderConfirmationFragment extends BaseFragment {
         }).start();
     }
 
-    private void fetchUserAddressServerCall() {
+    private void fetchUserAddressServerCallForOrderConfirmation() {
         showProgress();
         new Thread(new Runnable() {
             @Override
@@ -221,10 +223,18 @@ public class OrderConfirmationFragment extends BaseFragment {
                     if (userAddressResponse != null) {
                         showToast(userAddressResponse.getErrorMessage());
                         if (Constants.SUCCESS.equalsIgnoreCase(userAddressResponse.getErrorCode())) {
+                            if (View.VISIBLE != fullAddressTextView.getVisibility()) {
+                                fullAddressTextView.setVisibility(View.VISIBLE);
+                            }
+                            if (View.VISIBLE != zipCodeTextView.getVisibility()) {
+                                zipCodeTextView.setVisibility(View.VISIBLE);
+                            }
                             mIsDeliveryAvailable = true;
                             zipCodeTextView.setText(String.format("Mob : %s", userAddressResponse.getUserPhone()));
                             nameAddress.setText(userAddressResponse.getUserName());
-                            fullAddressTextView.setText(userAddressResponse.getFullAddress());
+                            fullAddressTextView.setText(String.format("%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                                                                      userAddressResponse.getCityName(),
+                                                                      userAddressResponse.getStateName()));
                             addAddressTextView.setText(getString(R.string.change_address));
                         }
                     }
@@ -244,7 +254,7 @@ public class OrderConfirmationFragment extends BaseFragment {
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.select_address));
-        ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
+        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 

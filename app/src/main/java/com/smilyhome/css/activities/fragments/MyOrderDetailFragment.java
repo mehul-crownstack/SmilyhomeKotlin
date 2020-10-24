@@ -19,6 +19,7 @@ import com.smilyhome.css.activities.models.requests.CancelProductRequest;
 import com.smilyhome.css.activities.models.requests.FetchOrderDetailRequest;
 import com.smilyhome.css.activities.models.response.MyOrderCartItem;
 import com.smilyhome.css.activities.models.response.MyOrderDetailResponse;
+import com.smilyhome.css.activities.models.response.UserAddressResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
 import com.squareup.picasso.Picasso;
 import retrofit2.Call;
@@ -142,7 +143,10 @@ public class MyOrderDetailFragment extends BaseFragment {
         discountTextView.setText(detailResponse.getOrderDiscount());
         nameAddressTextView.setText(detailResponse.getAddress().getUserName());
         mobileAddressTextView.setText(detailResponse.getAddress().getUserPhone());
-        addressTextView.setText(detailResponse.getAddress().getFullAddress());
+        UserAddressResponse userAddressResponse = detailResponse.getAddress();
+        addressTextView.setText(String.format("%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                                              userAddressResponse.getCityName(),
+                                              userAddressResponse.getStateName()));
         totalAmountTextView.setText(String.format("%s %s", getString(R.string.currency), detailResponse.getTotalAmount()));
         orderValueTextView.setText(String.format("%s %s", getString(R.string.currency), detailResponse.getOrderValue()));
         deliveryFeesTextView.setText(String.format("%s %s", getString(R.string.currency), detailResponse.getOrderDeliveryFee()));
@@ -157,7 +161,7 @@ public class MyOrderDetailFragment extends BaseFragment {
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.order_detail));
-        ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
+        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 

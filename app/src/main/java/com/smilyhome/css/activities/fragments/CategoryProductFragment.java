@@ -96,7 +96,7 @@ public class CategoryProductFragment extends BaseFragment {
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
-        ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
+        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 

@@ -19,13 +19,16 @@ import androidx.fragment.app.FragmentManager;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.MainActivity;
+import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
+import com.smilyhome.css.activities.models.requests.FetchAddressRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
 import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductItem;
 import com.smilyhome.css.activities.models.response.ProductResponse;
+import com.smilyhome.css.activities.models.response.UserAddressResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
 import com.squareup.picasso.Picasso;
 import retrofit2.Call;
@@ -35,6 +38,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.smilyhome.css.activities.Constants.SHARED_PREF_NAME;
+import static com.smilyhome.css.activities.Constants.USER_ID;
 
 public class BaseFragment extends Fragment implements View.OnClickListener {
 
@@ -193,7 +197,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     protected void onMyCartResponse(MyCartResponse myCartResponse) {
-
     }
 
     protected void onUpdatedAddToCartResponse(MyCartResponse response) {
@@ -292,6 +295,36 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onSubHeaderClickListener() {
+    }
+
+    protected void fetchUserAddressServerCall() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FetchAddressRequest request = new FetchAddressRequest(getStringDataFromSharedPref(USER_ID));
+                    Call<UserAddressResponse> call = RetrofitApi.getAppServicesObject().fetchUserAddressServerCall(request);
+                    final Response<UserAddressResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<UserAddressResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    UserAddressResponse userAddressResponse = response.body();
+                    if (userAddressResponse != null) {
+                        if (Constants.SUCCESS.equalsIgnoreCase(userAddressResponse.getErrorCode())) {
+                            ToolBarManager.getInstance().setSubHeaderTitle(userAddressResponse.getAddZipcode());
+                            ToolBarManager.getInstance().setCityTitle(userAddressResponse.getCityName());
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
     void launchFragment(Fragment fragment, boolean addBackStack) {

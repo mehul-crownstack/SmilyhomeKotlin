@@ -18,6 +18,7 @@ import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
 import com.smilyhome.css.activities.models.response.CartItem;
 import com.smilyhome.css.activities.models.response.TransactionResponse;
+import com.smilyhome.css.activities.models.response.UserAddressResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,7 +58,10 @@ public class TxnSuccessFragment extends BaseFragment {
             orderIdTextView.setText(transactionResponse.getOrderNumber());
             totalOrderValueTextView.setText(String.format("%s%s", getString(R.string.currency), transactionResponse.getTotalPrice()));
             totalAmountToPayTextView.setText(String.format("%s%s", getString(R.string.currency), transactionResponse.getTotalPaidPrice()));
-            addressTextView.setText(transactionResponse.getUserAddress().getFullAddress());
+            UserAddressResponse userAddressResponse = transactionResponse.getUserAddress();
+            addressTextView.setText(String.format("%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                                                      userAddressResponse.getCityName(),
+                                                      userAddressResponse.getStateName()));
             paymentMethodTextView.setText(transactionResponse.getModeOfPayment());
             orderStatusTextView.setText(transactionResponse.getStatus());
             RecyclerView cartRecyclerView = mContentView.findViewById(R.id.cartRecyclerView);
@@ -91,7 +95,7 @@ public class TxnSuccessFragment extends BaseFragment {
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
-        ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
+        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 

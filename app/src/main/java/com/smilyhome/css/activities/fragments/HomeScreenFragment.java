@@ -110,6 +110,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         featuredRecyclerView.setAdapter(mFeaturedAdapter);
         showProgress();
         fetchProductCategoryServerCall();
+        fetchUserAddressServerCall();
         fetchProductsServerCall(Constants.HomeScreenProductMode.SUPER_SAVER);
         fetchProductsServerCall(Constants.HomeScreenProductMode.AAJ_KA_OFFER);
         fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
@@ -123,7 +124,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
-        ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
+        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 

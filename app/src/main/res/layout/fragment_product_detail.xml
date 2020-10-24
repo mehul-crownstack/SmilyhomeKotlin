@@ -83,6 +83,7 @@
             android:layout_height="@dimen/_30sdp"
             android:background="@drawable/buy_button_bg"
             android:gravity="center"
+            android:onClick="onClick"
             android:paddingEnd="@dimen/_10sdp"
             android:paddingStart="@dimen/_10sdp"
             android:text="@string/buy"

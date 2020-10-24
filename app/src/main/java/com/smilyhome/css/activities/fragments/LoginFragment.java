@@ -161,6 +161,9 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
     }
 
     private void validateOtpServerCall() {
+        if (Utility.isEmpty(mOtpReceivedStr)) {
+            mOtpReceivedStr = otpInputEditText.getText().toString();
+        }
         showProgress();
         new Thread(new Runnable() {
             @Override

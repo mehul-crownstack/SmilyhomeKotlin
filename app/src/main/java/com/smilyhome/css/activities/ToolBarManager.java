@@ -25,6 +25,11 @@ public class ToolBarManager {
         v.setText(title);
     }
 
+    public void setCityTitle(String cityTitle) {
+        TextView v = mToolbar.findViewById(R.id.cityTextView);
+        v.setText(cityTitle);
+    }
+
     public void setSubHeaderTitle(String title) {
         TextView v = mToolbar.findViewById(R.id.subTitleTextView);
         v.setText(title);
