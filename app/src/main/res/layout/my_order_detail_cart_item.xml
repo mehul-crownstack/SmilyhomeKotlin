@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/grey_gradient"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/productImageView"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_75sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:contentDescription="@string/image_view_content_description"
+            android:src="@drawable/default_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/yourPayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingEnd="@dimen/_15sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:text="@string/sample_currency"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/orderStatusTextView"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/quantityHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_2sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:text="@string/quantity_s"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/productNameTextView"
+            app:layout_constraintTop_toBottomOf="@id/productNameTextView"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:text="@string/quantity_s"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/orderIdHeading"
+            app:layout_constraintStart_toEndOf="@+id/quantityHeading"
+            app:layout_constraintTop_toTopOf="@+id/quantityHeading"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/orderNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:text="@string/quantity_s"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/orderIdHeading"
+            app:layout_constraintStart_toEndOf="@+id/orderIdHeading"
+            app:layout_constraintTop_toBottomOf="@+id/quantityHeading"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/orderStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:text="@string/quantity_s"
+            android:textColor="@color/red_background"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/orderIdHeading"
+            app:layout_constraintTop_toBottomOf="@+id/orderIdHeading" />
+
+        <TextView
+            android:id="@+id/orderIdHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_2sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:text="@string/order_id"
+            android:textStyle="bold"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/quantityHeading"
+            app:layout_constraintTop_toBottomOf="@id/quantityHeading" />
+
+        <TextView
+            android:id="@+id/productNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/sample_category_name"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/productImageView"
+            app:layout_constraintTop_toTopOf="@id/productImageView" />
+
+        <TextView
+            android:id="@+id/productDeleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_5sdp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:maxLines="1"
+            android:background="@drawable/green_rect_border_bg"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textColor="@color/colorBlack"
+            android:text="@string/cancel_item"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/productImageView"
+            app:layout_constraintTop_toBottomOf="@id/productImageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -159,10 +159,16 @@ public class MyOrdersFragment extends BaseFragment {
                 orderStatusTextView = itemView.findViewById(R.id.orderStatusTextView);
                 totalAmountTextView = itemView.findViewById(R.id.totalAmountTextView);
                 itemCountTextView = itemView.findViewById(R.id.itemCountTextView);
-//                productNameTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
-//                yourPayTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
-//                productDiscountTextView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
-//                productImageView.setOnClickListener(view -> launchProductDetailFragment(productItemList.get(getAdapterPosition()).getProductId()));
+                View orderContainer = itemView.findViewById(R.id.orderContainer);
+                View viewDetailsTextView = itemView.findViewById(R.id.viewDetailsTextView);
+                orderContainer.setOnClickListener(view -> {
+                    String orderId = productItemList.get(getAdapterPosition()).getOrderId();
+                    launchFragment(new MyOrderDetailFragment(orderId), true);
+                });
+                viewDetailsTextView.setOnClickListener(view -> {
+                    String orderId = productItemList.get(getAdapterPosition()).getOrderId();
+                    launchFragment(new MyOrderDetailFragment(orderId), true);
+                });
             }
         }
     }

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/orderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/grey_gradient"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/orderSummaryHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:text="@string/order_summary"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/orderPlaceHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/order_placed"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/orderSummaryHeading" />
+
+                <TextView
+                    android:id="@+id/orderPlaceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_placed"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/orderPlaceHeading"
+                    app:layout_constraintTop_toTopOf="@id/orderPlaceHeading" />
+
+                <TextView
+                    android:id="@+id/paymentModeHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/payment_method"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/orderPlaceHeading"
+                    app:layout_constraintTop_toBottomOf="@id/orderPlaceHeading" />
+
+                <TextView
+                    android:id="@+id/paymentModeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/total_item_s"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/orderPlaceTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/orderPlaceTextView" />
+
+                <TextView
+                    android:id="@+id/bagIdHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/bag_id"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/paymentModeHeading"
+                    app:layout_constraintTop_toBottomOf="@+id/paymentModeHeading" />
+
+                <TextView
+                    android:id="@+id/bagIdTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/bag_id"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/paymentModeTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/paymentModeTextView" />
+
+                <TextView
+                    android:id="@+id/orderStatusHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/order_status"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/bagIdHeading"
+                    app:layout_constraintTop_toBottomOf="@id/bagIdHeading" />
+
+                <TextView
+                    android:id="@+id/orderStatusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/order_status"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@id/bagIdTextView"
+                    app:layout_constraintTop_toBottomOf="@id/bagIdTextView" />
+
+                <TextView
+                    android:id="@+id/totalAmountHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/total_order_value"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/orderStatusHeading"
+                    app:layout_constraintTop_toBottomOf="@id/orderStatusHeading" />
+
+                <TextView
+                    android:id="@+id/totalAmountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/total_order_value"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintStart_toStartOf="@id/orderStatusTextView"
+                    app:layout_constraintTop_toBottomOf="@id/orderStatusTextView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cartContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderContainer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/grey_gradient"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/cartCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:text="@string/item_s_in_the_cart"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cartRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/paymentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cartContainer">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/grey_gradient"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/paymentSummaryHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:text="@string/payment_summary"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/orderValueHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/total_order_value"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/paymentSummaryHeading" />
+
+                <TextView
+                    android:id="@+id/orderValueTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_placed"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/orderValueHeading"
+                    app:layout_constraintTop_toTopOf="@id/orderValueHeading" />
+
+                <TextView
+                    android:id="@+id/discountHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/discount"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/orderValueHeading"
+                    app:layout_constraintTop_toBottomOf="@id/orderValueHeading" />
+
+                <TextView
+                    android:id="@+id/discountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_item_s"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/orderValueTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/orderValueTextView" />
+
+                <TextView
+                    android:id="@+id/deliveryFeesHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/delivery_charges"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/discountHeading"
+                    app:layout_constraintTop_toBottomOf="@+id/discountHeading" />
+
+                <TextView
+                    android:id="@+id/deliveryFeesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/bag_id"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/discountTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/discountTextView" />
+
+                <TextView
+                    android:id="@+id/totalAmountHeading2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_summary"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintStart_toStartOf="@+id/deliveryFeesHeading"
+                    app:layout_constraintTop_toBottomOf="@+id/deliveryFeesHeading" />
+
+                <TextView
+                    android:id="@+id/totalAmountTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_order_value"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintStart_toStartOf="@+id/deliveryFeesTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/deliveryFeesTextView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addressContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentContainer">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_gradient"
+                android:padding="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/payOnlineHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_13sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/your_delivery_address"
+                    android:textColor="@color/theme_green_dark"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nameAddressTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_13sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/sample_category_name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/payOnlineHeading" />
+
+                <TextView
+                    android:id="@+id/mobileAddressTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/sample_category_name"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nameAddressTextView" />
+
+                <TextView
+                    android:id="@+id/addressTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/sample_category_desc"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mobileAddressTextView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

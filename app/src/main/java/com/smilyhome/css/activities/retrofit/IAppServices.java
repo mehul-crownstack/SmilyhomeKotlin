@@ -1,10 +1,12 @@
 package com.smilyhome.css.activities.retrofit;
 
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
+import com.smilyhome.css.activities.models.requests.CancelProductRequest;
 import com.smilyhome.css.activities.models.requests.CategoryProductRequest;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.requests.DeleteProductRequest;
 import com.smilyhome.css.activities.models.requests.FetchAddressRequest;
+import com.smilyhome.css.activities.models.requests.FetchOrderDetailRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
@@ -14,6 +16,7 @@ import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ZipMappingRequest;
 import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.models.response.MyCartResponse;
+import com.smilyhome.css.activities.models.response.MyOrderDetailResponse;
 import com.smilyhome.css.activities.models.response.MyOrderResponse;
 import com.smilyhome.css.activities.models.response.ProductCategoryResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
@@ -74,4 +77,10 @@ public interface IAppServices {
 
     @POST("myorders.php")
     Call<MyOrderResponse> fetchMyOrderServerCall(@Body FetchAddressRequest request);
+
+    @POST("orderdetails.php")
+    Call<MyOrderDetailResponse> fetchOrderDetailServerCall(@Body FetchOrderDetailRequest request);
+
+    @POST("cancelitem.php")
+    Call<MyOrderDetailResponse> cancelProductServerCall(@Body CancelProductRequest request);
 }

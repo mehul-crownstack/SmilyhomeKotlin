@@ -90,4 +90,9 @@
     <string name="delivered_item_s">Delivered item(s)</string>
     <string name="bag_id">Bag Id</string>
     <string name="view_details">View Details</string>
+    <string name="order_detail">Order Detail</string>
+    <string name="item_s_in_the_cart">Item(s) in the Cart</string>
+    <string name="cancel_item">Cancel Item</string>
+    <string name="payment_summary">Payment Summary</string>
+    <string name="cancel_item_message">Do you want to cancel this item?</string>
 </resources>
