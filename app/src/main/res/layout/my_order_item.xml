@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/grey_gradient"
+        android:paddingBottom="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/productImageView"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_85sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:contentDescription="@string/image_view_content_description"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_bottom_nav_cart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemCountTextView"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/red_bg"
+            android:text="1"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/productImageView"
+            app:layout_constraintEnd_toEndOf="@+id/productImageView"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toStartOf="@+id/productImageView"
+            app:layout_constraintTop_toTopOf="@+id/productImageView"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <TextView
+            android:id="@+id/orderPlaceHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/order_placed"
+            android:textStyle="bold"
+            android:textColor="@color/theme_green_dark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toEndOf="@id/productImageView"
+            app:layout_constraintTop_toTopOf="@id/productImageView" />
+
+        <TextView
+            android:id="@+id/orderPlaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_placed"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/orderPlaceHeading"
+            app:layout_constraintTop_toTopOf="@id/orderPlaceHeading" />
+
+        <TextView
+            android:id="@+id/totalItemHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textStyle="bold"
+            android:text="@string/total_item_s"
+            android:textColor="@color/theme_green_dark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/orderPlaceHeading"
+            app:layout_constraintTop_toBottomOf="@id/orderPlaceHeading" />
+
+        <TextView
+            android:id="@+id/totalItemTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/total_item_s"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@+id/orderPlaceTextView"
+            app:layout_constraintTop_toBottomOf="@+id/orderPlaceTextView" />
+
+        <TextView
+            android:id="@+id/deliveredItemHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/delivered_item_s"
+            android:textColor="@color/theme_green_dark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/totalItemHeading"
+            app:layout_constraintTop_toBottomOf="@id/totalItemHeading" />
+
+        <TextView
+            android:id="@+id/deliveredItemTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/delivered_item_s"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/totalItemTextView"
+            app:layout_constraintTop_toBottomOf="@id/totalItemTextView" />
+
+        <TextView
+            android:id="@+id/bagIdHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/bag_id"
+            android:textColor="@color/theme_green_dark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/deliveredItemHeading"
+            app:layout_constraintTop_toBottomOf="@id/deliveredItemHeading" />
+
+        <TextView
+            android:id="@+id/bagIdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/bag_id"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/deliveredItemTextView"
+            app:layout_constraintTop_toBottomOf="@id/deliveredItemTextView" />
+
+        <TextView
+            android:id="@+id/orderStatusHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textStyle="bold"
+            android:text="@string/order_status"
+            android:textColor="@color/theme_green_dark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/bagIdHeading"
+            app:layout_constraintTop_toBottomOf="@id/bagIdHeading" />
+
+        <TextView
+            android:id="@+id/orderStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/order_status"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/bagIdTextView"
+            app:layout_constraintTop_toBottomOf="@id/bagIdTextView" />
+
+        <TextView
+            android:id="@+id/totalAmountHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textStyle="bold"
+            android:text="@string/total_order_value"
+            android:textColor="@color/theme_green_dark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/orderStatusHeading"
+            app:layout_constraintTop_toBottomOf="@id/orderStatusHeading" />
+
+        <TextView
+            android:id="@+id/totalAmountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/total_order_value"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/orderStatusTextView"
+            app:layout_constraintTop_toBottomOf="@id/orderStatusTextView" />
+
+        <TextView
+            android:id="@+id/viewDetailsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/green_dark_border_bg"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingBottom="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:paddingStart="@dimen/_40sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:text="@string/view_details"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/totalAmountHeading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

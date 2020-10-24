@@ -38,6 +38,7 @@ import com.smilyhome.css.activities.fragments.CategoryProductFragment;
 import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
 import com.smilyhome.css.activities.fragments.MyCartFragment;
+import com.smilyhome.css.activities.fragments.MyOrdersFragment;
 import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
@@ -245,7 +246,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.nav_my_orders:
-                showToast(getString(R.string.my_orders));
+                if (!(currentFragment instanceof MyOrdersFragment)) {
+                    launchFragment(new MyOrdersFragment(), true);
+                }
                 break;
             case R.id.nav_cart:
                 if (!(currentFragment instanceof MyCartFragment)) {

@@ -14,6 +14,7 @@ import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ZipMappingRequest;
 import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.models.response.MyCartResponse;
+import com.smilyhome.css.activities.models.response.MyOrderResponse;
 import com.smilyhome.css.activities.models.response.ProductCategoryResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
 import com.smilyhome.css.activities.models.response.ProductResponse;
@@ -70,4 +71,7 @@ public interface IAppServices {
 
     @POST("placeorder.php")
     Call<TransactionResponse> placeOrderServerCall(@Body TransactionRequest request);
+
+    @POST("myorders.php")
+    Call<MyOrderResponse> fetchMyOrderServerCall(@Body FetchAddressRequest request);
 }

@@ -26,7 +26,7 @@
     <string name="super_saver_deals">Super Saver Deals</string>
     <string name="menu">Menu</string>
     <string name="home">Home</string>
-    <string name="my_orders">My Orders</string>
+    <string name="my_orders">My Order</string>
     <string name="my_cart"> My Cart</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
@@ -82,4 +82,12 @@
     <string name="order_status">Order Status</string>
     <string name="order_id">Order ID</string>
     <string name="total_order_value">Total Order Value</string>
+    <string name="pending_order">Pending Order</string>
+    <string name="delivered_order">Delivered Order</string>
+    <string name="cancelled_order">Cancelled Order</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="total_item_s">Total Item(s)</string>
+    <string name="delivered_item_s">Delivered item(s)</string>
+    <string name="bag_id">Bag Id</string>
+    <string name="view_details">View Details</string>
 </resources>
