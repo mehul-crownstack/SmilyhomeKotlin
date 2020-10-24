@@ -4,6 +4,15 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    signingConfigs {
+        releaseBuild {
+            keyAlias 'Alias'
+            keyPassword 'Smiley@123'
+            storePassword 'Smiley@123'
+            storeFile file('smileyhome_keystore.jks')
+        }
+    }
+
     defaultConfig {
         applicationId "com.smilyhome.css"
         minSdkVersion 19
@@ -25,7 +34,8 @@ android {
             }
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig signingConfigs.releaseBuild
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
