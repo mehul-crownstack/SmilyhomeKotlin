@@ -44,4 +44,10 @@ public class Constants {
         String COD = "COD";
         String ONLINE = "ONLINE";
     }
+
+    public interface InfoConstants {
+
+        String MODE_TERM_AND_CONDITION = "MODE_TERM_AND_CONDITION";
+        String MODE_CONTACT_US = "MODE_CONTACT_US";
+    }
 }

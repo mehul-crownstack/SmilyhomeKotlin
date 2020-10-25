@@ -2,11 +2,13 @@ package com.smilyhome.css.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,10 +38,12 @@ import com.smilyhome.css.R;
 import com.smilyhome.css.activities.adapters.BottomSheetAdapter;
 import com.smilyhome.css.activities.fragments.BaseFragment;
 import com.smilyhome.css.activities.fragments.CategoryProductFragment;
+import com.smilyhome.css.activities.fragments.ContactUsFragment;
 import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
 import com.smilyhome.css.activities.fragments.MyCartFragment;
 import com.smilyhome.css.activities.fragments.MyOrdersFragment;
+import com.smilyhome.css.activities.fragments.TncFragment;
 import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
@@ -312,6 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Constants.BottomSheetMode.MENU.equalsIgnoreCase(mode)) {
             switch (position) {
                 case 0:
+                    shareApplication();
                     break;
                 case 1:
                     break;
@@ -342,11 +347,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 3:
                     break;
                 case 4:
+                    launchFragment(new TncFragment(), true);
+                    break;
+                case 5:
+                    launchFragment(new ContactUsFragment(), true);
                     break;
             }
         } else if (Constants.BottomSheetMode.PROFILE.equalsIgnoreCase(mode)) {
             switch (position) {
                 case 0:
+                    break;
+                case 2:
+                    launchPlayStore();
                     break;
                 case 3:
                     showLogoutMessage();
@@ -356,6 +368,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (Utility.isNotEmpty(Constants.getCategoryList())) {
                 launchFragment(new CategoryProductFragment(Constants.getCategoryList().get(position).getId()), true);
             }
+        }
+    }
+
+    private void launchPlayStore() {
+        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            startActivity(myAppLinkToMarket);
+        } catch (Exception ignore) {
+            showToast(getString(R.string.unable_to_launch_play_store));
+        }
+    }
+
+    private void shareApplication() {
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "choose one"));
+        } catch (Exception ignore) {
+            showToast(getString(R.string.unable_to_share_application));
         }
     }
 

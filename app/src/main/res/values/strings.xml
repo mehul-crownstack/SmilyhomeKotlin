@@ -97,4 +97,8 @@
     <string name="payment_summary">Payment Summary</string>
     <string name="cancel_item_message">Do you want to cancel this item?</string>
     <string name="msg_logout">Do you want to Logout?</string>
+    <string name="unable_to_launch_play_store">Unable to launch Play Store</string>
+    <string name="unable_to_share_application">Unable to Share Application</string>
+    <string name="tnc"><![CDATA[Term & Conditions]]></string>
+    <string name="contact_us">Contact Us</string>
 </resources>

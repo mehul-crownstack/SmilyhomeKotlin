@@ -81,7 +81,6 @@ public class MyCartFragment extends BaseFragment {
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.my_cart));
-        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 

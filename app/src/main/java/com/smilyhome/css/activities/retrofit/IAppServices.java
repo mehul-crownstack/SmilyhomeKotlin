@@ -8,6 +8,7 @@ import com.smilyhome.css.activities.models.requests.DeleteProductRequest;
 import com.smilyhome.css.activities.models.requests.FetchAddressRequest;
 import com.smilyhome.css.activities.models.requests.FetchOrderDetailRequest;
 import com.smilyhome.css.activities.models.requests.FetchProductRequest;
+import com.smilyhome.css.activities.models.requests.InfoRequest;
 import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
 import com.smilyhome.css.activities.models.requests.SaveAddressRequest;
@@ -83,4 +84,7 @@ public interface IAppServices {
 
     @POST("cancelitem.php")
     Call<MyOrderDetailResponse> cancelProductServerCall(@Body CancelProductRequest request);
+
+    @POST("fetch_information.php")
+    Call<CommonResponse> getInformationResponse(@Body InfoRequest request);
 }
