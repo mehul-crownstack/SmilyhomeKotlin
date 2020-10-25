@@ -44,6 +44,8 @@ import com.smilyhome.css.activities.fragments.LoginFragment;
 import com.smilyhome.css.activities.fragments.MyCartFragment;
 import com.smilyhome.css.activities.fragments.MyOrdersFragment;
 import com.smilyhome.css.activities.fragments.TncFragment;
+import com.smilyhome.css.activities.fragments.UpdateAddressFragment;
+import com.smilyhome.css.activities.fragments.UpdateProfileFragment;
 import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
@@ -302,10 +304,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Utility.isNotEmpty(mProfileBottomNavigationList)) {
             mProfileBottomNavigationList.clear();
         }
-        mProfileBottomNavigationList.add("Update Address");
-        mProfileBottomNavigationList.add("Update profile");
-        mProfileBottomNavigationList.add("Rate Us");
-        mProfileBottomNavigationList.add("Logout");
+        mProfileBottomNavigationList.add(getString(R.string.update_address));
+        mProfileBottomNavigationList.add(getString(R.string.update_profile));
+        mProfileBottomNavigationList.add(getString(R.string.rate_us));
+        mProfileBottomNavigationList.add(getString(R.string.logout));
     }
 
     @Override
@@ -356,6 +358,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (Constants.BottomSheetMode.PROFILE.equalsIgnoreCase(mode)) {
             switch (position) {
                 case 0:
+                    launchFragment(new UpdateAddressFragment(), true);
+                    break;
+                case 1:
+                    launchFragment(new UpdateProfileFragment(), true);
                     break;
                 case 2:
                     launchPlayStore();

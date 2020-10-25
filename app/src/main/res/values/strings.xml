@@ -101,4 +101,9 @@
     <string name="unable_to_share_application">Unable to Share Application</string>
     <string name="tnc"><![CDATA[Term & Conditions]]></string>
     <string name="contact_us">Contact Us</string>
+    <string name="update_address">Update Address</string>
+    <string name="update_profile">Update profile</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="logout">Logout</string>
+    <string name="email_address">Email Address</string>
 </resources>
