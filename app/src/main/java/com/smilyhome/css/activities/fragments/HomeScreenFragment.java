@@ -116,7 +116,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
         fetchProductsServerCall(Constants.HomeScreenProductMode.TRENDING);
         fetchProductsServerCall(Constants.HomeScreenProductMode.FEATURED);
-        fetchLatestProductServerCall(Constants.HomeScreenProductMode.WHAT_S_NEW);
+        fetchLatestProductServerCall();
     }
 
     private void setupToolbarUI() {
@@ -124,7 +124,6 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
-        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 
@@ -224,7 +223,7 @@ public class HomeScreenFragment extends BaseFragment implements SwipeRefreshLayo
         fetchProductsServerCall(Constants.HomeScreenProductMode.TOP_HOT_DEAL);
         fetchProductsServerCall(Constants.HomeScreenProductMode.TRENDING);
         fetchProductsServerCall(Constants.HomeScreenProductMode.FEATURED);
-        fetchLatestProductServerCall(Constants.HomeScreenProductMode.WHAT_S_NEW);
+        fetchLatestProductServerCall();
     }
 
     private class HotDealsAdapter extends RecyclerView.Adapter<HotDealsAdapter.HotDealsAdapterViewHolder> {

@@ -234,26 +234,26 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         }).start();
     }
 
-    void fetchLatestProductServerCall(int mode) {
+    void fetchLatestProductServerCall() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Call<ProductResponse> call = RetrofitApi.getAppServicesObjectForProducts().fetchLatestProductServerCall();
                     final Response<ProductResponse> response = call.execute();
-                    updateOnUiThread(() -> handleResponse(response, mode));
+                    updateOnUiThread(() -> handleResponse(response));
                 } catch (Exception e) {
                     stopProgress();
                     showToast(e.getMessage());
                 }
             }
 
-            private void handleResponse(Response<ProductResponse> response, int mode) {
+            private void handleResponse(Response<ProductResponse> response) {
                 if (response.isSuccessful()) {
                     ProductResponse productResponse = response.body();
                     if (productResponse != null) {
                         if (Constants.SUCCESS.equalsIgnoreCase(productResponse.getErrorCode())) {
-                            onProductUpdated(productResponse.getProductList(), mode);
+                            onProductUpdated(productResponse.getProductList(), Constants.HomeScreenProductMode.WHAT_S_NEW);
                         } else {
                             showToast(productResponse.getErrorMessage());
                         }

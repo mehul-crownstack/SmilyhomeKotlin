@@ -406,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             .setMessage(getString(R.string.msg_logout))
             .setPositiveButton("OK", (dialog, which) -> {
                 dialog.dismiss();
-                logoutServerCall();
+                    logoutServerCall();
             })
             .show();
     }
