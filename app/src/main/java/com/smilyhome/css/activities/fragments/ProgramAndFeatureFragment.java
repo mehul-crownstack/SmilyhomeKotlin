@@ -96,7 +96,7 @@ public class ProgramAndFeatureFragment extends BaseFragment implements SwipeRefr
         fetchProgramFeatureServerCall();
     }
 
-    private static class ProgramFeatureAdapter extends RecyclerView.Adapter<ProgramFeatureAdapter.MyCartViewHolder> {
+    private class ProgramFeatureAdapter extends RecyclerView.Adapter<ProgramFeatureAdapter.MyCartViewHolder> {
 
         private List<ProgramAndFeatureItem> mFeatureItemList = new ArrayList<>();
 
@@ -123,13 +123,14 @@ public class ProgramAndFeatureFragment extends BaseFragment implements SwipeRefr
             return mFeatureItemList.size();
         }
 
-        private static class MyCartViewHolder extends RecyclerView.ViewHolder {
+        private class MyCartViewHolder extends RecyclerView.ViewHolder {
 
             private TextView textView;
 
             public MyCartViewHolder(@NonNull View itemView) {
                 super(itemView);
                 textView = itemView.findViewById(R.id.textView);
+                textView.setOnClickListener(view -> launchFragment(new WebViewFragment(mFeatureItemList.get(getAdapterPosition()).getLink()), true));
             }
         }
     }
