@@ -44,7 +44,7 @@ public class WebViewFragment extends BaseFragment {
         ToolBarManager.getInstance().hideToolBar(mActivity, false);
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
-        ToolBarManager.getInstance().setHeaderTitle(getString(R.string.program_and_feature));
+        ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 }

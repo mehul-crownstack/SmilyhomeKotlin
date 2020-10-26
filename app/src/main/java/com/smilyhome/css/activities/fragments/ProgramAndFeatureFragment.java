@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.smilyhome.css.R;
 import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
@@ -28,10 +27,10 @@ import java.util.List;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.smilyhome.css.activities.Constants.USER_ID;
 
-public class ProgramAndFeatureFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ProgramAndFeatureFragment extends BaseFragment {
 
     private ProgramFeatureAdapter mAdapter = new ProgramFeatureAdapter();
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView pageDisplayTextView;
 
     @Nullable
     @Override
@@ -43,12 +42,11 @@ public class ProgramAndFeatureFragment extends BaseFragment implements SwipeRefr
     }
 
     private void setupUI() {
+        pageDisplayTextView = mContentView.findViewById(R.id.pageDisplayTextView);
         RecyclerView recyclerView = mContentView.findViewById(R.id.recyclerView);
-        swipeRefreshLayout = mContentView.findViewById(R.id.swipeRefreshLayout);
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         recyclerView.setAdapter(mAdapter);
         fetchProgramFeatureServerCall();
-        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private void fetchProgramFeatureServerCall() {
@@ -58,15 +56,13 @@ public class ProgramAndFeatureFragment extends BaseFragment implements SwipeRefr
                 Call<ProgramAndFeatureResponse> call = RetrofitApi.getAppServicesObjectForProducts().fetchProgramFeatureServerCall(new CommonRequest(getStringDataFromSharedPref(USER_ID)));
                 final Response<ProgramAndFeatureResponse> response = call.execute();
                 updateOnUiThread(() -> {
-                    if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
                     if (response.isSuccessful()) {
                         ProgramAndFeatureResponse featureResponse = response.body();
                         if (featureResponse != null) {
                             showToast(featureResponse.getErrorMessage());
                             if (Constants.SUCCESS.equalsIgnoreCase(featureResponse.getErrorCode())) {
                                 List<ProgramAndFeatureItem> list = featureResponse.getProgramAndFeatureList();
+                                Utility.writeHtmlCode(featureResponse.getPageDisplay(), pageDisplayTextView);
                                 if (Utility.isNotEmpty(list)) {
                                     mAdapter.setFeatureItemList(list);
                                     mAdapter.notifyDataSetChanged();
@@ -89,11 +85,6 @@ public class ProgramAndFeatureFragment extends BaseFragment implements SwipeRefr
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.program_and_feature));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
-    }
-
-    @Override
-    public void onRefresh() {
-        fetchProgramFeatureServerCall();
     }
 
     private class ProgramFeatureAdapter extends RecyclerView.Adapter<ProgramFeatureAdapter.MyCartViewHolder> {

@@ -11,9 +11,7 @@ public class Constants {
     public static final int SPLASH_TIME_INTERVAL = 2500;
     public static final String SUCCESS = "0000";
     public static final String USER_ID = "USER_ID";
-    public static final String USER_LOGIN_DONE = "USER_LOGIN_DONE";
-    public static final String YES = "YES";
-    public static final String NO = "NO";
+    public static final String SURVEY_URL = "https://smilyhome.in/program_nd_features/survey.php";
     public static final int PERMISSION_REQUEST_CODE = 1001;
     private static List<CategoryItem> sCategoryList = new ArrayList<>();
 

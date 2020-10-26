@@ -7,6 +7,13 @@ import java.util.List;
 
 public class ProgramAndFeatureResponse extends CommonResponse {
 
+    @SerializedName("pageDisplay")
+    private String pageDisplay;
+
+    public String getPageDisplay() {
+        return pageDisplay;
+    }
+
     @SerializedName("programAndFeature")
     private List<ProgramAndFeatureItem> mProgramAndFeatureList = new ArrayList<>();
 

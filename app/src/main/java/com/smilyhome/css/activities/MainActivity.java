@@ -47,6 +47,7 @@ import com.smilyhome.css.activities.fragments.ProgramAndFeatureFragment;
 import com.smilyhome.css.activities.fragments.TncFragment;
 import com.smilyhome.css.activities.fragments.UpdateAddressFragment;
 import com.smilyhome.css.activities.fragments.UpdateProfileFragment;
+import com.smilyhome.css.activities.fragments.WebViewFragment;
 import com.smilyhome.css.activities.interfaces.IBottomNavigationItemClickListener;
 import com.smilyhome.css.activities.models.requests.CommonRequest;
 import com.smilyhome.css.activities.models.response.CategoryItem;
@@ -293,12 +294,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Utility.isNotEmpty(mMenuBottomNavigationList)) {
             mMenuBottomNavigationList.clear();
         }
-        mMenuBottomNavigationList.add("Share APP");
-        mMenuBottomNavigationList.add("Survey");
-        mMenuBottomNavigationList.add("Shop by Category");
+        mMenuBottomNavigationList.add(getString(R.string.share_app));
+        mMenuBottomNavigationList.add(getString(R.string.survey));
+        mMenuBottomNavigationList.add(getString(R.string.shop_by_category));
         mMenuBottomNavigationList.add(getString(R.string.program_and_feature));
-        mMenuBottomNavigationList.add("Terms and Conditions");
-        mMenuBottomNavigationList.add("Contact Us");
+        mMenuBottomNavigationList.add(getString(R.string.tnc));
+        mMenuBottomNavigationList.add(getString(R.string.contact_us));
     }
 
     private void prepareProfileBottomNavigationList() {
@@ -322,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     shareApplication();
                     break;
                 case 1:
+                    launchFragment(new WebViewFragment(Constants.SURVEY_URL), true);
                     break;
                 case 2:
                     mBottomSheetDialog = null;
