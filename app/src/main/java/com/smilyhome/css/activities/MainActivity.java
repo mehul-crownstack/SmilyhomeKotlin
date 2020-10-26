@@ -43,6 +43,7 @@ import com.smilyhome.css.activities.fragments.HomeScreenFragment;
 import com.smilyhome.css.activities.fragments.LoginFragment;
 import com.smilyhome.css.activities.fragments.MyCartFragment;
 import com.smilyhome.css.activities.fragments.MyOrdersFragment;
+import com.smilyhome.css.activities.fragments.ProgramAndFeatureFragment;
 import com.smilyhome.css.activities.fragments.TncFragment;
 import com.smilyhome.css.activities.fragments.UpdateAddressFragment;
 import com.smilyhome.css.activities.fragments.UpdateProfileFragment;
@@ -295,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMenuBottomNavigationList.add("Share APP");
         mMenuBottomNavigationList.add("Survey");
         mMenuBottomNavigationList.add("Shop by Category");
-        mMenuBottomNavigationList.add("Programs & Features");
+        mMenuBottomNavigationList.add(getString(R.string.program_and_feature));
         mMenuBottomNavigationList.add("Terms and Conditions");
         mMenuBottomNavigationList.add("Contact Us");
     }
@@ -347,6 +348,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mBottomSheetDialog.show();
                     break;
                 case 3:
+                    launchFragment(new ProgramAndFeatureFragment(), true);
                     break;
                 case 4:
                     launchFragment(new TncFragment(), true);
@@ -406,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             .setMessage(getString(R.string.msg_logout))
             .setPositiveButton("OK", (dialog, which) -> {
                 dialog.dismiss();
-                    logoutServerCall();
+                logoutServerCall();
             })
             .show();
     }

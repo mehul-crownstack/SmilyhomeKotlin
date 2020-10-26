@@ -23,6 +23,7 @@ import com.smilyhome.css.activities.models.response.MyOrderResponse;
 import com.smilyhome.css.activities.models.response.ProductCategoryResponse;
 import com.smilyhome.css.activities.models.response.ProductDetailResponse;
 import com.smilyhome.css.activities.models.response.ProductResponse;
+import com.smilyhome.css.activities.models.response.ProgramAndFeatureResponse;
 import com.smilyhome.css.activities.models.response.TransactionResponse;
 import com.smilyhome.css.activities.models.response.UserAddressResponse;
 import com.smilyhome.css.activities.models.response.ZipCodeResponse;
@@ -94,4 +95,7 @@ public interface IAppServices {
 
     @POST("fetch_information.php")
     Call<CommonResponse> getInformationResponse(@Body InfoRequest request);
+
+    @POST("fetch_program_feature.php")
+    Call<ProgramAndFeatureResponse> fetchProgramFeatureServerCall(@Body CommonRequest request);
 }
