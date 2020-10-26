@@ -13,6 +13,7 @@ import com.smilyhome.css.activities.models.requests.InitiateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ProductRequest;
 import com.smilyhome.css.activities.models.requests.SaveAddressRequest;
 import com.smilyhome.css.activities.models.requests.TransactionRequest;
+import com.smilyhome.css.activities.models.requests.UpdateEmailRequest;
 import com.smilyhome.css.activities.models.requests.ValidateOtpRequest;
 import com.smilyhome.css.activities.models.requests.ZipMappingRequest;
 import com.smilyhome.css.activities.models.response.CommonResponse;
@@ -69,6 +70,12 @@ public interface IAppServices {
 
     @POST("updateaddress.php")
     Call<CommonResponse> saveAddressServerCall(@Body SaveAddressRequest request);
+
+    @POST("updatemail.php")
+    Call<CommonResponse> updateProfileServerCall(@Body UpdateEmailRequest request);
+
+    @POST("fetch_profile.php")
+    Call<CommonResponse> fetchProfileServerCall(@Body CommonRequest request);
 
     @POST("getuseraddress.php")
     Call<UserAddressResponse> fetchUserAddressServerCall(@Body FetchAddressRequest request);

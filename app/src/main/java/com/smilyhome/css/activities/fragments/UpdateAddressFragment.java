@@ -16,7 +16,9 @@ import com.smilyhome.css.activities.Constants;
 import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
 import com.smilyhome.css.activities.models.requests.FetchAddressRequest;
+import com.smilyhome.css.activities.models.requests.SaveAddressRequest;
 import com.smilyhome.css.activities.models.requests.ZipMappingRequest;
+import com.smilyhome.css.activities.models.response.CommonResponse;
 import com.smilyhome.css.activities.models.response.UserAddressResponse;
 import com.smilyhome.css.activities.models.response.ZipCodeResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -41,6 +43,36 @@ public class UpdateAddressFragment extends BaseFragment {
         setupToolbarUI();
         setupUI();
         return mContentView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (R.id.updateAddressTextView == view.getId()) {
+            String name = userNameInputEditText.getText().toString();
+            String address = addressInputEditText.getText().toString();
+            String code = zipCodeInputEditText.getText().toString();
+            if (Utility.isEmpty(name)) {
+                userNameInputEditText.setError(getString(R.string.msg_mandatory));
+                userNameInputEditText.requestFocus();
+                return;
+            }
+            if (Utility.isEmpty(address)) {
+                addressInputEditText.setError(getString(R.string.msg_mandatory));
+                addressInputEditText.requestFocus();
+                return;
+            }
+            if (Utility.isEmpty(code)) {
+                zipCodeInputEditText.setError(getString(R.string.msg_mandatory));
+                zipCodeInputEditText.requestFocus();
+                return;
+            }
+            if (getResources().getInteger(R.integer.zip_code_length) != code.length()) {
+                zipCodeInputEditText.setError(getString(R.string.msg_invalid_zip_code_length));
+                zipCodeInputEditText.requestFocus();
+                return;
+            }
+            saveAddressServerCall(name, address, code);
+        }
     }
 
     private void setupUI() {
@@ -102,6 +134,7 @@ public class UpdateAddressFragment extends BaseFragment {
                             userNameInputEditText.setText(userAddressResponse.getUserName());
                             zipCodeInputEditText.setText(userAddressResponse.getAddZipcode());
                             addressInputEditText.setText(userAddressResponse.getFullAddress());
+                            phoneNumberInputEditText.setEnabled(false);
                         }
                     }
                 }
@@ -153,6 +186,40 @@ public class UpdateAddressFragment extends BaseFragment {
                 } else {
                     zipCodeCityTextView.setText(null);
                     zipCodeCityTextView.setVisibility(View.GONE);
+                }
+            }
+        }).start();
+    }
+
+    private void saveAddressServerCall(String userName, String zipAddress, String zipCode) {
+        showProgress();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SaveAddressRequest request = new SaveAddressRequest();
+                    request.setUserId(getStringDataFromSharedPref(USER_ID));
+                    request.setFullAddress(zipAddress);
+                    request.setUserName(userName);
+                    request.setZipCode(zipCode);
+                    Call<CommonResponse> call = RetrofitApi.getAppServicesObject().saveAddressServerCall(request);
+                    final Response<CommonResponse> response = call.execute();
+                    updateOnUiThread(() -> handleResponse(response));
+                } catch (Exception e) {
+                    stopProgress();
+                    showToast(e.getMessage());
+                }
+            }
+
+            private void handleResponse(Response<CommonResponse> response) {
+                stopProgress();
+                if (response.isSuccessful()) {
+                    CommonResponse commonResponse = response.body();
+                    if (commonResponse != null) {
+                        showToast(commonResponse.getErrorMessage());
+                        fetchUserAddressFromServer();
+                        fetchUserAddressServerCall();
+                    }
                 }
             }
         }).start();
