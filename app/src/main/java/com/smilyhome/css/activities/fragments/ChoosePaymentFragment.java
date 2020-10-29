@@ -26,6 +26,7 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
     private CheckBox codCheckBox;
     private CheckBox onlineCheckBox;
     private boolean mIsCodSelected;
+    private boolean mIsOnlineSelected;
 
     public ChoosePaymentFragment(String totalAmount) {
         this.totalAmount = totalAmount;
@@ -45,6 +46,10 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
         switch (view.getId()) {
             case R.id.placeOrderTextView:
             case R.id.onlineOrderContainer:
+                if (!mIsCodSelected && !mIsOnlineSelected) {
+                    showSnackBar(getString(R.string.err_msg_select_mode_of_payment));
+                    return;
+                }
                 if (mIsCodSelected) {
                     placeOrderServerCall("");
                 } else {
@@ -76,7 +81,6 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.choose_payment_option));
-        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
     }
 
@@ -86,10 +90,14 @@ public class ChoosePaymentFragment extends BaseFragment implements CompoundButto
             mIsCodSelected = true;
             codCheckBox.setChecked(true);
             onlineCheckBox.setChecked(false);
-        } else if (compoundButton.getId() == onlineCheckBox.getId() && isChecked) {
+        } else if (compoundButton.getId() == codCheckBox.getId() && !isChecked) {
             mIsCodSelected = false;
+        } else if (compoundButton.getId() == onlineCheckBox.getId() && isChecked) {
+            mIsOnlineSelected = true;
             codCheckBox.setChecked(false);
             onlineCheckBox.setChecked(true);
+        } else if (compoundButton.getId() == onlineCheckBox.getId() && !isChecked) {
+            mIsOnlineSelected = false;
         }
     }
 
