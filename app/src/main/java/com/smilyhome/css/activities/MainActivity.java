@@ -28,6 +28,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -93,6 +96,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mCheckoutInstance.setImage(R.drawable.app_icon);
         Checkout.preload(this);
+        SmsRetrieverClient client = SmsRetriever.getClient(this);
+        Task<Void> task = client.startSmsRetriever();
+        task.addOnSuccessListener(aVoid -> {
+            // Successfully started retriever, expect broadcast intent
+        });
+        task.addOnFailureListener(e -> {
+            // Failed to start retriever, inspect Exception for more details
+        });
         SharedPreferences prefs = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
         if (Utility.isNotEmpty(prefs.getString(USER_ID, ""))) {
             launchFragment(new HomeScreenFragment(), true);

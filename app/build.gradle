@@ -73,4 +73,8 @@ dependencies {
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1@aar'
     //razor-pay
     implementation 'com.razorpay:checkout:1.5.16'
+    //Auto SMS retrieval API
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
+    //xydvCd22Daa
 }
