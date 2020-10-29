@@ -115,6 +115,11 @@ public class ProductDetailFragment extends BaseFragment implements IImageSliderC
                 request.setProductName(mProductDetailResponse.getProductName());
                 addToCartServerCall(request);
                 break;
+            case R.id.shareEarnTextView:
+                mActivity.shareApplication();
+                break;
+            default:
+                break;
         }
     }
 

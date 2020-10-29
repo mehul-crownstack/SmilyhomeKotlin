@@ -21,6 +21,7 @@
                 android:id="@+id/searchContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:background="@color/medium_grey_bg"
                 android:padding="@dimen/_10sdp" >
 
@@ -43,6 +44,7 @@
             <LinearLayout
                 android:id="@+id/topHotDealsContainer"
                 android:layout_width="match_parent"
+                android:paddingTop="@dimen/_5sdp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
