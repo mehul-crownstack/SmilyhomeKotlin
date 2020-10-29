@@ -132,6 +132,7 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
                     InitiateOtpRequest request = new InitiateOtpRequest();
                     request.setUserName(userName);
                     request.setMobileNumber(mobileNumber);
+                    request.setSmsHashKey(Constants.getSMSHashString());
                     Call<CommonResponse> call = RetrofitApi.getAppServicesObject().initiateOtpServerCall(request);
                     final Response<CommonResponse> response = call.execute();
                     updateOnUiThread(() -> handleResponse(response));

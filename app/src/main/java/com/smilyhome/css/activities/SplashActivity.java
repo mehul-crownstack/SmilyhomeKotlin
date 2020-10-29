@@ -21,7 +21,9 @@ public class SplashActivity extends AppCompatActivity {
         TextView appVersionTextView = findViewById(R.id.appVersionTextView);
         appVersionTextView.setText("v".concat(BuildConfig.VERSION_NAME));
         AppSignatureHelper appSignatureHelper = new AppSignatureHelper(SplashActivity.this);
-        // Uncomment this code when need to check the project Hash for SMS Retrieval API :: Log.v("SMS_HASH", "FINAL HASH ::" + appSignatureHelper.getAppSignatures().get(0));
+        String smsHashString = appSignatureHelper.getAppSignatures().get(0);
+        Log.v("SMS_HASH", "FINAL HASH ::" + smsHashString);
+        Constants.setSMSHashString(smsHashString);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }

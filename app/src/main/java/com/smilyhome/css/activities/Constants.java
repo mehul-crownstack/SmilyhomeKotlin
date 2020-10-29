@@ -15,6 +15,16 @@ public class Constants {
     public static final int PERMISSION_REQUEST_CODE = 1001;
     private static List<CategoryItem> sCategoryList = new ArrayList<>();
 
+    private static String sSMSHashString = "";
+
+    public static String getSMSHashString() {
+        return sSMSHashString;
+    }
+
+    public static void setSMSHashString(String SMSHashString) {
+        sSMSHashString = SMSHashString;
+    }
+
     public static List<CategoryItem> getCategoryList() {
         return sCategoryList;
     }
