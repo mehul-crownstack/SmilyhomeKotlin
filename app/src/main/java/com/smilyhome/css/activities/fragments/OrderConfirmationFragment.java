@@ -237,7 +237,8 @@ public class OrderConfirmationFragment extends BaseFragment {
                             mIsDeliveryAvailable = true;
                             zipCodeTextView.setText(String.format("Mob : %s", userAddressResponse.getUserPhone()));
                             nameAddress.setText(userAddressResponse.getUserName());
-                            fullAddressTextView.setText(String.format("%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                            fullAddressTextView.setText(String.format("%s,%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                                                                      userAddressResponse.getAddZipcode(),
                                                                       userAddressResponse.getCityName(),
                                                                       userAddressResponse.getStateName()));
                             addAddressTextView.setText(getString(R.string.change_address));

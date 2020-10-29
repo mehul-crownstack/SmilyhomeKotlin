@@ -16,6 +16,7 @@ import com.smilyhome.css.activities.ToolBarManager;
 import com.smilyhome.css.activities.Utility;
 import com.smilyhome.css.activities.models.requests.AddToCartRequest;
 import com.smilyhome.css.activities.models.requests.CategoryProductRequest;
+import com.smilyhome.css.activities.models.response.MyCartResponse;
 import com.smilyhome.css.activities.models.response.ProductItem;
 import com.smilyhome.css.activities.models.response.ProductResponse;
 import com.smilyhome.css.activities.retrofit.RetrofitApi;
@@ -96,8 +97,13 @@ public class CategoryProductFragment extends BaseFragment {
         ToolBarManager.getInstance().hideBackPressFromToolBar(mActivity, true);
         ToolBarManager.getInstance().showAppIconInToolbar(mActivity, true);
         ToolBarManager.getInstance().setHeaderTitle(getString(R.string.app_name));
-        //ToolBarManager.getInstance().setSubHeaderTitle(getString(R.string.zip_code));
         ToolBarManager.getInstance().onSubHeaderClickListener(this);
+    }
+
+    @Override
+    protected void onUpdatedAddToCartResponse(MyCartResponse response) {
+        showToast(response.getErrorMessage());
+        launchFragment(new MyCartFragment(), true);
     }
 
     private class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProductAdapter.ViewHolder> {

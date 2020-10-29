@@ -59,9 +59,10 @@ public class TxnSuccessFragment extends BaseFragment {
             totalOrderValueTextView.setText(String.format("%s%s", getString(R.string.currency), transactionResponse.getTotalPrice()));
             totalAmountToPayTextView.setText(String.format("%s%s", getString(R.string.currency), transactionResponse.getTotalPaidPrice()));
             UserAddressResponse userAddressResponse = transactionResponse.getUserAddress();
-            addressTextView.setText(String.format("%s\n\n%s, %s", userAddressResponse.getFullAddress(),
-                                                      userAddressResponse.getCityName(),
-                                                      userAddressResponse.getStateName()));
+            addressTextView.setText(String.format("%s,%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                                                  userAddressResponse.getAddZipcode(),
+                                                  userAddressResponse.getCityName(),
+                                                  userAddressResponse.getStateName()));
             paymentMethodTextView.setText(transactionResponse.getModeOfPayment());
             orderStatusTextView.setText(transactionResponse.getStatus());
             RecyclerView cartRecyclerView = mContentView.findViewById(R.id.cartRecyclerView);

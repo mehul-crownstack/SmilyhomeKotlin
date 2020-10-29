@@ -144,7 +144,8 @@ public class MyOrderDetailFragment extends BaseFragment {
         nameAddressTextView.setText(detailResponse.getAddress().getUserName());
         mobileAddressTextView.setText(detailResponse.getAddress().getUserPhone());
         UserAddressResponse userAddressResponse = detailResponse.getAddress();
-        addressTextView.setText(String.format("%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+        addressTextView.setText(String.format("%s,%s\n\n%s, %s", userAddressResponse.getFullAddress(),
+                                              userAddressResponse.getAddZipcode(),
                                               userAddressResponse.getCityName(),
                                               userAddressResponse.getStateName()));
         totalAmountTextView.setText(String.format("%s %s", getString(R.string.currency), detailResponse.getTotalAmount()));
