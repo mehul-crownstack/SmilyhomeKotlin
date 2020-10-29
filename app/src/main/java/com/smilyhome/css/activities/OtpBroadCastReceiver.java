@@ -13,7 +13,7 @@ import com.smilyhome.css.activities.interfaces.IAutoReadOtpListener;
 public class OtpBroadCastReceiver extends BroadcastReceiver {
 
     private static IAutoReadOtpListener sOtpListener;
-    private static final String TAG = "OtpBroadCastReceiver";
+    private static final String TAG = "SMS_HASH";
 
     public void setOtpListener(IAutoReadOtpListener otpListener) {
         sOtpListener = otpListener;
@@ -21,21 +21,6 @@ public class OtpBroadCastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        /*SmsMessage[] smsMessages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
-        for (SmsMessage smsMessage : smsMessages) {
-            String message = smsMessage.getMessageBody();
-            Log.d(TAG, "onReceive: ".concat(message));
-            if (Utility.isNotEmpty(message) && message.toLowerCase().contains("smilyhome")) {
-                if (message.toLowerCase().startsWith("your smilyhome login otp")) {
-                    if (sOtpListener != null) {
-                        String[] otpString = message.split(":");
-                        if (otpString.length > 1) {
-                            sOtpListener.onOtpReceived(otpString[1].trim());
-                        }
-                    }
-                }
-            }
-        }*/
         Log.e(TAG, "onReceive: OTP is received");
         if (SmsRetriever.SMS_RETRIEVED_ACTION.equals(intent.getAction())) {
             Log.e(TAG, "onReceive: OTP is received2");
@@ -58,12 +43,15 @@ public class OtpBroadCastReceiver extends BroadcastReceiver {
                     // by sending the code back to your server.
                     Log.e(TAG, "onReceive: " + message);
                     if (Utility.isNotEmpty(message) && message.toLowerCase().contains("smilyhome")) {
-                        if (message.toLowerCase().startsWith("your smilyhome login otp")) {
-                            if (sOtpListener != null) {
-                                String[] otpString = message.split(":");
-                                if (otpString.length > 1) {
-                                    sOtpListener.onOtpReceived(otpString[1].trim());
+                        if (sOtpListener != null) {
+                            // <#> Dear User, 975917 is the one time password to login into Smilyhome App. Ni+9ZcbRtzL
+                            try {
+                                String otpString = message.split(",")[1].trim().substring(0,7);
+                                if (Utility.isNotEmpty(otpString)) {
+                                    sOtpListener.onOtpReceived(otpString);
                                 }
+                            } catch (Exception e) {
+                                Log.e(TAG, "Unable to fetch OTP", e);
                             }
                         }
                     }

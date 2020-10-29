@@ -169,7 +169,7 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
             @Override
             public void run() {
                 try {
-                    ValidateOtpRequest request = new ValidateOtpRequest(mOtpReceivedStr, mUserId);
+                    ValidateOtpRequest request = new ValidateOtpRequest(mOtpReceivedStr.trim(), mUserId);
                     Call<CommonResponse> call = RetrofitApi.getAppServicesObject().validateOtpServerCall(request);
                     final Response<CommonResponse> response = call.execute();
                     updateOnUiThread(() -> handleResponse(response));
@@ -216,8 +216,8 @@ public class LoginFragment extends BaseFragment implements IAutoReadOtpListener 
 
     @Override
     public void onOtpReceived(String otp) {
-        otpInputEditText.setText(otp);
-        if (otpContainer.getVisibility() == View.VISIBLE) {
+        if (otpContainer != null && otpContainer.getVisibility() == View.VISIBLE) {
+            otpInputEditText.setText(otp);
             mOtpReceivedStr = otp;
             mContentView.findViewById(R.id.validateOtpTextView).callOnClick();
         }

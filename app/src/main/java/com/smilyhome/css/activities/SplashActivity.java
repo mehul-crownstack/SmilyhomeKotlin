@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.smilyhome.css.BuildConfig;
@@ -19,6 +20,8 @@ public class SplashActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         TextView appVersionTextView = findViewById(R.id.appVersionTextView);
         appVersionTextView.setText("v".concat(BuildConfig.VERSION_NAME));
+        AppSignatureHelper appSignatureHelper = new AppSignatureHelper(SplashActivity.this);
+        // Uncomment this code when need to check the project Hash for SMS Retrieval API :: Log.v("SMS_HASH", "FINAL HASH ::" + appSignatureHelper.getAppSignatures().get(0));
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
