@@ -110,4 +110,5 @@
     <string name="survey">Survey</string>
     <string name="share_app">Share APP</string>
     <string name="shop_by_category">Shop by Category</string>
+    <string name="err_msg_select_mode_of_payment">Please select one mode of payment</string>
 </resources>
