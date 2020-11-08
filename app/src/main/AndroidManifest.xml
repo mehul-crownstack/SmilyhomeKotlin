@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
-    package="com.smilyhomeapplication.css"
+    package="com.smilyhomeapp.css"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,17 +17,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,UnusedAttribute">
-        <activity android:name="com.smilyhomeapplication.css.activities.SplashActivity">
+        <activity android:name="com.smilyhomeapp.css.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.smilyhomeapplication.css.activities.MainActivity" />
+        <activity android:name="com.smilyhomeapp.css.activities.MainActivity" />
 
         <receiver
-            android:name="com.smilyhomeapplication.css.activities.OtpBroadCastReceiver"
+            android:name="com.smilyhomeapp.css.activities.OtpBroadCastReceiver"
             android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
