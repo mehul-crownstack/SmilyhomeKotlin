@@ -19,7 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class com.smilyhomeapp.css.activities.models.** { *;}
+-keep class com.smilyhomeapplication.css.activities.models.** { *;}
 
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;

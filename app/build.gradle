@@ -14,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.smilyhomeapp.css"
+        applicationId "com.smilyhomeapplication.css"
         minSdkVersion 18
         targetSdkVersion 30
         versionCode 2
