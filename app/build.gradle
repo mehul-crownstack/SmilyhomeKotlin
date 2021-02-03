@@ -67,8 +67,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     //CardView
     implementation "androidx.cardview:cardview:1.0.0"
-    //Swipe refresh layout
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     //View pager circle indicator
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1@aar'
     //razor-pay
